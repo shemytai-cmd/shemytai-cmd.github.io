@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>閃閃發光水晶宇宙 · 專屬神聖幾何</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;200;300;400&family=Space+Grotesk:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#B8964E;--gold2:#D4AF6E;--gold-bg:#B8964E;
+  --gold-pale:rgba(184,150,78,.1);
+  --cream:#FDFAF6;--cream2:#F5EFE6;
+  --ink:#1C1410;--text2:#6B5F52;--text3:#A89880;
+  --border:rgba(184,150,78,.2);
+  --glass:rgba(255,255,255,0.55);--glass2:rgba(255,255,255,0.75);
+}
+body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);min-height:100vh;}
+
+.hero-banner{width:100%;position:relative;overflow:hidden;height:clamp(240px,45vw,360px);}
+.hero-banner svg{width:100%;height:100%;display:block;}
+.hero-title-panel{position:absolute;bottom:0;left:0;right:0;background:var(--glass2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:16px 20px 18px;text-align:center;border-top:1px solid rgba(184,150,78,.25);}
+.hero-crown{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:5px;}
+.hero-eye{font-family:'Space Grotesk',sans-serif;font-size:.58rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;}
+.hero-main-title{font-family:'Noto Sans TC',sans-serif;font-weight:200;font-size:clamp(1.1rem,4vw,1.55rem);color:var(--ink);letter-spacing:.1em;margin-bottom:3px;}
+.hero-en{font-family:'Space Grotesk',sans-serif;font-size:.58rem;letter-spacing:.18em;color:var(--text2);text-transform:uppercase;}
+.home-btn{position:absolute;top:12px;left:12px;font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.12em;color:var(--gold);text-decoration:none;border:1px solid var(--border);padding:5px 11px;text-transform:uppercase;background:var(--glass);backdrop-filter:blur(6px);transition:all .2s;z-index:10;}
+.home-btn:hover{background:var(--gold);color:var(--cream);}
+
+.sec-banner{width:100%;position:relative;margin:28px 0 0;}
+.banner-svg-mini{width:100%;height:clamp(55px,10vw,75px);display:block;}
+.sec-banner-glass{position:absolute;bottom:0;left:0;right:0;background:var(--glass2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:9px 16px;text-align:center;border-top:1px solid var(--border);}
+.sec-crown{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:3px;}
+.sec-eye{font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
+.sec-title{font-family:'Noto Sans TC',sans-serif;font-weight:200;font-size:.88rem;color:var(--ink);letter-spacing:.08em;}
+
+.quiz-wrap{max-width:540px;margin:0 auto;padding:0 18px 60px;}
+.quiz-intro{text-align:center;padding:22px 0 18px;}
+.quiz-intro-text{font-size:.72rem;color:var(--text2);line-height:2;letter-spacing:.05em;}
+
+.q-block{margin-bottom:20px;}
+.q-label{font-family:'Space Grotesk',sans-serif;font-size:.54rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;display:block;}
+.q-hint{font-size:.57rem;color:var(--text3);margin-bottom:7px;}
+.q-input{width:100%;padding:9px 13px;background:var(--cream2);border:1px solid var(--border);color:var(--ink);font-family:'Noto Sans TC',sans-serif;font-weight:300;font-size:.78rem;outline:none;letter-spacing:.04em;transition:border .2s;}
+.q-input:focus{border-color:var(--gold);}
+.q-input::placeholder{color:var(--text3);}
+.bday-row{display:flex;gap:7px;}
+.bday-row .q-input{flex:1;}
+
+.chip-group{display:flex;flex-wrap:wrap;gap:5px;}
+.chip{padding:5px 12px;border:1px solid var(--border);background:var(--cream);color:var(--text2);font-family:'Noto Sans TC',sans-serif;font-weight:300;font-size:.65rem;cursor:pointer;border-radius:0;transition:all .2s;letter-spacing:.04em;}
+.chip:hover{border-color:var(--gold);color:var(--gold);}
+.chip.selected{background:var(--gold-bg);border-color:var(--gold);color:#fff;font-weight:400;}
+
+.gen-btn{width:100%;padding:14px;background:var(--gold-bg);border:none;color:#fff;font-family:'Noto Sans TC',sans-serif;font-weight:300;font-size:.88rem;letter-spacing:.2em;cursor:pointer;margin-top:8px;transition:all .3s;}
+.gen-btn:hover{background:var(--gold2);}
+
+.result-section{display:none;max-width:540px;margin:0 auto;padding:0 18px 60px;}
+.result-section.show{display:block;}
+.result-name-area{text-align:center;padding:20px 0 14px;border-bottom:1px solid var(--border);margin-bottom:18px;}
+.result-name{font-family:'Noto Sans TC',sans-serif;font-weight:200;font-size:clamp(.95rem,3.5vw,1.2rem);color:var(--ink);letter-spacing:.1em;margin-bottom:4px;}
+.result-subtitle{font-size:.56rem;color:var(--text3);letter-spacing:.12em;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;}
+.canvas-phone{width:min(270px,74vw);margin:0 auto 18px;border:1px solid var(--border);box-shadow:0 4px 22px rgba(184,150,78,.12);}
+.canvas-phone canvas{width:100%;height:auto;display:block;}
+.result-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;}
+.stat-box{padding:10px 12px;background:var(--cream2);border:1px solid var(--border);}
+.stat-box.gold-box{background:var(--gold-bg);border-color:var(--gold);}
+.stat-label{font-size:.46rem;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-bottom:3px;}
+.gold-box .stat-label{color:rgba(255,255,255,.7);}
+.stat-val{font-size:.72rem;color:var(--ink);letter-spacing:.04em;font-weight:300;}
+.gold-box .stat-val{color:#fff;}
+.result-desc{background:var(--cream2);border:1px solid var(--border);border-left:2px solid var(--gold);padding:14px 16px;font-size:.72rem;line-height:2;color:var(--text2);letter-spacing:.04em;margin-bottom:16px;}
+.result-desc strong{color:var(--gold);font-weight:400;}
+.dl-btn{width:100%;padding:12px;background:var(--gold-bg);border:none;color:#fff;font-family:'Noto Sans TC',sans-serif;font-weight:300;font-size:.65rem;letter-spacing:.15em;cursor:pointer;margin-bottom:7px;transition:all .2s;}
+.dl-btn:hover{background:var(--gold2);}
+.dl-btn.sec{background:transparent;border:1px solid var(--border);color:var(--text2);}
+.dl-btn.sec:hover{border-color:var(--gold);color:var(--gold);}
+
+.loader{display:none;text-align:center;padding:60px 20px;}
+.loader.show{display:block;}
+.loader-ring{width:42px;height:42px;border:1px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{font-size:.63rem;color:var(--text3);letter-spacing:.12em;}
+
+.site-footer{background:var(--gold-bg);padding:20px;text-align:center;border-top:1px solid rgba(184,150,78,.3);margin-top:40px;}
+.footer-crown{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:7px;}
+.footer-name{font-family:'Noto Sans TC',sans-serif;font-weight:200;font-size:.7rem;letter-spacing:.15em;color:#fff;margin-bottom:2px;}
+.footer-en{font-family:'Space Grotesk',sans-serif;font-size:.53rem;letter-spacing:.2em;color:rgba(255,255,255,.65);text-transform:uppercase;margin-bottom:9px;}
+.footer-home{font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.12em;color:rgba(255,255,255,.55);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+.footer-home:hover{color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- Hero Banner -->
+<div class="hero-banner">
+  <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F2E8F5"/>
+        <stop offset="35%" stop-color="#EAD8F0"/>
+        <stop offset="65%" stop-color="#E8EEF8"/>
+        <stop offset="100%" stop-color="#F5EFE6"/>
+      </linearGradient>
+    </defs>
+    <rect width="800" height="300" fill="url(#heroBg)"/>
+    <ellipse cx="130" cy="100" rx="160" ry="110" fill="#E8D0F0" opacity=".28"/>
+    <ellipse cx="670" cy="80" rx="180" ry="120" fill="#C8D8F0" opacity=".25"/>
+    <ellipse cx="400" cy="220" rx="230" ry="90" fill="#F0D8E8" opacity=".2"/>
+
+    <!-- Crystal cluster left: flat bottom, varied sizes, slight tilts -->
+    <!-- Main tall crystal (slightly left tilt) -->
+    <g transform="translate(68,18) rotate(-6,20,90)">
+      <polygon points="20,0 28,18 28,95 12,95 12,18" stroke="#B8964E" stroke-width=".75" fill="rgba(220,200,240,0.18)"/>
+      <line x1="20" y1="0" x2="20" y2="95" stroke="#B8964E" stroke-width=".35" opacity=".4"/>
+      <line x1="12" y1="18" x2="28" y2="18" stroke="#B8964E" stroke-width=".4" opacity=".5"/>
+    </g>
+    <!-- Medium crystal (right tilt) -->
+    <g transform="translate(90,35) rotate(8,14,72)">
+      <polygon points="14,0 20,14 20,72 8,72 8,14" stroke="#B8964E" stroke-width=".65" fill="rgba(190,210,235,0.15)"/>
+      <line x1="14" y1="0" x2="14" y2="72" stroke="#B8964E" stroke-width=".3" opacity=".38"/>
+      <line x1="8" y1="14" x2="20" y2="14" stroke="#B8964E" stroke-width=".35" opacity=".45"/>
+    </g>
+    <!-- Small crystal -->
+    <g transform="translate(52,50) rotate(-12,10,52)">
+      <polygon points="10,0 15,10 15,52 5,52 5,10" stroke="#B8964E" stroke-width=".55" fill="rgba(210,190,230,0.14)"/>
+      <line x1="10" y1="0" x2="10" y2="52" stroke="#B8964E" stroke-width=".28" opacity=".35"/>
+    </g>
+    <!-- Tiny crystal -->
+    <g transform="translate(108,58) rotate(5,7,38)">
+      <polygon points="7,0 11,8 11,38 3,38 3,8" stroke="#B8964E" stroke-width=".5" fill="rgba(200,220,240,0.12)"/>
+    </g>
+
+    <!-- Diamond center-left -->
+    <g transform="translate(195,38) rotate(-5,16,14)">
+      <polygon points="16,0 28,14 16,30 4,14" stroke="#B8964E" stroke-width=".7" fill="rgba(220,200,240,0.15)"/>
+      <line x1="4" y1="14" x2="28" y2="14" stroke="#B8964E" stroke-width=".45"/>
+      <line x1="16" y1="0" x2="16" y2="30" stroke="#B8964E" stroke-width=".3" opacity=".4"/>
+      <line x1="4" y1="14" x2="16" y2="30" stroke="#B8964E" stroke-width=".28" opacity=".35"/>
+      <line x1="28" y1="14" x2="16" y2="30" stroke="#B8964E" stroke-width=".28" opacity=".35"/>
+    </g>
+
+    <!-- Star burst left-center -->
+    <g transform="translate(260,55)" opacity=".45">
+      <line x1="0" y1="-13" x2="0" y2="13" stroke="#B8964E" stroke-width=".65"/>
+      <line x1="-13" y1="0" x2="13" y2="0" stroke="#B8964E" stroke-width=".65"/>
+      <line x1="-9" y1="-9" x2="9" y2="9" stroke="#B8964E" stroke-width=".45"/>
+      <line x1="9" y1="-9" x2="-9" y2="9" stroke="#B8964E" stroke-width=".45"/>
+      <circle cx="0" cy="0" r="3.5" stroke="#B8964E" stroke-width=".55" fill="none"/>
+    </g>
+
+    <!-- Small diamond mid -->
+    <g transform="translate(340,28) rotate(10,10,9)">
+      <polygon points="10,0 18,9 10,19 2,9" stroke="#B8964E" stroke-width=".6" fill="rgba(210,195,235,0.12)"/>
+      <line x1="2" y1="9" x2="18" y2="9" stroke="#B8964E" stroke-width=".38"/>
+    </g>
+
+    <!-- Crystal cluster right -->
+    <!-- Tall main -->
+    <g transform="translate(658,15) rotate(7,22,100)">
+      <polygon points="22,0 32,20 32,100 12,100 12,20" stroke="#B8964E" stroke-width=".75" fill="rgba(190,210,235,0.18)"/>
+      <line x1="22" y1="0" x2="22" y2="100" stroke="#B8964E" stroke-width=".35" opacity=".38"/>
+      <line x1="12" y1="20" x2="32" y2="20" stroke="#B8964E" stroke-width=".4" opacity=".48"/>
+    </g>
+    <!-- Medium right -->
+    <g transform="translate(638,32) rotate(-9,13,75)">
+      <polygon points="13,0 19,13 19,75 7,75 7,13" stroke="#B8964E" stroke-width=".65" fill="rgba(220,198,238,0.15)"/>
+      <line x1="13" y1="0" x2="13" y2="75" stroke="#B8964E" stroke-width=".3" opacity=".35"/>
+    </g>
+    <!-- Small right-1 -->
+    <g transform="translate(685,44) rotate(15,9,55)">
+      <polygon points="9,0 14,10 14,55 4,55 4,10" stroke="#B8964E" stroke-width=".55" fill="rgba(200,218,238,0.13)"/>
+    </g>
+    <!-- Tiny right -->
+    <g transform="translate(702,60) rotate(-4,6,35)">
+      <polygon points="6,0 10,7 10,35 2,35 2,7" stroke="#B8964E" stroke-width=".45" fill="rgba(210,190,228,0.1)"/>
+    </g>
+
+    <!-- Star burst right -->
+    <g transform="translate(540,50)" opacity=".42">
+      <line x1="0" y1="-11" x2="0" y2="11" stroke="#B8964E" stroke-width=".6"/>
+      <line x1="-11" y1="0" x2="11" y2="0" stroke="#B8964E" stroke-width=".6"/>
+      <line x1="-8" y1="-8" x2="8" y2="8" stroke="#B8964E" stroke-width=".4"/>
+      <line x1="8" y1="-8" x2="-8" y2="8" stroke="#B8964E" stroke-width=".4"/>
+      <circle cx="0" cy="0" r="3" stroke="#B8964E" stroke-width=".5" fill="none"/>
+    </g>
+
+    <!-- Diamond right-center -->
+    <g transform="translate(595,35) rotate(-8,13,12)">
+      <polygon points="13,0 23,12 13,25 3,12" stroke="#B8964E" stroke-width=".65" fill="rgba(195,215,238,0.14)"/>
+      <line x1="3" y1="12" x2="23" y2="12" stroke="#B8964E" stroke-width=".42"/>
+      <line x1="13" y1="0" x2="13" y2="25" stroke="#B8964E" stroke-width=".28" opacity=".38"/>
+    </g>
+
+    <!-- Tiny sparkle dots -->
+    <g fill="#B8964E" opacity=".35">
+      <circle cx="225" cy="42" r="1.1"/><circle cx="308" cy="30" r="1.3"/><circle cx="455" cy="24" r="1"/><circle cx="500" cy="48" r="1.2"/><circle cx="620" cy="30" r="1"/><circle cx="170" cy="65" r=".9"/>
+    </g>
+    <g fill="#C4A0C0" opacity=".3">
+      <circle cx="280" cy="70" r="1"/><circle cx="380" cy="55" r="1.1"/><circle cx="560" cy="65" r="1"/>
+    </g>
+  </svg>
+  <div class="hero-title-panel">
+  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+    <svg width="100%" height="100%" viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- Random sacred geometry - white/light lines, varied sizes and positions -->
+
+      <!-- Flower of life small - top left -->
+      <g transform="translate(35,35) scale(0.55)" opacity=".22">
+        <circle cx="0" cy="0" r="20" stroke="white" stroke-width="1.2" fill="none"/>
+        <circle cx="0" cy="-20" r="20" stroke="white" stroke-width="1.2" fill="none"/>
+        <circle cx="0" cy="20" r="20" stroke="white" stroke-width="1.2" fill="none"/>
+        <circle cx="17.3" cy="-10" r="20" stroke="white" stroke-width="1.2" fill="none"/>
+        <circle cx="17.3" cy="10" r="20" stroke="white" stroke-width="1.2" fill="none"/>
+        <circle cx="-17.3" cy="-10" r="20" stroke="white" stroke-width="1.2" fill="none"/>
+        <circle cx="-17.3" cy="10" r="20" stroke="white" stroke-width="1.2" fill="none"/>
+      </g>
+
+      <!-- Sri Yantra triangle - top right -->
+      <g transform="translate(340,30) scale(0.7)" opacity=".2">
+        <polygon points="0,-38 33,19 -33,19" stroke="white" stroke-width="1" fill="none"/>
+        <polygon points="0,38 33,-19 -33,-19" stroke="white" stroke-width="1" fill="none"/>
+        <polygon points="0,-28 24,14 -24,14" stroke="white" stroke-width=".8" fill="none"/>
+        <polygon points="0,28 24,-14 -24,-14" stroke="white" stroke-width=".8" fill="none"/>
+        <circle cx="0" cy="0" r="40" stroke="white" stroke-width=".7" fill="none"/>
+        <circle cx="0" cy="0" r="32" stroke="white" stroke-width=".5" fill="none"/>
+      </g>
+
+      <!-- Metatron cube - center left -->
+      <g transform="translate(100,100) scale(0.6)" opacity=".18">
+        <circle cx="0" cy="0" r="40" stroke="white" stroke-width=".9" fill="none"/>
+        <circle cx="0" cy="-40" r="20" stroke="white" stroke-width=".8" fill="none"/>
+        <circle cx="0" cy="40" r="20" stroke="white" stroke-width=".8" fill="none"/>
+        <circle cx="34.6" cy="-20" r="20" stroke="white" stroke-width=".8" fill="none"/>
+        <circle cx="34.6" cy="20" r="20" stroke="white" stroke-width=".8" fill="none"/>
+        <circle cx="-34.6" cy="-20" r="20" stroke="white" stroke-width=".8" fill="none"/>
+        <circle cx="-34.6" cy="20" r="20" stroke="white" stroke-width=".8" fill="none"/>
+        <line x1="-40" y1="0" x2="40" y2="0" stroke="white" stroke-width=".5" opacity=".6"/>
+        <line x1="-20" y1="-34.6" x2="20" y2="34.6" stroke="white" stroke-width=".5" opacity=".6"/>
+        <line x1="20" y1="-34.6" x2="-20" y2="34.6" stroke="white" stroke-width=".5" opacity=".6"/>
+      </g>
+
+      <!-- Star / hexagram - center -->
+      <g transform="translate(220,80) scale(0.5)" opacity=".2">
+        <polygon points="0,-50 43,25 -43,25" stroke="white" stroke-width="1.1" fill="none"/>
+        <polygon points="0,50 43,-25 -43,-25" stroke="white" stroke-width="1.1" fill="none"/>
+        <circle cx="0" cy="0" r="52" stroke="white" stroke-width=".6" fill="none"/>
+        <circle cx="0" cy="0" r="28" stroke="white" stroke-width=".5" fill="none"/>
+      </g>
+
+      <!-- Vesica piscis - bottom right area -->
+      <g transform="translate(320,110) scale(0.45)" opacity=".18">
+        <circle cx="-18" cy="0" r="36" stroke="white" stroke-width="1" fill="none"/>
+        <circle cx="18" cy="0" r="36" stroke="white" stroke-width="1" fill="none"/>
+        <circle cx="0" cy="0" r="50" stroke="white" stroke-width=".5" fill="none"/>
+      </g>
+
+      <!-- Spiral / fibonacci - bottom left -->
+      <g transform="translate(60,120) scale(0.5)" opacity=".16">
+        <path d="M0,0 Q20,0 20,20 Q20,40 0,40 Q-40,40 -40,0 Q-40,-50 20,-50 Q80,-50 80,40 Q80,100 0,100" stroke="white" stroke-width="1" fill="none"/>
+        <circle cx="0" cy="0" r="55" stroke="white" stroke-width=".5" fill="none"/>
+      </g>
+
+      <!-- Small diamond - scattered -->
+      <g transform="translate(170,130) scale(0.6) rotate(15)" opacity=".22">
+        <polygon points="0,-18 14,0 0,14 -14,0" stroke="white" stroke-width="1" fill="none"/>
+        <line x1="-14" y1="0" x2="14" y2="0" stroke="white" stroke-width=".6"/>
+      </g>
+
+      <!-- 8-pointed star - right -->
+      <g transform="translate(380,120) scale(0.4)" opacity=".2">
+        <polygon points="0,-40 11,-11 40,0 11,11 0,40 -11,11 -40,0 -11,-11" stroke="white" stroke-width="1.1" fill="none"/>
+        <circle cx="0" cy="0" r="42" stroke="white" stroke-width=".5" fill="none"/>
+      </g>
+
+      <!-- Tiny starburst scattered -->
+      <g opacity=".25">
+        <g transform="translate(150,45)"><line x1="-8" y1="0" x2="8" y2="0" stroke="white" stroke-width=".6"/><line x1="0" y1="-8" x2="0" y2="8" stroke="white" stroke-width=".6"/><line x1="-6" y1="-6" x2="6" y2="6" stroke="white" stroke-width=".4"/><line x1="6" y1="-6" x2="-6" y2="6" stroke="white" stroke-width=".4"/></g>
+        <g transform="translate(260,130)"><line x1="-6" y1="0" x2="6" y2="0" stroke="white" stroke-width=".5"/><line x1="0" y1="-6" x2="0" y2="6" stroke="white" stroke-width=".5"/><line x1="-4" y1="-4" x2="4" y2="4" stroke="white" stroke-width=".35"/><line x1="4" y1="-4" x2="-4" y2="4" stroke="white" stroke-width=".35"/></g>
+      </g>
+
+    </svg>
+  </div>
+    <div style="position:relative;z-index:2;"><div style="display:flex;justify-content:center;margin-bottom:14px;">
+    <svg width="64" height="64" viewBox="0 0 120 120" fill="none">
+      <!-- Outer circle -->
+      <circle cx="60" cy="60" r="56" stroke="#B8964E" stroke-width=".8" opacity=".5"/>
+      <!-- Center -->
+      <circle cx="60" cy="60" r="20" stroke="#B8964E" stroke-width=".9" fill="none"/>
+      <!-- 6 surrounding circles -->
+      <circle cx="60" cy="40" r="20" stroke="#B8964E" stroke-width=".9" fill="none"/>
+      <circle cx="60" cy="80" r="20" stroke="#B8964E" stroke-width=".9" fill="none"/>
+      <circle cx="77.3" cy="50" r="20" stroke="#B8964E" stroke-width=".9" fill="none"/>
+      <circle cx="77.3" cy="70" r="20" stroke="#B8964E" stroke-width=".9" fill="none"/>
+      <circle cx="42.7" cy="50" r="20" stroke="#B8964E" stroke-width=".9" fill="none"/>
+      <circle cx="42.7" cy="70" r="20" stroke="#B8964E" stroke-width=".9" fill="none"/>
+      <!-- Second ring -->
+      <circle cx="60" cy="20" r="20" stroke="#B8964E" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="60" cy="100" r="20" stroke="#B8964E" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="94.6" cy="40" r="20" stroke="#B8964E" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="94.6" cy="80" r="20" stroke="#B8964E" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="25.4" cy="40" r="20" stroke="#B8964E" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="25.4" cy="80" r="20" stroke="#B8964E" stroke-width=".5" fill="none" opacity=".4"/>
+    </svg>
+  </div>
+    <div class="hero-main-title">閃閃發光水晶宇宙</div>
+    <div class="hero-en">專屬神聖幾何生成器 · Sacred Geometry Generator</div>
+  </div>
+  </div></div>
+  <a href="https://shemytai-cmd.github.io/Shemy-brand" class="home-btn">← 返回</a>
+</div>
+
+<div class="sec-banner" style="">
+  <svg class="banner-svg-mini" viewBox="0 0 800 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs><linearGradient id="sb2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#E8EEF8"/><stop offset="50%" stop-color="#F0EAE0"/><stop offset="100%" stop-color="#F0E8F5"/></linearGradient></defs>
+    <rect width="800" height="70" fill="url(#sb2)"/>
+    <!-- Diamond left -->
+    <g transform="translate(28,18) rotate(-6,12,11)"><polygon points="12,0 22,11 12,23 2,11" stroke="#B8964E" stroke-width=".6" fill="rgba(210,195,235,0.14)"/><line x1="2" y1="11" x2="22" y2="11" stroke="#B8964E" stroke-width=".38"/><line x1="12" y1="0" x2="12" y2="23" stroke="#B8964E" stroke-width=".28" opacity=".35"/></g>
+    <!-- Small crystals left -->
+    <g transform="translate(52,8) rotate(10,7,40)"><polygon points="7,0 11,8 11,40 3,40 3,8" stroke="#B8964E" stroke-width=".52" fill="rgba(195,215,238,0.13)"/><line x1="7" y1="0" x2="7" y2="40" stroke="#B8964E" stroke-width=".26" opacity=".32"/></g>
+    <g transform="translate(65,18) rotate(-7,5,30)"><polygon points="5,0 8,7 8,30 2,30 2,7" stroke="#B8964E" stroke-width=".42" fill="rgba(218,195,232,0.11)"/></g>
+    <!-- Star right -->
+    <g transform="translate(740,35)" opacity=".38"><line x1="0" y1="-10" x2="0" y2="10" stroke="#B8964E" stroke-width=".55"/><line x1="-10" y1="0" x2="10" y2="0" stroke="#B8964E" stroke-width=".55"/><line x1="-7" y1="-7" x2="7" y2="7" stroke="#B8964E" stroke-width=".38"/><line x1="7" y1="-7" x2="-7" y2="7" stroke="#B8964E" stroke-width=".38"/></g>
+    <!-- Crystals right -->
+    <g transform="translate(755,5) rotate(-10,9,45)"><polygon points="9,0 14,10 14,45 4,45 4,10" stroke="#B8964E" stroke-width=".55" fill="rgba(210,188,228,0.13)"/></g>
+    <g transform="translate(772,15) rotate(6,6,34)"><polygon points="6,0 9,7 9,34 3,34 3,7" stroke="#B8964E" stroke-width=".43" fill="rgba(192,212,236,0.11)"/></g>
+    <g fill="#B8964E" opacity=".28"><circle cx="120" cy="30" r="1"/><circle cx="690" cy="35" r="1.1"/></g>
+  </svg>
+  <div class="sec-banner-glass">
+    <div style="display:flex;align-items:flex-end;justify-content:center;gap:7px;margin-bottom:5px;height:22px;">
+    <svg width="30" height="22" viewBox="0 0 60 44" fill="none">
+      <g transform="rotate(-7,14,38)"><polygon points="14,0 19,10 19,38 9,38 9,10" stroke="#B8964E" stroke-width=".7" fill="rgba(210,190,230,0.12)"/><line x1="14" y1="0" x2="14" y2="38" stroke="#B8964E" stroke-width=".3" opacity=".35"/></g>
+      <g transform="translate(24,8) rotate(9,8,30)"><polygon points="8,0 12,8 12,30 4,30 4,8" stroke="#B8964E" stroke-width=".55" fill="rgba(190,210,235,0.1)"/></g>
+      <g transform="translate(38,14) rotate(-6,6,24)"><polygon points="6,0 9,6 9,24 3,24 3,6" stroke="#B8964E" stroke-width=".45" fill="rgba(218,198,235,0.09)"/></g>
+    </svg>
+    <svg width="16" height="14" viewBox="0 0 60 52" fill="none" style="margin-bottom:2px;">
+      <polygon points="12,2 48,2 58,18 30,50 2,18" stroke="#B8964E" stroke-width="1.2" fill="none"/>
+      <line x1="2" y1="18" x2="58" y2="18" stroke="#B8964E" stroke-width="1"/>
+      <line x1="30" y1="18" x2="30" y2="50" stroke="#B8964E" stroke-width=".5" opacity=".45"/>
+    </svg>
+    <svg width="14" height="14" viewBox="0 0 32 32" fill="none" style="margin-bottom:2px;">
+      <line x1="16" y1="0" x2="16" y2="32" stroke="#B8964E" stroke-width=".65"/>
+      <line x1="0" y1="16" x2="32" y2="16" stroke="#B8964E" stroke-width=".65"/>
+      <line x1="4.7" y1="4.7" x2="27.3" y2="27.3" stroke="#B8964E" stroke-width=".45"/>
+      <line x1="27.3" y1="4.7" x2="4.7" y2="27.3" stroke="#B8964E" stroke-width=".45"/>
+      <circle cx="16" cy="16" r="3" stroke="#B8964E" stroke-width=".5" fill="none"/>
+    </svg>
+    <svg width="16" height="14" viewBox="0 0 60 52" fill="none" style="margin-bottom:2px;">
+      <polygon points="12,2 48,2 58,18 30,50 2,18" stroke="#B8964E" stroke-width="1.2" fill="none"/>
+      <line x1="2" y1="18" x2="58" y2="18" stroke="#B8964E" stroke-width="1"/>
+      <line x1="30" y1="18" x2="30" y2="50" stroke="#B8964E" stroke-width=".5" opacity=".45"/>
+    </svg>
+    <svg width="30" height="22" viewBox="0 0 60 44" fill="none" style="transform:scaleX(-1)">
+      <g transform="rotate(-7,14,38)"><polygon points="14,0 19,10 19,38 9,38 9,10" stroke="#B8964E" stroke-width=".7" fill="rgba(210,190,230,0.12)"/><line x1="14" y1="0" x2="14" y2="38" stroke="#B8964E" stroke-width=".3" opacity=".35"/></g>
+      <g transform="translate(24,8) rotate(9,8,30)"><polygon points="8,0 12,8 12,30 4,30 4,8" stroke="#B8964E" stroke-width=".55" fill="rgba(190,210,235,0.1)"/></g>
+      <g transform="translate(38,14) rotate(-6,6,24)"><polygon points="6,0 9,6 9,24 3,24 3,6" stroke="#B8964E" stroke-width=".45" fill="rgba(218,198,235,0.09)"/></g>
+    </svg>
+  </div>
+    <div class="sec-title">星象 · 血型 · 人格</div>
+  </div>
+</div>
+
+<div class="quiz-wrap" id="quizSection">
+  <div class="quiz-intro">
+    <div class="quiz-intro-text">每一個靈魂都有專屬的幾何頻率<br>回答以下問題，讓星光為你繪製獨一無二的神聖圖騰</div>
+  </div>
+
+  <div class="q-block">
+    <label class="q-label">✦ 你的名字</label>
+    <input class="q-input" id="q-name" type="text" placeholder="輸入你的名字或暱稱">
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ 出生年月日</label>
+    <div class="q-hint">將自動計算你的生命靈數</div>
+    <div class="bday-row">
+      <input class="q-input" id="q-year" type="number" placeholder="年（如 1990）" min="1900" max="2025">
+      <input class="q-input" id="q-month" type="number" placeholder="月" min="1" max="12">
+      <input class="q-input" id="q-day" type="number" placeholder="日" min="1" max="31">
+    </div>
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ 星座</label>
+    <div class="chip-group" id="chips-zodiac">
+      <button class="chip" data-val="aries">牡羊</button><button class="chip" data-val="taurus">金牛</button><button class="chip" data-val="gemini">雙子</button><button class="chip" data-val="cancer">巨蟹</button><button class="chip" data-val="leo">獅子</button><button class="chip" data-val="virgo">處女</button><button class="chip" data-val="libra">天秤</button><button class="chip" data-val="scorpio">天蠍</button><button class="chip" data-val="sagittarius">射手</button><button class="chip" data-val="capricorn">摩羯</button><button class="chip" data-val="aquarius">水瓶</button><button class="chip" data-val="pisces">雙魚</button>
+    </div>
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ 血型</label>
+    <div class="chip-group" id="chips-blood">
+      <button class="chip" data-val="A">A型</button><button class="chip" data-val="B">B型</button><button class="chip" data-val="AB">AB型</button><button class="chip" data-val="O">O型</button>
+    </div>
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ MBTI 人格類型</label>
+    <div class="chip-group" id="chips-mbti">
+      <button class="chip" data-val="INTJ">INTJ</button><button class="chip" data-val="INTP">INTP</button><button class="chip" data-val="ENTJ">ENTJ</button><button class="chip" data-val="ENTP">ENTP</button><button class="chip" data-val="INFJ">INFJ</button><button class="chip" data-val="INFP">INFP</button><button class="chip" data-val="ENFJ">ENFJ</button><button class="chip" data-val="ENFP">ENFP</button><button class="chip" data-val="ISTJ">ISTJ</button><button class="chip" data-val="ISFJ">ISFJ</button><button class="chip" data-val="ESTJ">ESTJ</button><button class="chip" data-val="ESFJ">ESFJ</button><button class="chip" data-val="ISTP">ISTP</button><button class="chip" data-val="ISFP">ISFP</button><button class="chip" data-val="ESTP">ESTP</button><button class="chip" data-val="ESFP">ESFP</button>
+    </div>
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ 人類圖類型（選填）</label>
+    <div class="chip-group" id="chips-hd">
+      <button class="chip" data-val="manifestor">顯示者</button><button class="chip" data-val="generator">生產者</button><button class="chip" data-val="mangen">顯示生產者</button><button class="chip" data-val="projector">投射者</button><button class="chip" data-val="reflector">反映者</button>
+    </div>
+  </div>
+
+  <div class="sec-banner" style="margin:28px -18px 20px;">
+  <svg class="banner-svg-mini" viewBox="0 0 800 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="sb2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#E8F0F8"/><stop offset="50%" stop-color="#F0EAE0"/><stop offset="100%" stop-color="#F5E8F0"/></linearGradient></defs><rect width="800" height="70" fill="url(#sb2)"/><g opacity=".28" transform="translate(720,35)"><polygon points="0,-14 12,7 -12,7" stroke="#B8964E" stroke-width=".7" fill="none"/><polygon points="0,14 12,-7 -12,-7" stroke="#B8964E" stroke-width=".7" fill="none"/><circle cx="0" cy="0" r="6" stroke="#B8964E" stroke-width=".5" fill="none"/></g><g opacity=".25" transform="translate(80,35)"><polygon points="0,-12 10.4,6 -10.4,6" stroke="#C4A0C0" stroke-width=".6" fill="none"/><polygon points="0,12 10.4,-6 -10.4,-6" stroke="#C4A0C0" stroke-width=".6" fill="none"/></g></svg>
+  <div class="sec-banner-glass">
+    <div style="display:flex;align-items:flex-end;justify-content:center;gap:7px;margin-bottom:5px;height:22px;">
+    <svg width="30" height="22" viewBox="0 0 60 44" fill="none">
+      <g transform="rotate(-7,14,38)"><polygon points="14,0 19,10 19,38 9,38 9,10" stroke="#B8964E" stroke-width=".7" fill="rgba(210,190,230,0.12)"/><line x1="14" y1="0" x2="14" y2="38" stroke="#B8964E" stroke-width=".3" opacity=".35"/></g>
+      <g transform="translate(24,8) rotate(9,8,30)"><polygon points="8,0 12,8 12,30 4,30 4,8" stroke="#B8964E" stroke-width=".55" fill="rgba(190,210,235,0.1)"/></g>
+      <g transform="translate(38,14) rotate(-6,6,24)"><polygon points="6,0 9,6 9,24 3,24 3,6" stroke="#B8964E" stroke-width=".45" fill="rgba(218,198,235,0.09)"/></g>
+    </svg>
+    <svg width="16" height="14" viewBox="0 0 60 52" fill="none" style="margin-bottom:2px;">
+      <polygon points="12,2 48,2 58,18 30,50 2,18" stroke="#B8964E" stroke-width="1.2" fill="none"/>
+      <line x1="2" y1="18" x2="58" y2="18" stroke="#B8964E" stroke-width="1"/>
+      <line x1="30" y1="18" x2="30" y2="50" stroke="#B8964E" stroke-width=".5" opacity=".45"/>
+    </svg>
+    <svg width="14" height="14" viewBox="0 0 32 32" fill="none" style="margin-bottom:2px;">
+      <line x1="16" y1="0" x2="16" y2="32" stroke="#B8964E" stroke-width=".65"/>
+      <line x1="0" y1="16" x2="32" y2="16" stroke="#B8964E" stroke-width=".65"/>
+      <line x1="4.7" y1="4.7" x2="27.3" y2="27.3" stroke="#B8964E" stroke-width=".45"/>
+      <line x1="27.3" y1="4.7" x2="4.7" y2="27.3" stroke="#B8964E" stroke-width=".45"/>
+      <circle cx="16" cy="16" r="3" stroke="#B8964E" stroke-width=".5" fill="none"/>
+    </svg>
+    <svg width="16" height="14" viewBox="0 0 60 52" fill="none" style="margin-bottom:2px;">
+      <polygon points="12,2 48,2 58,18 30,50 2,18" stroke="#B8964E" stroke-width="1.2" fill="none"/>
+      <line x1="2" y1="18" x2="58" y2="18" stroke="#B8964E" stroke-width="1"/>
+      <line x1="30" y1="18" x2="30" y2="50" stroke="#B8964E" stroke-width=".5" opacity=".45"/>
+    </svg>
+    <svg width="30" height="22" viewBox="0 0 60 44" fill="none" style="transform:scaleX(-1)">
+      <g transform="rotate(-7,14,38)"><polygon points="14,0 19,10 19,38 9,38 9,10" stroke="#B8964E" stroke-width=".7" fill="rgba(210,190,230,0.12)"/><line x1="14" y1="0" x2="14" y2="38" stroke="#B8964E" stroke-width=".3" opacity=".35"/></g>
+      <g transform="translate(24,8) rotate(9,8,30)"><polygon points="8,0 12,8 12,30 4,30 4,8" stroke="#B8964E" stroke-width=".55" fill="rgba(190,210,235,0.1)"/></g>
+      <g transform="translate(38,14) rotate(-6,6,24)"><polygon points="6,0 9,6 9,24 3,24 3,6" stroke="#B8964E" stroke-width=".45" fill="rgba(218,198,235,0.09)"/></g>
+    </svg>
+  </div>
+    <div class="sec-title">顏色 · 水晶 · 旅行 · 風格</div>
+  </div>
+</div>
+
+  <div class="q-block" style="margin-top:6px;">
+    <label class="q-label">✦ 最喜歡的顏色</label>
+    <div class="chip-group" id="chips-color">
+      <button class="chip" data-val="gold">金</button><button class="chip" data-val="silver">銀</button><button class="chip" data-val="white">白</button><button class="chip" data-val="black">黑</button><button class="chip" data-val="purple">紫</button><button class="chip" data-val="blue">藍</button><button class="chip" data-val="teal">青</button><button class="chip" data-val="green">綠</button><button class="chip" data-val="pink">粉</button><button class="chip" data-val="red">紅</button><button class="chip" data-val="orange">橙</button><button class="chip" data-val="brown">棕</button>
+    </div>
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ 喜歡的水晶或寶石</label>
+    <div class="chip-group" id="chips-crystal">
+      <button class="chip" data-val="amethyst">紫水晶</button><button class="chip" data-val="rose_quartz">粉晶</button><button class="chip" data-val="clear_quartz">白水晶</button><button class="chip" data-val="obsidian">黑曜石</button><button class="chip" data-val="citrine">黃水晶</button><button class="chip" data-val="lapis">青金石</button><button class="chip" data-val="moonstone">月光石</button><button class="chip" data-val="labradorite">拉長石</button><button class="chip" data-val="malachite">孔雀石</button><button class="chip" data-val="diamond">鑽石</button><button class="chip" data-val="emerald">祖母綠</button><button class="chip" data-val="ruby">紅寶石</button><button class="chip" data-val="sapphire">藍寶石</button>
+    </div>
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ 嚮往的旅行地點</label>
+    <div class="chip-group" id="chips-travel">
+      <button class="chip" data-val="japan">日本</button><button class="chip" data-val="europe">歐洲</button><button class="chip" data-val="bali">峇里島</button><button class="chip" data-val="india">印度</button><button class="chip" data-val="egypt">埃及</button><button class="chip" data-val="nordic">北歐</button><button class="chip" data-val="greece">希臘</button><button class="chip" data-val="newzealand">紐西蘭</button><button class="chip" data-val="peru">秘魯</button><button class="chip" data-val="iceland">冰島</button>
+    </div>
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ 喜歡的食物屬性</label>
+    <div class="chip-group" id="chips-food">
+      <button class="chip" data-val="light">清淡</button><button class="chip" data-val="rich">濃郁</button><button class="chip" data-val="sweet">甜</button><button class="chip" data-val="spicy">辣</button><button class="chip" data-val="raw">生食</button><button class="chip" data-val="plant">植物</button><button class="chip" data-val="sea">海鮮</button><button class="chip" data-val="dessert">甜點</button>
+    </div>
+  </div>
+  <div class="q-block">
+    <label class="q-label">✦ 喜歡的風格</label>
+    <div class="chip-group" id="chips-style">
+      <button class="chip" data-val="minimal">極簡</button><button class="chip" data-val="luxury">奢華</button><button class="chip" data-val="boho">波西米亞</button><button class="chip" data-val="natural">自然</button><button class="chip" data-val="futuristic">未來感</button><button class="chip" data-val="mystical">神秘</button><button class="chip" data-val="classical">古典</button><button class="chip" data-val="artsy">藝術</button>
+    </div>
+  </div>
+
+  <button class="gen-btn" onclick="generateGeometry()">✦ 生成我的宇宙印記 ✦</button>
+</div>
+
+<div class="loader" id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-text">星光正在為你繪製專屬圖騰...</div>
+</div>
+
+<div class="result-section" id="resultSection">
+  <div class="result-name-area">
+    <div class="result-name" id="res-name"></div>
+    <div class="result-subtitle" id="res-subtitle"></div>
+  </div>
+  <div class="canvas-phone"><canvas id="geoCanvas" width="540" height="960"></canvas></div>
+  <div class="result-stats" id="res-stats"></div>
+  <div class="result-desc" id="res-desc"></div>
+  <button class="dl-btn" onclick="downloadWallpaper()">⬇ 下載手機桌布 PNG</button>
+  <button class="dl-btn sec" onclick="regenerate()">↩ 重新生成</button>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-crown"><div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:10px;height:24px;">
+    <svg width="32" height="24" viewBox="0 0 64 48" fill="none">
+      <g transform="rotate(-8,16,40)"><polygon points="16,0 22,12 22,40 10,40 10,12" stroke="rgba(255,255,255,0.7)" stroke-width=".7" fill="none"/><line x1="16" y1="0" x2="16" y2="40" stroke="rgba(255,255,255,0.35)" stroke-width=".3"/></g>
+      <g transform="translate(28,10) rotate(7,9,30)"><polygon points="9,0 13,9 13,30 5,30 5,9" stroke="rgba(255,255,255,0.55)" stroke-width=".55" fill="none"/></g>
+      <g transform="translate(44,16) rotate(-5,6,24)"><polygon points="6,0 9,6 9,24 3,24 3,6" stroke="rgba(255,255,255,0.45)" stroke-width=".43" fill="none"/></g>
+    </svg>
+    <svg width="16" height="14" viewBox="0 0 60 52" fill="none" style="margin-bottom:2px;">
+      <polygon points="12,2 48,2 58,18 30,50 2,18" stroke="rgba(255,255,255,0.7)" stroke-width="1.1" fill="none"/>
+      <line x1="2" y1="18" x2="58" y2="18" stroke="rgba(255,255,255,0.65)" stroke-width=".9"/>
+      <line x1="30" y1="18" x2="30" y2="50" stroke="rgba(255,255,255,0.4)" stroke-width=".5"/>
+    </svg>
+    <svg width="14" height="14" viewBox="0 0 32 32" fill="none" style="margin-bottom:2px;">
+      <line x1="16" y1="0" x2="16" y2="32" stroke="rgba(255,255,255,0.65)" stroke-width=".65"/>
+      <line x1="0" y1="16" x2="32" y2="16" stroke="rgba(255,255,255,0.65)" stroke-width=".65"/>
+      <line x1="4.7" y1="4.7" x2="27.3" y2="27.3" stroke="rgba(255,255,255,0.45)" stroke-width=".45"/>
+      <line x1="27.3" y1="4.7" x2="4.7" y2="27.3" stroke="rgba(255,255,255,0.45)" stroke-width=".45"/>
+    </svg>
+    <svg width="16" height="14" viewBox="0 0 60 52" fill="none" style="margin-bottom:2px;">
+      <polygon points="12,2 48,2 58,18 30,50 2,18" stroke="rgba(255,255,255,0.7)" stroke-width="1.1" fill="none"/>
+      <line x1="2" y1="18" x2="58" y2="18" stroke="rgba(255,255,255,0.65)" stroke-width=".9"/>
+      <line x1="30" y1="18" x2="30" y2="50" stroke="rgba(255,255,255,0.4)" stroke-width=".5"/>
+    </svg>
+    <svg width="32" height="24" viewBox="0 0 64 48" fill="none" style="transform:scaleX(-1)">
+      <g transform="rotate(-8,16,40)"><polygon points="16,0 22,12 22,40 10,40 10,12" stroke="rgba(255,255,255,0.7)" stroke-width=".7" fill="none"/><line x1="16" y1="0" x2="16" y2="40" stroke="rgba(255,255,255,0.35)" stroke-width=".3"/></g>
+      <g transform="translate(28,10) rotate(7,9,30)"><polygon points="9,0 13,9 13,30 5,30 5,9" stroke="rgba(255,255,255,0.55)" stroke-width=".55" fill="none"/></g>
+      <g transform="translate(44,16) rotate(-5,6,24)"><polygon points="6,0 9,6 9,24 3,24 3,6" stroke="rgba(255,255,255,0.45)" stroke-width=".43" fill="none"/></g>
+    </svg>
+  </div></div>
+  <div class="footer-name">閃閃發光水晶宇宙</div>
+  <div class="footer-en">The Crystal Universe of Light</div>
+  <a href="https://shemytai-cmd.github.io/Shemy-brand" class="footer-home">返回品牌首頁 ↗</a>
+</footer>
+
+<script>
+
+// ── Chip selection ──
+document.querySelectorAll('.chip-group').forEach(group => {
+  group.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+    });
+  });
+});
+
+function getChip(groupId) {
+  const sel = document.querySelector(`#chips-${groupId} .chip.selected`);
+  return sel ? sel.dataset.val : null;
+}
+
+function lifePathNumber(y, m, d) {
+  const str = `${y}${m}${d}`;
+  let sum = str.split('').reduce((a, c) => a + parseInt(c), 0);
+  while(sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+    sum = sum.toString().split('').reduce((a, c) => a + parseInt(c), 0);
+  }
+  return sum;
+}
+
+const colorMap = {
+  gold:['#C4A35A','#E8C87A','#F5DFA0'],silver:['#C0C8D0','#D8E0E8','#E8F0F8'],
+  white:['#E8E0D8','#F0EAE0','#FDFAF6'],black:['#8890A0','#6870A0','#B0B8C8'],
+  purple:['#8B6B9B','#B088C4','#D0A8E0'],blue:['#4A6B9B','#6B8BB8','#9AB0D4'],
+  teal:['#2A7070','#4A9090','#7AB8B8'],green:['#4A7A5A','#6A9A6A','#9AC89A'],
+  pink:['#C48098','#E0A0B8','#F0C8D8'],red:['#9B4A4A','#C06A6A','#D89090'],
+  orange:['#B87840','#D09A60','#E8B880'],brown:['#7A6050','#9A8070','#B8A090'],
+};
+
+const crystalColorMap = {
+  amethyst:['#8B6B9B','#B088C4','#D0A8E0'],rose_quartz:['#C48098','#E0A0B8','#F0C8D8'],
+  clear_quartz:['#C8D4DC','#D8E4EC','#EEF4F8'],obsidian:['#4A5060','#6870A0','#9098C0'],
+  citrine:['#C4A35A','#E8C87A','#F5DFA0'],lapis:['#2A4880','#4A68A8','#7090C8'],
+  moonstone:['#B0C0D8','#C8D8EC','#E0ECF8'],labradorite:['#4A8878','#70A898','#98C8B8'],
+  malachite:['#2A7040','#4A9060','#7AB888'],diamond:['#C0D0DC','#D8E8F0','#EEF4F8'],
+  emerald:['#1A6040','#3A8060','#70A888'],ruby:['#9B3040','#C05060','#D88090'],
+  sapphire:['#2A4090','#4A60B0','#7090D0'],
+};
+
+function getParams(data) {
+  const seed = (s) => s ? s.split('').reduce((a,c)=>a+c.charCodeAt(0),0) : 0;
+  const zodiacShapes={aries:3,taurus:4,gemini:8,cancer:6,leo:5,virgo:6,libra:8,scorpio:7,sagittarius:3,capricorn:4,aquarius:12,pisces:6};
+  const bloodLayers={A:4,B:3,AB:5,O:6};
+  const mbtiComplexity={INTJ:0.9,INTP:0.85,ENTJ:0.8,ENTP:0.78,INFJ:0.95,INFP:0.88,ENFJ:0.75,ENFP:0.7,ISTJ:0.72,ISFJ:0.68,ESTJ:0.65,ESFJ:0.6,ISTP:0.82,ISFP:0.77,ESTP:0.62,ESFP:0.58};
+  const travelRotation={japan:15,europe:22,bali:8,india:30,egypt:36,nordic:0,greece:18,newzealand:12,peru:27,iceland:3};
+  const styleLineWidth={minimal:0.6,luxury:1.2,boho:0.9,natural:0.8,futuristic:1.0,mystical:1.1,classical:0.9,artsy:1.3};
+  const lifeNum=data.lifePath||5;
+  const zodiac=data.zodiac||'leo';
+  const blood=data.blood||'O';
+  const mbti=data.mbti||'INFP';
+  const hd=data.hd||null;
+  const color=data.color||'gold';
+  const crystal=data.crystal||'clear_quartz';
+  const travel=data.travel||'japan';
+  const style=data.style||'mystical';
+  const points=zodiacShapes[zodiac]||6;
+  const layers=(bloodLayers[blood]||4)+(lifeNum%3);
+  const complexity=mbtiComplexity[mbti]||0.75;
+  const rotation=(travelRotation[travel]||0)*(Math.PI/180);
+  const lineWidth=styleLineWidth[style]||1.0;
+  const colors=crystalColorMap[crystal]||colorMap[color]||colorMap.gold;
+  const nameSeed=seed(data.name||'Crystal');
+  const variation=(nameSeed%100)/100;
+  return{points,layers,complexity,rotation,lineWidth,colors,variation,lifeNum,zodiac,blood,mbti};
+}
+
+function drawGeometry(canvas,params){
+  const W=canvas.width,H=canvas.height;
+  const ctx=canvas.getContext('2d');
+  // Dreamy pastel background - linear gradient top to bottom
+  const bgGrad=ctx.createLinearGradient(0,0,W,H);
+  bgGrad.addColorStop(0,'#F2E8F5');
+  bgGrad.addColorStop(0.25,'#EAD8F0');
+  bgGrad.addColorStop(0.5,'#E8EEF8');
+  bgGrad.addColorStop(0.75,'#F5EDE0');
+  bgGrad.addColorStop(1,'#F0E8F2');
+  ctx.fillStyle=bgGrad;ctx.fillRect(0,0,W,H);
+  // Add soft color blobs
+  const blob1=ctx.createRadialGradient(W*0.2,H*0.15,0,W*0.2,H*0.15,W*0.4);
+  blob1.addColorStop(0,'rgba(220,196,240,0.4)');blob1.addColorStop(1,'transparent');
+  ctx.fillStyle=blob1;ctx.fillRect(0,0,W,H);
+  const blob2=ctx.createRadialGradient(W*0.8,H*0.3,0,W*0.8,H*0.3,W*0.35);
+  blob2.addColorStop(0,'rgba(192,216,240,0.35)');blob2.addColorStop(1,'transparent');
+  ctx.fillStyle=blob2;ctx.fillRect(0,0,W,H);
+  const blob3=ctx.createRadialGradient(W*0.5,H*0.7,0,W*0.5,H*0.7,W*0.45);
+  blob3.addColorStop(0,'rgba(240,208,220,0.3)');blob3.addColorStop(1,'transparent');
+  ctx.fillStyle=blob3;ctx.fillRect(0,0,W,H);
+  // Soft sparkle dots (pastel style)
+  ctx.save();
+  for(let i=0;i<60;i++){
+    const sx=Math.random()*W,sy=Math.random()*H,sr=Math.random()*1.4+0.3;
+    const sparkleColors=['rgba(184,150,78,0.35)','rgba(180,160,200,0.3)','rgba(160,190,220,0.3)','rgba(220,180,200,0.3)'];
+    ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);
+    ctx.fillStyle=sparkleColors[Math.floor(Math.random()*sparkleColors.length)];ctx.fill();
+  }
+  ctx.restore();
+  const cx=W/2,cy=H*0.42,maxR=Math.min(W,H*0.6)*0.44;
+  const{points,layers,complexity,rotation,colors,lineWidth,variation,lifeNum}=params;
+  // Center soft glow
+  const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,maxR*1.2);
+  glow.addColorStop(0,'rgba(255,255,255,0.5)');
+  glow.addColorStop(0.4,`${colors[0]}18`);
+  glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(rotation+variation*0.3);
+  for(let l=layers;l>=1;l--){
+    const r=maxR*(l/layers);const alpha=0.2+(l/layers)*0.5;
+    ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);
+    ctx.strokeStyle=`${colors[0]}${Math.floor(alpha*255).toString(16).padStart(2,'0')}`;
+    ctx.lineWidth=lineWidth*0.9;ctx.stroke();
+  }
+  const petalR=maxR*0.28;
+  for(let i=0;i<6;i++){
+    const angle=(i*Math.PI*2/6);
+    ctx.beginPath();ctx.arc(Math.cos(angle)*petalR,Math.sin(angle)*petalR,petalR,0,Math.PI*2);
+    ctx.strokeStyle=`${colors[0]}90`;ctx.lineWidth=lineWidth*1.0;ctx.stroke();
+  }
+  ctx.beginPath();ctx.arc(0,0,petalR,0,Math.PI*2);ctx.strokeStyle=`${colors[0]}A0`;ctx.lineWidth=lineWidth*1.1;ctx.stroke();
+  function drawPoly(sides,r,rot,alpha,lw){
+    ctx.beginPath();
+    for(let i=0;i<=sides;i++){const a=rot+(i/sides)*Math.PI*2;const px=Math.cos(a)*r,py=Math.sin(a)*r;if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}
+    ctx.strokeStyle=colors[0]+Math.floor(alpha*255).toString(16).padStart(2,'0');ctx.lineWidth=lw;ctx.stroke();
+  }
+  for(let l=0;l<Math.min(layers,4);l++){
+    const r=maxR*(0.95-l*0.15);const rot=l*Math.PI/(points*2);
+    drawPoly(points,r,rot,0.75+l*0.05,lineWidth*(1.4-l*0.15));
+  }
+  const innerPoints=points===3?6:(points===4?3:(points-1||3));
+  drawPoly(innerPoints,maxR*0.55,Math.PI/innerPoints,0.6,lineWidth*1.1);
+  drawPoly(innerPoints,maxR*0.35,0,0.5,lineWidth*0.9);
+  const spokeCount=points*2;
+  for(let i=0;i<spokeCount;i++){
+    const a=(i/spokeCount)*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(a)*maxR*0.92,Math.sin(a)*maxR*0.92);
+    ctx.strokeStyle=`${colors[0]}70`;ctx.lineWidth=lineWidth*0.6;ctx.stroke();
+  }
+  const hexPts=Array.from({length:6},(_,i)=>({x:Math.cos(i*Math.PI/3)*maxR*0.55,y:Math.sin(i*Math.PI/3)*maxR*0.55}));
+  hexPts.push({x:0,y:0});
+  for(let a=0;a<hexPts.length;a++){for(let b=a+1;b<hexPts.length;b++){
+    ctx.beginPath();ctx.moveTo(hexPts[a].x,hexPts[a].y);ctx.lineTo(hexPts[b].x,hexPts[b].y);
+    ctx.strokeStyle=`${colors[0]}40`;ctx.lineWidth=lineWidth*0.5;ctx.stroke();
+  }}
+  const lpR=maxR*0.12*(lifeNum/9*0.5+0.5);
+  for(let i=0;i<lifeNum&&i<9;i++){
+    const a=(i/Math.max(lifeNum,1))*Math.PI*2-Math.PI/2;const d=maxR*0.72;
+    ctx.beginPath();ctx.arc(Math.cos(a)*d,Math.sin(a)*d,lpR*0.22,0,Math.PI*2);
+    ctx.fillStyle=colors[2]+'CC';ctx.fill();ctx.strokeStyle=colors[0]+'EE';ctx.lineWidth=lineWidth*0.7;ctx.stroke();
+  }
+  const dS=maxR*0.12;
+  ctx.beginPath();ctx.moveTo(0,-dS*1.4);ctx.lineTo(dS,0);ctx.lineTo(0,dS*1.0);ctx.lineTo(-dS,0);ctx.closePath();
+  ctx.strokeStyle=colors[0]+'FF';ctx.lineWidth=lineWidth*1.4;ctx.stroke();
+  const dotGrad=ctx.createRadialGradient(0,0,0,0,0,dS*0.6);
+  dotGrad.addColorStop(0,colors[2]+'CC');dotGrad.addColorStop(1,'transparent');
+  ctx.fillStyle=dotGrad;ctx.beginPath();ctx.arc(0,0,dS*0.6,0,Math.PI*2);ctx.fill();
+  function star4(cx2,cy2,r1,r2){
+    ctx.beginPath();
+    for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2-Math.PI/2;const r=i%2===0?r1:r2;if(i===0)ctx.moveTo(cx2+Math.cos(a)*r,cy2+Math.sin(a)*r);else ctx.lineTo(cx2+Math.cos(a)*r,cy2+Math.sin(a)*r);}
+    ctx.closePath();ctx.strokeStyle=colors[1]+'EE';ctx.lineWidth=lineWidth*1.0;ctx.stroke();
+  }
+  star4(0,0,dS*0.5,dS*0.12);
+  ctx.restore();
+  const textY=H*0.76;
+  ctx.save();ctx.strokeStyle=`${colors[0]}60`;ctx.lineWidth=0.8;
+  ctx.beginPath();ctx.moveTo(W*0.15,textY-24);ctx.lineTo(W*0.85,textY-24);ctx.stroke();ctx.restore();
+  ctx.save();ctx.fillStyle=colors[0];ctx.font=`400 ${W*0.068}px Cinzel,serif`;ctx.textAlign='center';
+  ctx.shadowColor='rgba(255,255,255,0.8)';ctx.shadowBlur=12;ctx.fillText(params.displayName||'Crystal Soul',W/2,textY);ctx.restore();
+  ctx.save();ctx.fillStyle='rgba(100,80,60,0.75)';ctx.font=`200 ${W*0.032}px 'Noto Sans TC',sans-serif`;
+  ctx.textAlign='center';ctx.fillText('的宇宙印記',W/2,textY+W*0.075);ctx.restore();
+  ctx.save();ctx.fillStyle=colors[0]+'BB';ctx.font=`300 ${W*0.028}px 'Space Grotesk',sans-serif`;
+  ctx.textAlign='center';ctx.fillText(`生命靈數 ${params.lifeNum}  ·  ${(params.zodiac||'').toUpperCase()}  ·  ${params.blood||''}`,W/2,textY+W*0.13);ctx.restore();
+  ctx.save();ctx.strokeStyle=`${colors[0]}70`;ctx.lineWidth=0.8;
+  ctx.beginPath();ctx.moveTo(W*0.2,textY+W*0.165);ctx.lineTo(W*0.8,textY+W*0.165);ctx.stroke();ctx.restore();
+  ctx.save();ctx.fillStyle=`${colors[0]}99`;ctx.font=`300 ${W*0.026}px Cinzel,serif`;ctx.textAlign='center';
+  ctx.fillText('閃閃發光水晶宇宙',W/2,H*0.94);
+  ctx.fillStyle=`${colors[0]}77`;ctx.font=`300 ${W*0.022}px 'Space Grotesk',sans-serif`;
+  ctx.fillText('THE CRYSTAL UNIVERSE OF LIGHT',W/2,H*0.97);ctx.restore();
+}
+
+function generateDesc(data,params){
+  const zodiacDesc={
+    aries:'你的靈魂擁有火焰般的開創能量，如同第一道光芒刺破黑暗',taurus:'你的頻率穩定而深沉，大地的力量在你的核心共鳴',
+    gemini:'雙重靈魂的你如同風元素般流動，在光與影之間穿梭',cancer:'月亮的潮汐流淌在你的情感宇宙中，感知力超越常人',
+    leo:'你是自己星系的太陽，光芒是你的本質，閃耀是你的使命',virgo:'細緻如水晶切割的心智，你的精準性是宇宙給予的禮物',
+    libra:'你的靈魂追求完美的和諧，如同宇宙最美的對稱幾何',scorpio:'深海般的靈魂，你的轉化力量能將黑暗化為光明',
+    sagittarius:'射手的箭指向宇宙的邊界，自由是你最深的渴望',capricorn:'山脈般屹立的意志力，你與地球的古老智慧共鳴',
+    aquarius:'你是時代的先行者，宇宙意識透過你傳遞給世界',pisces:'你游走於夢境與現實之間，是宇宙最敏感的頻率接收者',
+  };
+  const lpDesc={1:'創造與領導的頻率，你是光的先驅',2:'合作與和諧的頻率，你是橋樑建造者',3:'表達與創意的頻率，你是宇宙的藝術家',4:'穩定與建造的頻率，你是現實的錨點',5:'自由與變化的頻率，你是永恆的探索者',6:'愛與服務的頻率，你是療癒的傳遞者',7:'智慧與深思的頻率，你是宇宙的哲學家',8:'豐盛與力量的頻率，你是顯化的大師',9:'完成與奉獻的頻率，你是靈魂的智者',11:'靈性啟示的頻率，你是光的傳遞者',22:'大師建築師的頻率，你在地球創造宏大藍圖',33:'大師療癒師的頻率，你的愛是宇宙級別的禮物'};
+  const z=data.zodiac||'leo';const ln=params.lifeNum;
+  return `<strong>${data.name||'你'}的宇宙印記</strong>已生成。<br><br>${zodiacDesc[z]||''}。<br><br>生命靈數 <strong>${ln}</strong> 賦予你獨特的能量藍圖——${lpDesc[ln]||'宇宙的頻率在你身上展現'}。<br><br>這幅神聖幾何是你靈魂頻率的視覺化，將它設為桌布，每天連結你的宇宙本質。`;
+}
+
+function generateGeometry(){
+  const name=document.getElementById('q-name').value.trim()||'水晶靈魂';
+  const year=parseInt(document.getElementById('q-year').value);
+  const month=parseInt(document.getElementById('q-month').value);
+  const day=parseInt(document.getElementById('q-day').value);
+  const zodiac=getChip('zodiac'),blood=getChip('blood'),mbti=getChip('mbti'),hd=getChip('hd');
+  const color=getChip('color'),crystal=getChip('crystal'),travel=getChip('travel'),food=getChip('food'),style=getChip('style');
+  const lifePath=(year&&month&&day)?lifePathNumber(year,month,day):5;
+  const data={name,lifePath,zodiac,blood,mbti,hd,color,crystal,travel,food,style};
+  const params=getParams(data);params.displayName=name;params.lifeNum=lifePath;
+  document.getElementById('quizSection').style.display='none';
+  document.getElementById('loader').classList.add('show');
+  setTimeout(()=>{
+    document.getElementById('loader').classList.remove('show');
+    document.getElementById('resultSection').classList.add('show');
+    document.getElementById('res-name').textContent=`${name} 的宇宙印記`;
+    document.getElementById('res-subtitle').textContent=`生命靈數 ${lifePath} · ${(zodiac||'').toUpperCase()} · ${blood||''} · ${mbti||''}`;
+    const canvas=document.getElementById('geoCanvas');
+    drawGeometry(canvas,params);
+    const statsData=[
+      {l:'生命靈數',v:lifePath,gold:true},{l:'幾何角點',v:`${params.points} 點`,gold:false},
+      {l:'頻率層數',v:`${params.layers} 層`,gold:false},{l:'靈性複雜度',v:`${Math.round(params.complexity*100)}%`,gold:true},
+    ];
+    document.getElementById('res-stats').innerHTML=statsData.map(s=>`<div class="stat-box${s.gold?' gold-box':''}"><div class="stat-label">${s.l}</div><div class="stat-val">${s.v}</div></div>`).join('');
+    document.getElementById('res-desc').innerHTML=generateDesc(data,params);
+    document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});
+    window._lastData=data;window._lastParams=params;
+  },1800);
+}
+
+function regenerate(){
+  document.getElementById('resultSection').classList.remove('show');
+  document.getElementById('quizSection').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function downloadWallpaper(){
+  const canvas=document.getElementById('geoCanvas');
+  const a=document.createElement('a');
+  a.download=`宇宙印記_${document.getElementById('q-name').value||'crystal'}_${Date.now()}.png`;
+  a.href=canvas.toDataURL('image/png');a.click();
+}
+
+</script>
+</body>
+</html>

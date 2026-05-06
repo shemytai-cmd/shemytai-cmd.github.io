@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Shemy Studio · 創作工具</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;200;300;400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#B8964E;--gold-light:#D4AF6E;--gold-pale:rgba(184,150,78,.09);
+  --cream:#FDFAF6;--cream2:#F5EFE6;--cream3:#EDE5D8;
+  --ink:#1C1410;--text2:#6B5F52;--text3:#A89880;
+  --border:rgba(184,150,78,.18);--border2:rgba(184,150,78,.08);
+  --shadow:rgba(184,150,78,.12);
+}
+body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+
+/* Header */
+.site-header{background:var(--cream2);padding:9px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.header-brand{display:flex;align-items:center;gap:10px;}
+.header-name{font-family:'Space Grotesk',sans-serif;font-size:.7rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
+.header-sub{font-family:'Noto Sans TC',sans-serif;font-weight:200;font-size:.55rem;color:var(--text3);letter-spacing:.1em;}
+.home-btn{font-family:'Space Grotesk',sans-serif;font-size:.56rem;letter-spacing:.14em;color:var(--gold);text-decoration:none;border:1px solid var(--border);padding:5px 13px;text-transform:uppercase;transition:all .2s;background:transparent;}
+.home-btn:hover{background:var(--gold);color:var(--cream);}
+
+/* Layout */
+.app-layout{display:flex;flex:1;height:calc(100vh - 46px);overflow:hidden;}
+
+/* Toolbar */
+.toolbar{width:60px;background:var(--cream2);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:7px 0;gap:2px;overflow-y:auto;flex-shrink:0;}
+.tool-btn{width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:1px solid transparent;background:transparent;cursor:pointer;border-radius:3px;font-size:.4rem;font-family:'Space Grotesk',sans-serif;letter-spacing:.04em;color:var(--text2);transition:all .15s;}
+.tool-btn:hover{background:var(--gold-pale);border-color:var(--border);color:var(--gold);}
+.tool-btn.active{background:rgba(184,150,78,.14);border-color:var(--gold);color:var(--gold);}
+.tool-sep{width:28px;height:1px;background:var(--border);margin:2px 0;}
+
+/* Canvas area */
+.canvas-area{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--cream3);position:relative;}
+.canvas-topbar{background:var(--cream);border-bottom:1px solid var(--border);padding:5px 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:34px;}
+.tb-label{font-size:.52rem;color:var(--text3);font-family:'Space Grotesk',sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+.tb-val{font-size:.6rem;color:var(--gold);font-family:'Space Grotesk',sans-serif;min-width:22px;}
+.tb-slider{-webkit-appearance:none;height:2px;background:var(--border);border-radius:1px;outline:none;width:72px;}
+.tb-slider::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:var(--gold);cursor:pointer;}
+.tb-color{width:22px;height:22px;border:1px solid var(--border);border-radius:2px;cursor:pointer;padding:1px;}
+.tb-sep{width:1px;height:18px;background:var(--border);}
+.tb-btn{font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.07em;color:var(--text2);border:1px solid var(--border);background:transparent;padding:3px 8px;cursor:pointer;text-transform:uppercase;transition:all .15s;white-space:nowrap;}
+.tb-btn:hover{border-color:var(--gold);color:var(--gold);}
+.tb-btn.active{background:var(--gold-pale);border-color:var(--gold);color:var(--gold);}
+
+.canvas-wrap{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:18px;}
+canvas{box-shadow:0 2px 18px var(--shadow),0 0 0 1px var(--border);display:block;background:#fff;}
+
+/* Right panel */
+.right-panel{width:205px;background:var(--cream2);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}
+.ps{padding:11px 13px;border-bottom:1px solid var(--border2);}
+.pl{font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:7px;}
+
+/* Brush buttons */
+.brush-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:5px;}
+.brush-btn{padding:6px 3px;border:1px solid var(--border);background:transparent;cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-size:.58rem;color:var(--text2);border-radius:2px;transition:all .15s;text-align:center;}
+.brush-btn:hover{border-color:var(--gold);color:var(--gold);}
+.brush-btn.active{background:var(--gold-pale);color:var(--gold);border-color:var(--gold);}
+
+/* Color */
+.color-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.color-swatch-big{width:34px;height:34px;border:1px solid var(--border);border-radius:2px;cursor:pointer;flex-shrink:0;}
+.color-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-bottom:5px;}
+.color-dot{width:100%;aspect-ratio:1/1;border:none;cursor:pointer;border-radius:50%;transition:transform .1s;}
+.color-dot:hover{transform:scale(1.22);}
+
+/* Sliders */
+.adj-row{display:flex;align-items:center;gap:5px;margin-bottom:5px;}
+.adj-label{font-size:.56rem;color:var(--text2);width:26px;flex-shrink:0;}
+.adj-slider{flex:1;-webkit-appearance:none;height:2px;background:var(--border);border-radius:1px;outline:none;}
+.adj-slider::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:var(--gold);cursor:pointer;}
+.adj-val{font-size:.52rem;color:var(--text3);width:22px;text-align:right;}
+
+/* Inputs */
+.full-input{width:100%;padding:5px 7px;border:1px solid var(--border);background:var(--cream);font-family:'Noto Sans TC',sans-serif;font-size:.62rem;color:var(--ink);margin-bottom:5px;outline:none;}
+.full-select{width:100%;padding:5px 7px;border:1px solid var(--border);background:var(--cream);font-family:'Noto Sans TC',sans-serif;font-size:.6rem;color:var(--ink);margin-bottom:5px;outline:none;}
+.text-area{width:100%;min-height:44px;padding:5px 7px;border:1px solid var(--border);background:var(--cream);font-family:'Noto Sans TC',sans-serif;font-size:.65rem;color:var(--ink);resize:vertical;outline:none;margin-bottom:5px;}
+
+/* Action buttons */
+.act-btn{width:100%;padding:7px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'Space Grotesk',sans-serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-bottom:3px;transition:all .15s;}
+.act-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-pale);}
+.act-btn.gold{background:var(--gold);color:var(--cream);border-color:var(--gold);}
+.act-btn.gold:hover{background:var(--gold-light);}
+
+/* Modal */
+.modal{display:none;position:fixed;inset:0;background:rgba(253,250,246,.88);backdrop-filter:blur(8px);z-index:100;align-items:center;justify-content:center;}
+.modal.open{display:flex;}
+.modal-box{background:var(--cream);padding:22px;width:310px;border:1px solid var(--border);border-top:2px solid var(--gold);box-shadow:0 8px 28px var(--shadow);}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-size:.6rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
+#stampCanvas{width:100%;height:105px;border:1px solid var(--border);background:#fff;cursor:crosshair;display:block;margin-bottom:7px;}
+.modal-btns{display:flex;gap:5px;}
+
+/* Footer */
+.info-footer{background:var(--cream2);padding:11px 18px;text-align:center;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:14px;}
+.f-name{font-family:'Space Grotesk',sans-serif;font-size:.58rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
+.f-sub{font-family:'Noto Sans TC',sans-serif;font-weight:200;font-size:.54rem;color:var(--text3);letter-spacing:.06em;}
+.f-home{font-family:'Space Grotesk',sans-serif;font-size:.52rem;letter-spacing:.12em;color:var(--text3);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+.f-home:hover{color:var(--gold);}
+
+@media(max-width:640px){.right-panel{display:none;}.toolbar{width:48px;}.tool-btn{width:36px;height:36px;}}
+
+/* Zoom controls */
+.zoom-bar{
+  position:absolute;bottom:12px;right:12px;
+  display:flex;align-items:center;gap:4px;
+  background:var(--cream);
+  border:1px solid var(--border);
+  padding:4px 6px;z-index:10;
+}
+.zoom-btn{
+  width:24px;height:24px;
+  border:none;background:transparent;
+  color:var(--text2);cursor:pointer;
+  font-size:.85rem;display:flex;align-items:center;justify-content:center;
+  transition:color .15s;
+}
+.zoom-btn:hover{color:var(--gold);}
+.zoom-label{font-family:'Space Grotesk',sans-serif;font-size:.52rem;color:var(--text3);min-width:36px;text-align:center;}
+
+@media(max-width:640px){
+  .tool-btn{width:44px !important;height:44px !important;font-size:.42rem !important;}
+  .toolbar{width:52px !important;}
+  .canvas-topbar{padding:4px 8px;gap:7px;}
+  .tb-slider{width:55px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <svg width="20" height="13" viewBox="0 0 28 20" fill="none">
+      <circle cx="4.5" cy="5.5" r="1.6" fill="#B8964E"/>
+      <circle cx="14" cy="1.8" r="1.6" fill="#B8964E"/>
+      <circle cx="23.5" cy="5.5" r="1.6" fill="#B8964E"/>
+      <path d="M2,15.5 C2,15.5 3.5,12 4.5,7.1 C6.5,11 8.5,10.5 10,10 C11.5,9.5 13,8 14,3.4 C15,8 16.5,9.5 18,10 C19.5,10.5 21.5,11 23.5,7.1 C24.5,12 26,15.5 26,15.5" stroke="#B8964E" stroke-width="1.4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M2,15.5 Q14,19 26,15.5" stroke="#B8964E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="header-name">Shemy Studio</div>
+      <div class="header-sub">創作工具 · Design Tool</div>
+    </div>
+  </div>
+  <a href="https://shemytai-cmd.github.io/Shemy-brand" class="home-btn">← 返回首頁</a>
+</header>
+
+<div class="app-layout">
+
+  <!-- Left Toolbar -->
+  <div class="toolbar">
+    <button class="tool-btn active" id="tool-brush" onclick="setTool('brush')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 22l4-4L18 6l-4-4L2 18v4z"/><path d="M18 2l4 4-2 2-4-4 2-2z"/></svg>
+      畫筆
+    </button>
+    <button class="tool-btn" id="tool-eraser" onclick="setTool('eraser')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 20H7L3 16l9-9 8 8-2 2 2 3z"/></svg>
+      橡皮
+    </button>
+    <button class="tool-btn" id="tool-eyedropper" onclick="setTool('eyedropper')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21l3-3 11-11-3-3L3 15v6z"/><path d="M15 3l3 3 2-2-3-3-2 2z"/></svg>
+      吸管
+    </button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" id="tool-line" onclick="setTool('line')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="19" x2="19" y2="5"/></svg>
+      直線
+    </button>
+    <button class="tool-btn" id="tool-rect" onclick="setTool('rect')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="1"/></svg>
+      矩形
+    </button>
+    <button class="tool-btn" id="tool-circle" onclick="setTool('circle')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/></svg>
+      圓形
+    </button>
+    <button class="tool-btn" id="tool-symm" onclick="setTool('symm')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="2" x2="12" y2="22"/><path d="M5 7l5 5-5 5"/><path d="M19 7l-5 5 5 5"/></svg>
+      對稱
+    </button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" id="tool-text" onclick="setTool('text')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>
+      文字
+    </button>
+    <button class="tool-btn" id="tool-stamp" onclick="setTool('stamp')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C9 2 7 4 7 7c0 2 1 3.5 2.5 4.5L9 14h6l-.5-2.5C16 10.5 17 9 17 7c0-3-2-5-5-5z"/><rect x="8" y="19" width="8" height="3" rx="1"/></svg>
+      印章
+    </button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="triggerUpload()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      上傳
+    </button>
+    <button class="tool-btn" onclick="undoAction()" title="復原 Ctrl+Z">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10h10a8 8 0 010 16h-5"/><polyline points="3 10 7 6 3 2"/></svg>
+      復原
+    </button>
+    <button class="tool-btn" onclick="redoAction()" title="重做 Ctrl+Y">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10H11a8 8 0 000 16h5"/><polyline points="21 10 17 6 21 2"/></svg>
+      重做
+    </button>
+    <button class="tool-btn" onclick="downloadCanvas()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      下載
+    </button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="adjustZoom(0.1)" title="放大">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      放大
+    </button>
+    <button class="tool-btn" onclick="adjustZoom(-0.1)" title="縮小">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      縮小
+    </button>
+    <button class="tool-btn" onclick="resetZoom()" title="重置縮放">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0"/><path d="M3 12h4M17 12h4M12 3v4M12 17v4"/></svg>
+      重置
+    </button>
+  </div>
+
+  <!-- Canvas -->
+  <div class="canvas-area">
+    <div class="canvas-topbar">
+      <span class="tb-label">大小</span>
+      <input type="range" class="tb-slider" id="sizeSlider" min="0.2" max="100" step="0.1" value="4" oninput="updateSize(this.value)">
+      <span class="tb-val" id="sizeVal">4</span>
+      <div class="tb-sep"></div>
+      <span class="tb-label">透明</span>
+      <input type="range" class="tb-slider" id="opacitySlider" min="1" max="100" value="100" oninput="updateOpacity(this.value)">
+      <span class="tb-val" id="opacityVal">100%</span>
+      <div class="tb-sep"></div>
+      <input type="color" class="tb-color" id="colorPicker" value="#1C1410" oninput="updateColor(this.value)" title="選色">
+      <div class="tb-sep"></div>
+      <button class="tb-btn" id="fill-toggle" onclick="toggleFill()">描邊</button>
+      <div class="tb-sep"></div>
+      <span class="tb-label" id="tool-indicator">畫筆</span>
+    </div>
+    <div class="canvas-wrap" id="canvasWrap">
+      <canvas id="mainCanvas" width="800" height="600"></canvas>
+    </div>
+    <div class="zoom-bar">
+      <button class="zoom-btn" onclick="adjustZoom(-0.1)" title="縮小">−</button>
+      <span class="zoom-label" id="zoomLabel">100%</span>
+      <button class="zoom-btn" onclick="adjustZoom(0.1)" title="放大">+</button>
+      <button class="zoom-btn" onclick="resetZoom()" title="重置" style="font-size:.55rem;width:auto;padding:0 4px;">重置</button>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right-panel">
+
+    <div class="ps">
+      <div class="pl">筆觸類型</div>
+      <div class="brush-grid">
+        <button class="brush-btn active" onclick="setBrush('hard',this)">硬筆</button>
+        <button class="brush-btn" onclick="setBrush('soft',this)">軟筆</button>
+        <button class="brush-btn" onclick="setBrush('pencil',this)">鉛筆</button>
+        <button class="brush-btn" onclick="setBrush('pen',this)">鋼筆</button>
+        <button class="brush-btn" onclick="setBrush('watercolor',this)">水彩</button>
+        <button class="brush-btn" onclick="setBrush('marker',this)">麥克筆</button>
+      </div>
+    </div>
+
+    <div class="ps">
+      <div class="pl">顏色</div>
+      <div class="color-row">
+        <div class="color-swatch-big" id="currentColorBox" style="background:#1C1410;" onclick="document.getElementById('colorPickerFull').click()"></div>
+        <input type="color" id="colorPickerFull" value="#1C1410" style="display:none" oninput="updateColor(this.value)">
+        <div style="flex:1;">
+          <div style="font-size:.52rem;color:var(--text3);margin-bottom:3px;">HEX</div>
+          <input type="text" class="full-input" id="hexInput" value="#1C1410" style="margin-bottom:0;" oninput="onHexInput(this.value)">
+        </div>
+      </div>
+      <div class="color-grid" id="colorGrid"></div>
+    </div>
+
+    <div class="ps">
+      <div class="pl">影像調整</div>
+      <div class="adj-row">
+        <span class="adj-label">亮度</span>
+        <input type="range" class="adj-slider" id="brightness" min="-100" max="100" value="0" oninput="applyAdjust();document.getElementById('brightnessVal').textContent=this.value">
+        <span class="adj-val" id="brightnessVal">0</span>
+      </div>
+      <div class="adj-row">
+        <span class="adj-label">對比</span>
+        <input type="range" class="adj-slider" id="contrast" min="-100" max="100" value="0" oninput="applyAdjust();document.getElementById('contrastVal').textContent=this.value">
+        <span class="adj-val" id="contrastVal">0</span>
+      </div>
+      <div class="adj-row">
+        <span class="adj-label">飽和</span>
+        <input type="range" class="adj-slider" id="saturation" min="-100" max="100" value="0" oninput="applyAdjust();document.getElementById('saturationVal').textContent=this.value">
+        <span class="adj-val" id="saturationVal">0</span>
+      </div>
+    </div>
+
+    <div class="ps" id="textPanel" style="display:none;">
+      <div class="pl">文字工具</div>
+      <textarea class="text-area" id="textInput" placeholder="輸入文字..."></textarea>
+      <select class="full-select" id="fontSelect">
+        <option value="'Noto Sans TC',sans-serif">黑體（中文）</option>
+        <option value="'Space Grotesk',sans-serif">Space Grotesk</option>
+        <option value="Georgia,serif">Georgia（手寫感）</option>
+        <option value="'Courier New',monospace">等寬字體</option>
+      </select>
+      <div class="adj-row">
+        <span class="adj-label">字級</span>
+        <input type="range" class="adj-slider" min="8" max="120" value="24" id="fontSizeSlider" oninput="document.getElementById('fontSizeVal').textContent=this.value">
+        <span class="adj-val" id="fontSizeVal">24</span>
+      </div>
+      <div style="font-size:.52rem;color:var(--text3);">點擊畫布放置文字</div>
+    </div>
+
+    <div class="ps" id="stampPanel" style="display:none;">
+      <div class="pl">印章工具</div>
+      <button class="act-btn" onclick="openStampModal()">✍ 手繪簽名</button>
+      <button class="act-btn" onclick="document.getElementById('stampUpload').click()">上傳印章圖</button>
+      <input type="file" id="stampUpload" accept="image/*" style="display:none" onchange="loadStampFromFile(this)">
+      <div id="stampPreview" style="margin-top:6px;display:none;">
+        <img id="stampImg" style="max-width:100%;border:1px solid var(--border);opacity:.8;display:block;">
+        <div style="font-size:.52rem;color:var(--text3);margin-top:4px;">點畫布放置印章</div>
+      </div>
+      <div class="adj-row" style="margin-top:6px;">
+        <span class="adj-label">大小</span>
+        <input type="range" class="adj-slider" id="stampSize" min="30" max="400" value="150">
+        <span class="adj-val" id="stampSizeVal">150</span>
+      </div>
+    </div>
+
+    <div class="ps">
+      <div class="pl">畫布尺寸</div>
+      <select class="full-select" onchange="resizeCanvas(this.value)">
+        <option value="800,600">800 × 600</option>
+        <option value="1080,1080">1080 × 1080 正方形</option>
+        <option value="1080,1920">1080 × 1920 直式</option>
+        <option value="1920,1080">1920 × 1080 橫式</option>
+      </select>
+    </div>
+
+    <div class="ps">
+      <div class="pl">浮水印</div>
+      <input type="text" class="full-input" id="wmText" placeholder="Shemy Tai">
+      <div class="adj-row">
+        <span class="adj-label">透明</span>
+        <input type="range" class="adj-slider" id="wmOpacity" min="5" max="80" value="25" oninput="document.getElementById('wmOpVal').textContent=this.value+'%'">
+        <span class="adj-val" id="wmOpVal">25%</span>
+      </div>
+      <button class="act-btn" onclick="addWatermark()">加入浮水印</button>
+    </div>
+
+    <div class="ps">
+      <div class="pl">操作</div>
+      <button class="act-btn" onclick="triggerUpload()">上傳圖片</button>
+      <button class="act-btn" onclick="undoAction()">↩ 復原</button>
+      <button class="act-btn" onclick="clearCanvas()">清空畫布</button>
+      <button class="act-btn gold" onclick="downloadCanvas()">下載 PNG</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Stamp Modal -->
+<div class="modal" id="stampModal">
+  <div class="modal-box">
+    <div class="modal-title">手繪簽名 · Signature</div>
+    <canvas id="stampCanvas" width="275" height="105"></canvas>
+    <div class="modal-btns">
+      <button class="act-btn" style="flex:1;" onclick="clearStamp()">清除</button>
+      <button class="act-btn gold" style="flex:1;" onclick="saveStamp()">使用</button>
+      <button class="act-btn" style="flex:1;" onclick="closeStampModal()">取消</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="fileUpload" accept="image/*" style="display:none" onchange="loadImage(this)">
+
+<footer class="info-footer">
+  <svg width="18" height="12" viewBox="0 0 28 20" fill="none">
+    <circle cx="4.5" cy="5.5" r="1.6" fill="#B8964E"/>
+    <circle cx="14" cy="1.8" r="1.6" fill="#B8964E"/>
+    <circle cx="23.5" cy="5.5" r="1.6" fill="#B8964E"/>
+    <path d="M2,15.5 C2,15.5 3.5,12 4.5,7.1 C6.5,11 8.5,10.5 10,10 C11.5,9.5 13,8 14,3.4 C15,8 16.5,9.5 18,10 C19.5,10.5 21.5,11 23.5,7.1 C24.5,12 26,15.5 26,15.5" stroke="#B8964E" stroke-width="1.4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M2,15.5 Q14,19 26,15.5" stroke="#B8964E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  </svg>
+  <div>
+    <div class="f-name">Shemy Tai · 戴綺芬</div>
+    <div class="f-sub">跨界設計師 · Design Strategist · Sustainable Design Advocate</div>
+  </div>
+  <a href="https://shemytai-cmd.github.io/Shemy-brand" class="f-home">返回首頁 ↗</a>
+</footer>
+
+<script>
+const canvas = document.getElementById('mainCanvas');
+const ctx = canvas.getContext('2d');
+let tool='brush', brushType='hard', color='#1C1410';
+let size=4, opacity=1, fillShape=false;
+let drawing=false, startX=0, startY=0, zoomLevel=1;
+let undoStack=[], redoStack=[], stampImage=null, baseImageData=null;
+
+ctx.fillStyle='#ffffff';
+ctx.fillRect(0,0,canvas.width,canvas.height);
+saveUndo();
+
+// Swatches
+const swatches=['#1C1410','#3D2B1F','#6B5F52','#A89880','#B8964E','#D4AF6E','#FDFAF6','#F5EFE6','#EDE5D8','#ffffff','#E8C4B8','#C4A0A0','#8BA89A','#6B8E8A','#4A6B6E','#2D4A52','#8B6B9B','#C4A0C4','#A0B4C4','#6B8BAA','#4A6B8A','#2D4A6B','#C4B4A0','#8B7A6B'];
+const grid=document.getElementById('colorGrid');
+swatches.forEach(c=>{
+  const b=document.createElement('button');
+  b.className='color-dot';b.style.background=c;
+  if(c==='#ffffff')b.style.border='1px solid #ddd';
+  b.onclick=()=>updateColor(c);
+  grid.appendChild(b);
+});
+
+function setTool(t){
+  tool=t;
+  document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('tool-'+t);
+  if(el)el.classList.add('active');
+  const names={brush:'畫筆',eraser:'橡皮擦',eyedropper:'吸管',line:'直線',rect:'矩形',circle:'圓形',symm:'對稱',text:'文字',stamp:'印章'};
+  document.getElementById('tool-indicator').textContent=names[t]||t;
+  document.getElementById('textPanel').style.display=t==='text'?'block':'none';
+  document.getElementById('stampPanel').style.display=t==='stamp'?'block':'none';
+  canvas.style.cursor=t==='text'?'text':'crosshair';
+}
+
+function setBrush(b,el){
+  brushType=b;
+  document.querySelectorAll('.brush-btn').forEach(btn=>btn.classList.remove('active'));
+  if(el)el.classList.add('active');
+}
+
+function updateColor(c){
+  color=c;
+  document.getElementById('colorPicker').value=c.length===7?c:'#000000';
+  document.getElementById('colorPickerFull').value=c.length===7?c:'#000000';
+  document.getElementById('currentColorBox').style.background=c;
+  document.getElementById('hexInput').value=c;
+}
+function onHexInput(v){if(/^#[0-9A-Fa-f]{6}$/.test(v))updateColor(v);}
+function updateSize(v){size=parseFloat(v);document.getElementById('sizeVal').textContent=parseFloat(v).toFixed(1);}
+function updateOpacity(v){opacity=v/100;document.getElementById('opacityVal').textContent=v+'%';}
+function toggleFill(){
+  fillShape=!fillShape;
+  document.getElementById('fill-toggle').textContent=fillShape?'填色':'描邊';
+  document.getElementById('fill-toggle').classList.toggle('active',fillShape);
+}
+
+function saveUndo(){
+  undoStack.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+  if(undoStack.length>40)undoStack.shift();
+  redoStack=[];
+}
+function undoAction(){
+  if(undoStack.length>1){
+    redoStack.push(undoStack.pop());
+    ctx.putImageData(undoStack[undoStack.length-1],0,0);
+  }
+}
+function redoAction(){
+  if(redoStack.length>0){
+    const state=redoStack.pop();
+    undoStack.push(state);
+    ctx.putImageData(state,0,0);
+  }
+}
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();undoAction();}
+  if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();redoAction();}
+});
+
+function getPos(e){
+  const r=canvas.getBoundingClientRect();
+  const sx=canvas.width/r.width,sy=canvas.height/r.height;
+  if(e.touches)return{x:(e.touches[0].clientX-r.left)*sx,y:(e.touches[0].clientY-r.top)*sy};
+  return{x:(e.clientX-r.left)*sx,y:(e.clientY-r.top)*sy};
+}
+
+function applyBrushStyle(){
+  ctx.globalAlpha=opacity;ctx.lineWidth=size;ctx.lineCap='round';ctx.lineJoin='round';
+  if(tool==='eraser'){ctx.globalCompositeOperation='destination-out';ctx.strokeStyle='rgba(0,0,0,1)';return;}
+  ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.shadowColor='transparent';
+  switch(brushType){
+    case 'hard':ctx.strokeStyle=color;break;
+    case 'soft':ctx.shadowBlur=size*1.5;ctx.shadowColor=color;ctx.strokeStyle=color;break;
+    case 'pencil':ctx.globalAlpha=opacity*0.55;ctx.strokeStyle=color;break;
+    case 'pen':ctx.strokeStyle=color;ctx.lineWidth=Math.max(0.2,size*(0.4+Math.random()*0.6));break;
+    case 'watercolor':ctx.globalAlpha=opacity*0.22;ctx.strokeStyle=color;ctx.shadowBlur=size*2;ctx.shadowColor=color;break;
+    case 'marker':ctx.globalAlpha=opacity*0.72;ctx.strokeStyle=color;ctx.lineWidth=size*1.3;break;
+  }
+}
+function resetCtx(){ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.shadowColor='transparent';}
+
+canvas.addEventListener('mousedown',onDown);
+canvas.addEventListener('mousemove',onMove);
+canvas.addEventListener('mouseup',onUp);
+canvas.addEventListener('mouseleave',onUp);
+canvas.addEventListener('touchstart',e=>{e.preventDefault();onDown(e);},{passive:false});
+canvas.addEventListener('touchmove',e=>{e.preventDefault();onMove(e);},{passive:false});
+canvas.addEventListener('touchend',onUp);
+
+function onDown(e){
+  const{x,y}=getPos(e);
+  if(tool==='eyedropper'){
+    const px=ctx.getImageData(Math.floor(x),Math.floor(y),1,1).data;
+    updateColor('#'+[px[0],px[1],px[2]].map(v=>v.toString(16).padStart(2,'0')).join(''));
+    return;
+  }
+  if(tool==='text'){placeText(x,y);return;}
+  if(tool==='stamp'&&stampImage){placeStamp(x,y);return;}
+  drawing=true;startX=x;startY=y;
+  if(['brush','eraser','symm'].includes(tool)){
+    saveUndo();applyBrushStyle();ctx.beginPath();ctx.moveTo(x,y);
+  } else {saveUndo();baseImageData=ctx.getImageData(0,0,canvas.width,canvas.height);}
+}
+
+function onMove(e){
+  if(!drawing)return;
+  const{x,y}=getPos(e);
+  if(tool==='brush'||tool==='eraser'){
+    applyBrushStyle();ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y);
+  } else if(tool==='symm'){
+    applyBrushStyle();
+    const cx=canvas.width/2;
+    ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y);
+    const mx=cx+(cx-x);
+    ctx.beginPath();ctx.moveTo(mx,y);ctx.lineTo(mx,y);ctx.stroke();ctx.beginPath();ctx.moveTo(mx,y);
+  } else {
+    ctx.putImageData(baseImageData,0,0);
+    applyBrushStyle();ctx.beginPath();
+    if(tool==='line'){ctx.moveTo(startX,startY);ctx.lineTo(x,y);ctx.stroke();}
+    else if(tool==='rect'){
+      if(fillShape){ctx.fillStyle=color;ctx.fillRect(startX,startY,x-startX,y-startY);}
+      else ctx.strokeRect(startX,startY,x-startX,y-startY);
+    } else if(tool==='circle'){
+      const rx=Math.abs(x-startX)/2,ry=Math.abs(y-startY)/2;
+      const cx2=startX+(x-startX)/2,cy2=startY+(y-startY)/2;
+      ctx.ellipse(cx2,cy2,rx,ry,0,0,Math.PI*2);
+      if(fillShape){ctx.fillStyle=color;ctx.fill();}else ctx.stroke();
+    }
+    resetCtx();
+  }
+}
+function onUp(){if(!drawing)return;drawing=false;resetCtx();baseImageData=null;}
+
+function placeText(x,y){
+  saveUndo();
+  const text=document.getElementById('textInput').value||'Shemy';
+  const font=document.getElementById('fontSelect').value;
+  const fontSize=document.getElementById('fontSizeSlider').value;
+  ctx.globalAlpha=opacity;ctx.fillStyle=color;
+  ctx.font=`${fontSize}px ${font}`;ctx.fillText(text,x,y);resetCtx();
+}
+
+function placeStamp(x,y){
+  saveUndo();
+  const s=parseInt(document.getElementById('stampSize').value);
+  const ratio=stampImage.naturalHeight/stampImage.naturalWidth||1;
+  ctx.globalAlpha=opacity;ctx.drawImage(stampImage,x-s/2,y-s*ratio/2,s,s*ratio);resetCtx();
+}
+
+function addWatermark(){
+  saveUndo();
+  const text=document.getElementById('wmText').value||'Shemy Tai';
+  const op=parseInt(document.getElementById('wmOpacity').value)/100;
+  ctx.save();ctx.globalAlpha=op;ctx.fillStyle='#B8964E';
+  ctx.font=`300 ${Math.max(canvas.width,canvas.height)*0.04}px 'Space Grotesk',sans-serif`;
+  ctx.translate(canvas.width/2,canvas.height/2);ctx.rotate(-Math.PI/6);
+  ctx.textAlign='center';ctx.fillText(text,0,0);ctx.restore();
+}
+
+function applyAdjust(){
+  const b=document.getElementById('brightness').value;
+  const c=document.getElementById('contrast').value;
+  const s=document.getElementById('saturation').value;
+  canvas.style.filter=`brightness(${100+parseInt(b)}%) contrast(${100+parseInt(c)}%) saturate(${100+parseInt(s)}%)`;
+}
+
+function resizeCanvas(val){
+  const[w,h]=val.split(',').map(Number);
+  const img=ctx.getImageData(0,0,canvas.width,canvas.height);
+  canvas.width=w;canvas.height=h;
+  ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);
+  ctx.putImageData(img,0,0);saveUndo();
+}
+
+function triggerUpload(){document.getElementById('fileUpload').click();}
+function loadImage(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      saveUndo();ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+      const scale=Math.min(canvas.width/img.width,canvas.height/img.height);
+      const w=img.width*scale,h=img.height*scale;
+      ctx.drawImage(img,(canvas.width-w)/2,(canvas.height-h)/2,w,h);
+    };img.src=e.target.result;
+  };reader.readAsDataURL(file);input.value='';
+}
+
+function downloadCanvas(){
+  const orig=canvas.style.filter;canvas.style.filter='';
+  const a=document.createElement('a');
+  a.download='shemy-studio-'+Date.now()+'.png';
+  a.href=canvas.toDataURL('image/png');a.click();
+  canvas.style.filter=orig;
+}
+function clearCanvas(){
+  if(!confirm('確定清空畫布？'))return;
+  saveUndo();ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+
+
+// ── Zoom ──
+function adjustZoom(delta){
+  zoomLevel=Math.max(0.1,Math.min(5,zoomLevel+delta));
+  applyZoom();
+}
+function resetZoom(){
+  zoomLevel=1;applyZoom();
+}
+function applyZoom(){
+  canvas.style.transform=`scale(${zoomLevel})`;
+  canvas.style.transformOrigin='center center';
+  document.getElementById('zoomLabel').textContent=Math.round(zoomLevel*100)+'%';
+}
+// Mouse wheel zoom
+document.getElementById('canvasWrap').addEventListener('wheel',e=>{
+  if(e.ctrlKey||e.metaKey){
+    e.preventDefault();
+    adjustZoom(e.deltaY<0?0.1:-0.1);
+  }
+},{passive:false});
+
+
+// ── Pinch to zoom (mobile) ──
+let lastDist = 0;
+const canvasWrap = document.getElementById('canvasWrap');
+
+canvasWrap.addEventListener('touchstart', e => {
+  if(e.touches.length === 2) {
+    lastDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  }
+}, {passive:true});
+
+canvasWrap.addEventListener('touchmove', e => {
+  if(e.touches.length === 2) {
+    e.preventDefault();
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    if(lastDist > 0) {
+      const delta = (dist - lastDist) * 0.008;
+      zoomLevel = Math.max(0.1, Math.min(5, zoomLevel + delta));
+      applyZoom();
+    }
+    lastDist = dist;
+  }
+}, {passive:false});
+
+canvasWrap.addEventListener('touchend', e => {
+  if(e.touches.length < 2) lastDist = 0;
+}, {passive:true});
+
+// Stamp modal
+const sc=document.getElementById('stampCanvas');
+const sCtx=sc.getContext('2d');
+let sd=false;
+sCtx.strokeStyle='#1C1410';sCtx.lineWidth=2;sCtx.lineCap='round';
+
+function sPos(e){
+  const r=sc.getBoundingClientRect();
+  const sx=sc.width/r.width,sy=sc.height/r.height;
+  if(e.touches)return{x:(e.touches[0].clientX-r.left)*sx,y:(e.touches[0].clientY-r.top)*sy};
+  return{x:(e.clientX-r.left)*sx,y:(e.clientY-r.top)*sy};
+}
+sc.addEventListener('mousedown',e=>{sd=true;const{x,y}=sPos(e);sCtx.beginPath();sCtx.moveTo(x,y);});
+sc.addEventListener('mousemove',e=>{if(!sd)return;const{x,y}=sPos(e);sCtx.lineTo(x,y);sCtx.stroke();sCtx.beginPath();sCtx.moveTo(x,y);});
+sc.addEventListener('mouseup',()=>sd=false);
+sc.addEventListener('touchstart',e=>{e.preventDefault();sd=true;const{x,y}=sPos(e);sCtx.beginPath();sCtx.moveTo(x,y);},{passive:false});
+sc.addEventListener('touchmove',e=>{e.preventDefault();if(!sd)return;const{x,y}=sPos(e);sCtx.lineTo(x,y);sCtx.stroke();sCtx.beginPath();sCtx.moveTo(x,y);},{passive:false});
+sc.addEventListener('touchend',()=>sd=false);
+
+function openStampModal(){document.getElementById('stampModal').classList.add('open');}
+function closeStampModal(){document.getElementById('stampModal').classList.remove('open');}
+function clearStamp(){sCtx.clearRect(0,0,sc.width,sc.height);}
+function saveStamp(){
+  stampImage=new Image();stampImage.src=sc.toDataURL();
+  document.getElementById('stampImg').src=stampImage.src;
+  document.getElementById('stampPreview').style.display='block';
+  setTool('stamp');closeStampModal();
+}
+function loadStampFromFile(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    stampImage=new Image();stampImage.src=e.target.result;
+    document.getElementById('stampImg').src=e.target.result;
+    document.getElementById('stampPreview').style.display='block';
+    setTool('stamp');
+  };reader.readAsDataURL(file);
+}
+document.getElementById('stampSize').addEventListener('input',function(){
+  document.getElementById('stampSizeVal').textContent=this.value;
+});
+</script>
+</body>
+</html>

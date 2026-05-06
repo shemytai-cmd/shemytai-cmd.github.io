@@ -19,7 +19,7 @@
 }
 body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);min-height:100vh;}
 
-.hero-banner{width:100%;position:relative;overflow:hidden;height:clamp(240px,45vw,360px);}
+.hero-banner{width:100%;position:relative;overflow:hidden;height:clamp(260px,48vw,380px);}
 .hero-banner svg{width:100%;height:100%;display:block;}
 .hero-title-panel{position:absolute;bottom:0;left:0;right:0;background:var(--glass2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:16px 20px 18px;text-align:center;border-top:1px solid rgba(184,150,78,.25);}
 .hero-crown{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:5px;}
@@ -84,12 +84,21 @@ body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--crea
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader-text{font-size:.63rem;color:var(--text3);letter-spacing:.12em;}
 
-.site-footer{background:var(--gold-bg);padding:20px;text-align:center;border-top:1px solid rgba(184,150,78,.3);margin-top:40px;}
+.site-footer{background:var(--cream2);padding:24px 20px;text-align:center;border-top:1px solid var(--border);margin-top:40px;}
 .footer-crown{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:7px;}
-.footer-name{font-family:'Noto Sans TC',sans-serif;font-weight:200;font-size:.7rem;letter-spacing:.15em;color:#fff;margin-bottom:2px;}
-.footer-en{font-family:'Space Grotesk',sans-serif;font-size:.53rem;letter-spacing:.2em;color:rgba(255,255,255,.65);text-transform:uppercase;margin-bottom:9px;}
-.footer-home{font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.12em;color:rgba(255,255,255,.55);text-decoration:none;text-transform:uppercase;transition:color .2s;}
-.footer-home:hover{color:#fff;}
+.footer-name{font-family:'Noto Sans TC',sans-serif;font-weight:200;font-size:.7rem;letter-spacing:.15em;color:var(--ink);margin-bottom:2px;}
+.footer-en{font-family:'Space Grotesk',sans-serif;font-size:.53rem;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin-bottom:12px;}
+.footer-home{
+  display:inline-block;
+  font-family:'Space Grotesk',sans-serif;font-size:.58rem;letter-spacing:.15em;
+  color:var(--gold);text-decoration:none;text-transform:uppercase;
+  border:1px solid var(--border);
+  padding:8px 20px;
+  background:transparent;
+  transition:all .2s;
+  margin-top:4px;
+}
+.footer-home:hover{background:var(--gold);color:var(--cream);}
 </style>
 </head>
 <body>
@@ -384,25 +393,25 @@ body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--crea
     <label class="q-label">✦ 星座</label>
     <div class="chip-group" id="chips-zodiac">
       <button class="chip" data-val="aries">牡羊</button><button class="chip" data-val="taurus">金牛</button><button class="chip" data-val="gemini">雙子</button><button class="chip" data-val="cancer">巨蟹</button><button class="chip" data-val="leo">獅子</button><button class="chip" data-val="virgo">處女</button><button class="chip" data-val="libra">天秤</button><button class="chip" data-val="scorpio">天蠍</button><button class="chip" data-val="sagittarius">射手</button><button class="chip" data-val="capricorn">摩羯</button><button class="chip" data-val="aquarius">水瓶</button><button class="chip" data-val="pisces">雙魚</button>
-    </div>
+    <button class="chip" data-val="other_zodiac">其他</button></div>
   </div>
   <div class="q-block">
     <label class="q-label">✦ 血型</label>
     <div class="chip-group" id="chips-blood">
       <button class="chip" data-val="A">A型</button><button class="chip" data-val="B">B型</button><button class="chip" data-val="AB">AB型</button><button class="chip" data-val="O">O型</button>
-    </div>
+    <button class="chip" data-val="other_blood">其他</button></div>
   </div>
   <div class="q-block">
     <label class="q-label">✦ MBTI 人格類型</label>
     <div class="chip-group" id="chips-mbti">
       <button class="chip" data-val="INTJ">INTJ</button><button class="chip" data-val="INTP">INTP</button><button class="chip" data-val="ENTJ">ENTJ</button><button class="chip" data-val="ENTP">ENTP</button><button class="chip" data-val="INFJ">INFJ</button><button class="chip" data-val="INFP">INFP</button><button class="chip" data-val="ENFJ">ENFJ</button><button class="chip" data-val="ENFP">ENFP</button><button class="chip" data-val="ISTJ">ISTJ</button><button class="chip" data-val="ISFJ">ISFJ</button><button class="chip" data-val="ESTJ">ESTJ</button><button class="chip" data-val="ESFJ">ESFJ</button><button class="chip" data-val="ISTP">ISTP</button><button class="chip" data-val="ISFP">ISFP</button><button class="chip" data-val="ESTP">ESTP</button><button class="chip" data-val="ESFP">ESFP</button>
-    </div>
+    <button class="chip" data-val="other_mbti">其他</button></div>
   </div>
   <div class="q-block">
     <label class="q-label">✦ 人類圖類型（選填）</label>
     <div class="chip-group" id="chips-hd">
       <button class="chip" data-val="manifestor">顯示者</button><button class="chip" data-val="generator">生產者</button><button class="chip" data-val="mangen">顯示生產者</button><button class="chip" data-val="projector">投射者</button><button class="chip" data-val="reflector">反映者</button>
-    </div>
+    <button class="chip" data-val="other_hd">其他</button></div>
   </div>
 
   <div class="sec-banner" style="margin:28px -18px 20px;">
@@ -445,31 +454,31 @@ body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--crea
     <label class="q-label">✦ 最喜歡的顏色</label>
     <div class="chip-group" id="chips-color">
       <button class="chip" data-val="gold">金</button><button class="chip" data-val="silver">銀</button><button class="chip" data-val="white">白</button><button class="chip" data-val="black">黑</button><button class="chip" data-val="purple">紫</button><button class="chip" data-val="blue">藍</button><button class="chip" data-val="teal">青</button><button class="chip" data-val="green">綠</button><button class="chip" data-val="pink">粉</button><button class="chip" data-val="red">紅</button><button class="chip" data-val="orange">橙</button><button class="chip" data-val="brown">棕</button>
-    </div>
+    <button class="chip" data-val="other_color">其他</button></div>
   </div>
   <div class="q-block">
     <label class="q-label">✦ 喜歡的水晶或寶石</label>
     <div class="chip-group" id="chips-crystal">
-      <button class="chip" data-val="amethyst">紫水晶</button><button class="chip" data-val="rose_quartz">粉晶</button><button class="chip" data-val="clear_quartz">白水晶</button><button class="chip" data-val="obsidian">黑曜石</button><button class="chip" data-val="citrine">黃水晶</button><button class="chip" data-val="lapis">青金石</button><button class="chip" data-val="moonstone">月光石</button><button class="chip" data-val="labradorite">拉長石</button><button class="chip" data-val="malachite">孔雀石</button><button class="chip" data-val="diamond">鑽石</button><button class="chip" data-val="emerald">祖母綠</button><button class="chip" data-val="ruby">紅寶石</button><button class="chip" data-val="sapphire">藍寶石</button>
-    </div>
+      <button class="chip" data-val="amethyst">紫水晶</button><button class="chip" data-val="rose_quartz">粉晶</button><button class="chip" data-val="clear_quartz">白水晶</button><button class="chip" data-val="obsidian">黑曜石</button><button class="chip" data-val="citrine">黃水晶</button><button class="chip" data-val="lapis">青金石</button><button class="chip" data-val="moonstone">月光石</button><button class="chip" data-val="labradorite">拉長石</button><button class="chip" data-val="malachite">孔雀石</button><button class="chip" data-val="diamond">鑽石</button><button class="chip" data-val="emerald">祖母綠</button><button class="chip" data-val="ruby">紅寶石</button><button class="chip" data-val="sapphire">藍寶石</button><button class="chip" data-val="opal">蛋白石</button>
+    <button class="chip" data-val="other_crystal">其他</button></div>
   </div>
   <div class="q-block">
     <label class="q-label">✦ 嚮往的旅行地點</label>
     <div class="chip-group" id="chips-travel">
       <button class="chip" data-val="japan">日本</button><button class="chip" data-val="europe">歐洲</button><button class="chip" data-val="bali">峇里島</button><button class="chip" data-val="india">印度</button><button class="chip" data-val="egypt">埃及</button><button class="chip" data-val="nordic">北歐</button><button class="chip" data-val="greece">希臘</button><button class="chip" data-val="newzealand">紐西蘭</button><button class="chip" data-val="peru">秘魯</button><button class="chip" data-val="iceland">冰島</button>
-    </div>
+    <button class="chip" data-val="other_travel">其他</button></div>
   </div>
   <div class="q-block">
     <label class="q-label">✦ 喜歡的食物屬性</label>
     <div class="chip-group" id="chips-food">
       <button class="chip" data-val="light">清淡</button><button class="chip" data-val="rich">濃郁</button><button class="chip" data-val="sweet">甜</button><button class="chip" data-val="spicy">辣</button><button class="chip" data-val="raw">生食</button><button class="chip" data-val="plant">植物</button><button class="chip" data-val="sea">海鮮</button><button class="chip" data-val="dessert">甜點</button>
-    </div>
+    <button class="chip" data-val="other_food">其他</button></div>
   </div>
   <div class="q-block">
     <label class="q-label">✦ 喜歡的風格</label>
     <div class="chip-group" id="chips-style">
       <button class="chip" data-val="minimal">極簡</button><button class="chip" data-val="luxury">奢華</button><button class="chip" data-val="boho">波西米亞</button><button class="chip" data-val="natural">自然</button><button class="chip" data-val="futuristic">未來感</button><button class="chip" data-val="mystical">神秘</button><button class="chip" data-val="classical">古典</button><button class="chip" data-val="artsy">藝術</button>
-    </div>
+    <button class="chip" data-val="other_style">其他</button></div>
   </div>
 
   <button class="gen-btn" onclick="generateGeometry()">✦ 生成我的宇宙印記 ✦</button>
@@ -523,7 +532,7 @@ body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--crea
   </div></div>
   <div class="footer-name">閃閃發光水晶宇宙</div>
   <div class="footer-en">The Crystal Universe of Light</div>
-  <a href="https://shemytai-cmd.github.io/Shemy-brand" class="footer-home">返回品牌首頁 ↗</a>
+  <a href="https://shemytai-cmd.github.io/Shemy-brand" class="footer-home">返回品牌首頁</a>
 </footer>
 
 <script>
@@ -543,13 +552,17 @@ function getChip(groupId) {
   return sel ? sel.dataset.val : null;
 }
 
-function lifePathNumber(y, m, d) {
-  const str = `${y}${m}${d}`;
-  let sum = str.split('').reduce((a, c) => a + parseInt(c), 0);
-  while(sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
-    sum = sum.toString().split('').reduce((a, c) => a + parseInt(c), 0);
+function reduceNum(n){
+  while(n>9&&n!==11&&n!==22&&n!==33){
+    n=n.toString().split('').reduce((a,c)=>a+parseInt(c),0);
   }
-  return sum;
+  return n;
+}
+function lifePathNumber(y,m,d){
+  const yr=reduceNum(y.toString().split('').reduce((a,c)=>a+parseInt(c),0));
+  const mo=reduceNum(m);
+  const da=reduceNum(d);
+  return reduceNum(yr+mo+da);
 }
 
 const colorMap = {
@@ -568,12 +581,12 @@ const crystalColorMap = {
   moonstone:['#B0C0D8','#C8D8EC','#E0ECF8'],labradorite:['#4A8878','#70A898','#98C8B8'],
   malachite:['#2A7040','#4A9060','#7AB888'],diamond:['#C0D0DC','#D8E8F0','#EEF4F8'],
   emerald:['#1A6040','#3A8060','#70A888'],ruby:['#9B3040','#C05060','#D88090'],
-  sapphire:['#2A4090','#4A60B0','#7090D0'],
+  sapphire:['#2A4090','#4A60B0','#7090D0'],opal:['#B8A8C8','#C8D4E0','#E0D0C8'],
 };
 
 function getParams(data) {
   const seed = (s) => s ? s.split('').reduce((a,c)=>a+c.charCodeAt(0),0) : 0;
-  const zodiacShapes={aries:3,taurus:4,gemini:8,cancer:6,leo:5,virgo:6,libra:8,scorpio:7,sagittarius:3,capricorn:4,aquarius:12,pisces:6};
+  const zodiacShapes={aries:6,taurus:8,gemini:10,cancer:6,leo:12,virgo:8,libra:10,scorpio:14,sagittarius:16,capricorn:8,aquarius:20,pisces:6};
   const bloodLayers={A:4,B:3,AB:5,O:6};
   const mbtiComplexity={INTJ:0.9,INTP:0.85,ENTJ:0.8,ENTP:0.78,INFJ:0.95,INFP:0.88,ENFJ:0.75,ENFP:0.7,ISTJ:0.72,ISFJ:0.68,ESTJ:0.65,ESFJ:0.6,ISTP:0.82,ISFP:0.77,ESTP:0.62,ESFP:0.58};
   const travelRotation={japan:15,europe:22,bali:8,india:30,egypt:36,nordic:0,greece:18,newzealand:12,peru:27,iceland:3};
@@ -595,119 +608,263 @@ function getParams(data) {
   const colors=crystalColorMap[crystal]||colorMap[color]||colorMap.gold;
   const nameSeed=seed(data.name||'Crystal');
   const variation=(nameSeed%100)/100;
-  return{points,layers,complexity,rotation,lineWidth,colors,variation,lifeNum,zodiac,blood,mbti};
-}
-
-function drawGeometry(canvas,params){
+  return{points,layers,complexity,rotation,lineWidth,colors,variation,lifeNum,zodiac,blood,mbti,crystal,favoriteColor:color}function drawGeometry(canvas,params){
   const W=canvas.width,H=canvas.height;
   const ctx=canvas.getContext('2d');
-  // Dreamy pastel background - linear gradient top to bottom
+
+  // ── Dynamic pastel bg ──
+  const pastelPalettes={
+    gold:['#FDF6E8','#F5ECD4','#F0E8F5','#EEF4F8'],silver:['#EEF4F8','#E8F0F5','#F0F4F8','#F5F0F8'],
+    white:['#FDFAF6','#F8F4F0','#F5EFF8','#F0F5FA'],black:['#E8EAF0','#DDE0EC','#E8EEF5','#EAE8F0'],
+    purple:['#F2E8F8','#EAD8F5','#E8E0F8','#F0E8F5'],blue:['#E8EEF8','#D8E8F5','#E0EEF8','#E8F0F8'],
+    teal:['#E0F5F0','#D8F0EC','#E0F2F5','#EAF5F2'],green:['#E8F5E8','#D8F0D8','#E0F5E0','#EAF5EA'],
+    pink:['#F8E8EE','#F5D8E8','#F8E0EC','#F5E8F0'],red:['#F8E8E8','#F5D8D8','#F8E0E0','#F5E8E8'],
+    orange:['#FDF0E0','#F5E8D0','#F8ECD8','#F5F0E8'],brown:['#F5EDE0','#EDE0D0','#F0E8D8','#F5EEE8'],
+    amethyst:['#F2E8F8','#EAD4F5','#E8DCF8','#F0E8F5'],rose_quartz:['#F8E8EE','#F5D8EA','#F8E0EE','#F5E8F0'],
+    clear_quartz:['#F0F4F8','#E8F0F5','#EEF4F8','#F5F0F8'],obsidian:['#E0E4EC','#D8DCF0','#E0E8F0','#E8E4F0'],
+    citrine:['#FDF6E0','#F5ECD0','#F8F0D8','#FDF8E8'],lapis:['#E0E8F5','#D0DCF0','#D8E8F8','#E0EEF8'],
+    moonstone:['#EEF4F8','#E8F0F8','#F0F4F8','#EAF0F8'],labradorite:['#E0F0EC','#D8EEE8','#E0F2EC','#EAF0EE'],
+    malachite:['#E0F0E0','#D8EED8','#E0F2E0','#EAF0EA'],diamond:['#F0F4F8','#E8F0F8','#EEF4FA','#F0F8FA'],
+    emerald:['#E0F0E8','#D0EED8','#D8F0E0','#E0EEE8'],ruby:['#F8E0E0','#F5D0D0','#F8D8D8','#F5E0E8'],
+    sapphire:['#E0E8F8','#D0DCF5','#D8E8F8','#E0EEF8'],opal:['#F0ECF8','#E8E8F5','#F0EEF8','#EAECf5'],
+  };
+  const pal=pastelPalettes[params.crystal]||pastelPalettes[params.favoriteColor]||['#F2E8F5','#EAD8F0','#E8EEF8','#F5EFE6'];
   const bgGrad=ctx.createLinearGradient(0,0,W,H);
-  bgGrad.addColorStop(0,'#F2E8F5');
-  bgGrad.addColorStop(0.25,'#EAD8F0');
-  bgGrad.addColorStop(0.5,'#E8EEF8');
-  bgGrad.addColorStop(0.75,'#F5EDE0');
-  bgGrad.addColorStop(1,'#F0E8F2');
+  bgGrad.addColorStop(0,pal[0]);bgGrad.addColorStop(0.35,pal[1]);
+  bgGrad.addColorStop(0.65,pal[2]);bgGrad.addColorStop(1,pal[3]);
   ctx.fillStyle=bgGrad;ctx.fillRect(0,0,W,H);
-  // Add soft color blobs
-  const blob1=ctx.createRadialGradient(W*0.2,H*0.15,0,W*0.2,H*0.15,W*0.4);
-  blob1.addColorStop(0,'rgba(220,196,240,0.4)');blob1.addColorStop(1,'transparent');
-  ctx.fillStyle=blob1;ctx.fillRect(0,0,W,H);
-  const blob2=ctx.createRadialGradient(W*0.8,H*0.3,0,W*0.8,H*0.3,W*0.35);
-  blob2.addColorStop(0,'rgba(192,216,240,0.35)');blob2.addColorStop(1,'transparent');
-  ctx.fillStyle=blob2;ctx.fillRect(0,0,W,H);
-  const blob3=ctx.createRadialGradient(W*0.5,H*0.7,0,W*0.5,H*0.7,W*0.45);
-  blob3.addColorStop(0,'rgba(240,208,220,0.3)');blob3.addColorStop(1,'transparent');
-  ctx.fillStyle=blob3;ctx.fillRect(0,0,W,H);
-  // Soft sparkle dots (pastel style)
+
+  // ── Soft sparkle dots ──
   ctx.save();
   for(let i=0;i<60;i++){
-    const sx=Math.random()*W,sy=Math.random()*H,sr=Math.random()*1.4+0.3;
-    const sparkleColors=['rgba(184,150,78,0.35)','rgba(180,160,200,0.3)','rgba(160,190,220,0.3)','rgba(220,180,200,0.3)'];
+    const sx=Math.random()*W,sy=Math.random()*H,sr=Math.random()*1.3+0.2;
+    const sc=['rgba(184,150,78,0.3)','rgba(160,140,180,0.25)','rgba(140,170,200,0.25)','rgba(200,160,180,0.25)'];
     ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);
-    ctx.fillStyle=sparkleColors[Math.floor(Math.random()*sparkleColors.length)];ctx.fill();
+    ctx.fillStyle=sc[Math.floor(Math.random()*sc.length)];ctx.fill();
   }
   ctx.restore();
-  const cx=W/2,cy=H*0.42,maxR=Math.min(W,H*0.6)*0.44;
-  const{points,layers,complexity,rotation,colors,lineWidth,variation,lifeNum}=params;
-  // Center soft glow
-  const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,maxR*1.2);
-  glow.addColorStop(0,'rgba(255,255,255,0.5)');
-  glow.addColorStop(0.4,`${colors[0]}18`);
+
+  const cx=W/2, cy=H*0.42, maxR=Math.min(W,H*0.6)*0.44;
+  const{points,layers,rotation,variation,lifeNum}=params;
+
+  // ── Gold color system (dark gold + transparency) ──
+  const G={
+    solid:'rgba(120,90,30,1)',
+    dark:'rgba(100,72,20,0.95)',
+    mid:'rgba(140,105,40,0.75)',
+    light:'rgba(160,125,55,0.55)',
+    pale:'rgba(184,150,78,0.35)',
+    fill:'rgba(184,150,78,0.06)',
+    fill2:'rgba(184,150,78,0.10)',
+    glow:'rgba(200,165,80,0.15)',
+  };
+
+  // ── Center glow ──
+  const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,maxR*1.1);
+  glow.addColorStop(0,'rgba(255,255,255,0.45)');
+  glow.addColorStop(0.4,G.glow);
   glow.addColorStop(1,'transparent');
   ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
-  ctx.save();ctx.translate(cx,cy);ctx.rotate(rotation+variation*0.3);
-  for(let l=layers;l>=1;l--){
-    const r=maxR*(l/layers);const alpha=0.2+(l/layers)*0.5;
+
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(rotation+variation*0.5);
+
+  // ── Helper: arc-based petal ring (Flower of Life style) ──
+  function drawPetalRing(n,r,alpha,lw,filled){
+    for(let i=0;i<n;i++){
+      const a=(i/n)*Math.PI*2;
+      const px=Math.cos(a)*r, py=Math.sin(a)*r;
+      ctx.beginPath();
+      ctx.arc(px,py,r,0,Math.PI*2);
+      if(filled){
+        ctx.fillStyle=`rgba(184,150,78,${alpha*0.5})`;ctx.fill();
+      }
+      ctx.strokeStyle=`rgba(120,90,30,${alpha})`;
+      ctx.lineWidth=lw;ctx.stroke();
+    }
+  }
+
+  // ── Helper: arc mandala ring ──
+  function drawArcRing(n,r,arcR,alpha,lw){
+    for(let i=0;i<n;i++){
+      const a=(i/n)*Math.PI*2;
+      const px=Math.cos(a)*r, py=Math.sin(a)*r;
+      const startAngle=a+Math.PI*0.5;
+      const endAngle=a+Math.PI*1.5;
+      ctx.beginPath();
+      ctx.arc(px,py,arcR,startAngle,endAngle);
+      ctx.strokeStyle=`rgba(120,90,30,${alpha})`;
+      ctx.lineWidth=lw;ctx.stroke();
+    }
+  }
+
+  // ── Helper: vesica / overlapping circle pattern ──
+  function drawVesicaRing(n,r,alpha,lw){
+    const step=r*0.92;
+    for(let i=0;i<n;i++){
+      const a=(i/n)*Math.PI*2;
+      ctx.beginPath();
+      ctx.arc(Math.cos(a)*step*0.5, Math.sin(a)*step*0.5, step, 0, Math.PI*2);
+      ctx.strokeStyle=`rgba(140,105,40,${alpha})`;
+      ctx.lineWidth=lw;ctx.stroke();
+    }
+  }
+
+  // ── Helper: concentric arcs ──
+  function drawConcentricArcs(n,r,alpha,lw){
+    for(let i=0;i<n;i++){
+      const startA=(i/n)*Math.PI*2;
+      const endA=startA+Math.PI*(1+variation*0.3);
+      ctx.beginPath();
+      ctx.arc(0,0,r*(0.3+i/n*0.7),startA,endA);
+      ctx.strokeStyle=`rgba(120,90,30,${alpha*(1-i/n*0.4)})`;
+      ctx.lineWidth=lw*(1-i/n*0.3);ctx.stroke();
+    }
+  }
+
+  // ── Layer 1: Outer faint rings ──
+  for(let l=0;l<Math.min(layers,5);l++){
+    const r=maxR*(0.98-l*0.12);
     ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);
-    ctx.strokeStyle=`${colors[0]}${Math.floor(alpha*255).toString(16).padStart(2,'0')}`;
-    ctx.lineWidth=lineWidth*0.9;ctx.stroke();
+    ctx.strokeStyle=`rgba(120,90,30,${0.12+l*0.04})`;
+    ctx.lineWidth=0.7;ctx.stroke();
   }
-  const petalR=maxR*0.28;
-  for(let i=0;i<6;i++){
-    const angle=(i*Math.PI*2/6);
-    ctx.beginPath();ctx.arc(Math.cos(angle)*petalR,Math.sin(angle)*petalR,petalR,0,Math.PI*2);
-    ctx.strokeStyle=`${colors[0]}90`;ctx.lineWidth=lineWidth*1.0;ctx.stroke();
-  }
-  ctx.beginPath();ctx.arc(0,0,petalR,0,Math.PI*2);ctx.strokeStyle=`${colors[0]}A0`;ctx.lineWidth=lineWidth*1.1;ctx.stroke();
-  function drawPoly(sides,r,rot,alpha,lw){
+
+  // ── Layer 2: Main petal ring (Flower of Life variation) ──
+  const petals=Math.max(6,Math.min(20,points));
+  // Outer petal ring
+  drawPetalRing(petals, maxR*0.42, 0.55, 0.9, false);
+  // Mid petal ring slightly rotated
+  ctx.rotate(Math.PI/petals);
+  drawPetalRing(petals, maxR*0.30, 0.40, 0.7, true);
+  ctx.rotate(-Math.PI/petals);
+
+  // ── Layer 3: Arc mandala ──
+  drawArcRing(petals, maxR*0.55, maxR*0.28, 0.35, 0.7);
+
+  // ── Layer 4: Vesica piscis ring ──
+  drawVesicaRing(Math.min(petals/2, 8), maxR*0.38, 0.25, 0.6);
+
+  // ── Layer 5: Inner concentric arcs ──
+  drawConcentricArcs(petals, maxR*0.25, 0.45, 0.8);
+
+  // ── Layer 6: Center circle with fill ──
+  const cR=maxR*0.14;
+  ctx.beginPath();ctx.arc(0,0,cR,0,Math.PI*2);
+  ctx.fillStyle=G.fill2;ctx.fill();
+  ctx.strokeStyle=G.solid;ctx.lineWidth=1.2;ctx.stroke();
+
+  // ── Layer 7: Life number petal dots ──
+  const lpR=maxR*0.75;
+  for(let i=0;i<lifeNum&&i<12;i++){
+    const a=(i/Math.max(lifeNum,1))*Math.PI*2-Math.PI/2;
+    const dotR=maxR*0.028;
+    // Arc from center to dot
     ctx.beginPath();
-    for(let i=0;i<=sides;i++){const a=rot+(i/sides)*Math.PI*2;const px=Math.cos(a)*r,py=Math.sin(a)*r;if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}
-    ctx.strokeStyle=colors[0]+Math.floor(alpha*255).toString(16).padStart(2,'0');ctx.lineWidth=lw;ctx.stroke();
-  }
-  for(let l=0;l<Math.min(layers,4);l++){
-    const r=maxR*(0.95-l*0.15);const rot=l*Math.PI/(points*2);
-    drawPoly(points,r,rot,0.75+l*0.05,lineWidth*(1.4-l*0.15));
-  }
-  const innerPoints=points===3?6:(points===4?3:(points-1||3));
-  drawPoly(innerPoints,maxR*0.55,Math.PI/innerPoints,0.6,lineWidth*1.1);
-  drawPoly(innerPoints,maxR*0.35,0,0.5,lineWidth*0.9);
-  const spokeCount=points*2;
-  for(let i=0;i<spokeCount;i++){
-    const a=(i/spokeCount)*Math.PI*2;
-    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(a)*maxR*0.92,Math.sin(a)*maxR*0.92);
-    ctx.strokeStyle=`${colors[0]}70`;ctx.lineWidth=lineWidth*0.6;ctx.stroke();
-  }
-  const hexPts=Array.from({length:6},(_,i)=>({x:Math.cos(i*Math.PI/3)*maxR*0.55,y:Math.sin(i*Math.PI/3)*maxR*0.55}));
-  hexPts.push({x:0,y:0});
-  for(let a=0;a<hexPts.length;a++){for(let b=a+1;b<hexPts.length;b++){
-    ctx.beginPath();ctx.moveTo(hexPts[a].x,hexPts[a].y);ctx.lineTo(hexPts[b].x,hexPts[b].y);
-    ctx.strokeStyle=`${colors[0]}40`;ctx.lineWidth=lineWidth*0.5;ctx.stroke();
-  }}
-  const lpR=maxR*0.12*(lifeNum/9*0.5+0.5);
-  for(let i=0;i<lifeNum&&i<9;i++){
-    const a=(i/Math.max(lifeNum,1))*Math.PI*2-Math.PI/2;const d=maxR*0.72;
-    ctx.beginPath();ctx.arc(Math.cos(a)*d,Math.sin(a)*d,lpR*0.22,0,Math.PI*2);
-    ctx.fillStyle=colors[2]+'CC';ctx.fill();ctx.strokeStyle=colors[0]+'EE';ctx.lineWidth=lineWidth*0.7;ctx.stroke();
-  }
-  const dS=maxR*0.12;
-  ctx.beginPath();ctx.moveTo(0,-dS*1.4);ctx.lineTo(dS,0);ctx.lineTo(0,dS*1.0);ctx.lineTo(-dS,0);ctx.closePath();
-  ctx.strokeStyle=colors[0]+'FF';ctx.lineWidth=lineWidth*1.4;ctx.stroke();
-  const dotGrad=ctx.createRadialGradient(0,0,0,0,0,dS*0.6);
-  dotGrad.addColorStop(0,colors[2]+'CC');dotGrad.addColorStop(1,'transparent');
-  ctx.fillStyle=dotGrad;ctx.beginPath();ctx.arc(0,0,dS*0.6,0,Math.PI*2);ctx.fill();
-  function star4(cx2,cy2,r1,r2){
+    ctx.arc(Math.cos(a)*lpR, Math.sin(a)*lpR, dotR, 0, Math.PI*2);
+    ctx.fillStyle=G.mid;ctx.fill();
+    ctx.strokeStyle=G.dark;ctx.lineWidth=0.7;ctx.stroke();
+    // Connecting arc (curved)
     ctx.beginPath();
-    for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2-Math.PI/2;const r=i%2===0?r1:r2;if(i===0)ctx.moveTo(cx2+Math.cos(a)*r,cy2+Math.sin(a)*r);else ctx.lineTo(cx2+Math.cos(a)*r,cy2+Math.sin(a)*r);}
-    ctx.closePath();ctx.strokeStyle=colors[1]+'EE';ctx.lineWidth=lineWidth*1.0;ctx.stroke();
+    const mx=Math.cos(a)*lpR*0.5, my=Math.sin(a)*lpR*0.5;
+    const perpX=-Math.sin(a)*maxR*0.08, perpY=Math.cos(a)*maxR*0.08;
+    ctx.moveTo(0,0);
+    ctx.quadraticCurveTo(mx+perpX, my+perpY, Math.cos(a)*lpR, Math.sin(a)*lpR);
+    ctx.strokeStyle=`rgba(120,90,30,0.2)`;ctx.lineWidth=0.5;ctx.stroke();
   }
-  star4(0,0,dS*0.5,dS*0.12);
+
+  // ── Layer 8: Outer arc sweep ──
+  ctx.beginPath();
+  ctx.arc(0,0,maxR*0.88,0,Math.PI*2);
+  ctx.strokeStyle=G.light;ctx.lineWidth=0.8;ctx.stroke();
+
+  // Second outer with gap
+  ctx.beginPath();
+  ctx.arc(0,0,maxR*0.94,-Math.PI*0.1,Math.PI*1.9);
+  ctx.strokeStyle=G.pale;ctx.lineWidth=0.5;ctx.stroke();
+
   ctx.restore();
+
+  // ── Starburst decorations around geometry ── 
+  const starAngles=[0,Math.PI/4,Math.PI/2,Math.PI*3/4,Math.PI,Math.PI*5/4,Math.PI*3/2,Math.PI*7/4];
+  const starDist=maxR*0.98;
+  ctx.save();ctx.translate(cx,cy);
+  starAngles.forEach((a,i)=>{
+    const sx=Math.cos(a+rotation)*starDist;
+    const sy=Math.sin(a+rotation)*starDist;
+    const size=maxR*0.055*(0.6+Math.random()*0.4);
+    ctx.save();ctx.translate(sx,sy);ctx.rotate(a+variation);
+    // 4-point star
+    ctx.beginPath();
+    for(let p=0;p<8;p++){
+      const pa=(p/8)*Math.PI*2;
+      const pr=p%2===0?size:size*0.28;
+      if(p===0)ctx.moveTo(Math.cos(pa)*pr,Math.sin(pa)*pr);
+      else ctx.lineTo(Math.cos(pa)*pr,Math.sin(pa)*pr);
+    }
+    ctx.closePath();
+    ctx.fillStyle=`rgba(120,90,30,${0.25+i%3*0.08})`;ctx.fill();
+    ctx.strokeStyle=G.mid;ctx.lineWidth=0.5;ctx.stroke();
+    // Center dot
+    ctx.beginPath();ctx.arc(0,0,size*0.18,0,Math.PI*2);
+    ctx.fillStyle=G.solid;ctx.fill();
+    ctx.restore();
+  });
+
+  // Tiny scattered mini stars
+  for(let i=0;i<12;i++){
+    const a=Math.random()*Math.PI*2;
+    const d=maxR*(0.7+Math.random()*0.35);
+    const sx=Math.cos(a)*d, sy=Math.sin(a)*d;
+    const sz=maxR*0.02*(0.5+Math.random());
+    ctx.save();ctx.translate(sx,sy);ctx.rotate(a);
+    ctx.beginPath();
+    [0,Math.PI/2,Math.PI,Math.PI*3/2].forEach((pa,pi)=>{
+      const pr=pi%2===0?sz:sz*0.3;
+      if(pi===0)ctx.moveTo(Math.cos(pa)*pr,Math.sin(pa)*pr);
+      else ctx.lineTo(Math.cos(pa)*pr,Math.sin(pa)*pr);
+    });
+    ctx.closePath();
+    ctx.fillStyle=`rgba(120,90,30,0.35)`;ctx.fill();
+    ctx.restore();
+  }
+  ctx.restore();
+
+  // ── Text area ──
   const textY=H*0.76;
-  ctx.save();ctx.strokeStyle=`${colors[0]}60`;ctx.lineWidth=0.8;
-  ctx.beginPath();ctx.moveTo(W*0.15,textY-24);ctx.lineTo(W*0.85,textY-24);ctx.stroke();ctx.restore();
-  ctx.save();ctx.fillStyle=colors[0];ctx.font=`400 ${W*0.068}px Cinzel,serif`;ctx.textAlign='center';
-  ctx.shadowColor='rgba(255,255,255,0.8)';ctx.shadowBlur=12;ctx.fillText(params.displayName||'Crystal Soul',W/2,textY);ctx.restore();
-  ctx.save();ctx.fillStyle='rgba(100,80,60,0.75)';ctx.font=`200 ${W*0.032}px 'Noto Sans TC',sans-serif`;
-  ctx.textAlign='center';ctx.fillText('的宇宙印記',W/2,textY+W*0.075);ctx.restore();
-  ctx.save();ctx.fillStyle=colors[0]+'BB';ctx.font=`300 ${W*0.028}px 'Space Grotesk',sans-serif`;
-  ctx.textAlign='center';ctx.fillText(`生命靈數 ${params.lifeNum}  ·  ${(params.zodiac||'').toUpperCase()}  ·  ${params.blood||''}`,W/2,textY+W*0.13);ctx.restore();
-  ctx.save();ctx.strokeStyle=`${colors[0]}70`;ctx.lineWidth=0.8;
-  ctx.beginPath();ctx.moveTo(W*0.2,textY+W*0.165);ctx.lineTo(W*0.8,textY+W*0.165);ctx.stroke();ctx.restore();
-  ctx.save();ctx.fillStyle=`${colors[0]}99`;ctx.font=`300 ${W*0.026}px Cinzel,serif`;ctx.textAlign='center';
-  ctx.fillText('閃閃發光水晶宇宙',W/2,H*0.94);
-  ctx.fillStyle=`${colors[0]}77`;ctx.font=`300 ${W*0.022}px 'Space Grotesk',sans-serif`;
-  ctx.fillText('THE CRYSTAL UNIVERSE OF LIGHT',W/2,H*0.97);ctx.restore();
+  // Separator line
+  ctx.save();ctx.strokeStyle='rgba(120,90,30,0.35)';ctx.lineWidth=0.7;
+  ctx.beginPath();ctx.moveTo(W*0.18,textY-22);ctx.lineTo(W*0.82,textY-22);ctx.stroke();ctx.restore();
+
+  // Name
+  ctx.save();
+  ctx.fillStyle='#7A5820';
+  ctx.font=`600 ${W*0.07}px Cinzel,serif`;ctx.textAlign='center';
+  ctx.shadowColor='rgba(255,255,255,0.9)';ctx.shadowBlur=10;
+  ctx.fillText(params.displayName||'Crystal Soul',W/2,textY);ctx.restore();
+
+  // Subtitle
+  ctx.save();ctx.fillStyle='rgba(80,60,38,0.88)';
+  ctx.font=`300 ${W*0.033}px 'Noto Sans TC',sans-serif`;ctx.textAlign='center';
+  ctx.fillText('的宇宙印記',W/2,textY+W*0.078);ctx.restore();
+
+  // Life path + zodiac line
+  ctx.save();ctx.fillStyle='rgba(100,75,28,0.85)';
+  ctx.font=`400 ${W*0.029}px 'Space Grotesk',sans-serif`;ctx.textAlign='center';
+  ctx.fillText(`生命靈數 ${params.lifeNum}  ·  ${(params.zodiac||'').toUpperCase()}  ·  ${params.blood||''}`,W/2,textY+W*0.135);ctx.restore();
+
+  // Bottom line
+  ctx.save();ctx.strokeStyle='rgba(120,90,30,0.25)';ctx.lineWidth=0.7;
+  ctx.beginPath();ctx.moveTo(W*0.22,textY+W*0.17);ctx.lineTo(W*0.78,textY+W*0.17);ctx.stroke();ctx.restore();
+
+  // Brand
+  ctx.save();ctx.fillStyle='rgba(100,75,28,0.7)';
+  ctx.font=`400 ${W*0.026}px Cinzel,serif`;ctx.textAlign='center';
+  ctx.fillText('閃閃發光水晶宇宙',W/2,H*0.941);
+  ctx.fillStyle='rgba(100,75,28,0.5)';
+  ctx.font=`300 ${W*0.021}px 'Space Grotesk',sans-serif`;
+  ctx.fillText('THE CRYSTAL UNIVERSE OF LIGHT',W/2,H*0.967);ctx.restore();
+}
+);
 }
 
 function generateDesc(data,params){

@@ -168,25 +168,97 @@
     function svgMarkup(){
       const name=document.getElementById('name').value||'Snow', color=document.getElementById('color').value, p=palette(color); const chosen=[...wishBox.querySelectorAll('input:checked')].map(x=>x.value.split(' ')[0]);
       const W=1080,H=document.getElementById('size').value==='landscape'?720:1620, cx=W/2, cy=H*.39, R=Math.min(W,H)*.31;
+      const mood={
+        white:{bg1:'#fffdfb',bg2:'#f8f2ff',bg3:'#fff4d8',bg4:'#edf4ff',gemA:'#ffffff',gemB:'#f3edff',gemC:'#fff0bf',gemD:'#d8efff'},
+        gold:{bg1:'#fff8e4',bg2:'#fff2c9',bg3:'#f9de85',bg4:'#fffdf7',gemA:'#fffbe8',gemB:'#ffe7a6',gemC:'#d6a331',gemD:'#fff7db'},
+        violet:{bg1:'#fffaff',bg2:'#ead8ff',bg3:'#fff0d6',bg4:'#f4f1ff',gemA:'#ffffff',gemB:'#ead9ff',gemC:'#b696ff',gemD:'#fff1be'},
+        pink:{bg1:'#fffafb',bg2:'#ffe4ef',bg3:'#fff3d8',bg4:'#f8f2ff',gemA:'#ffffff',gemB:'#ffdfea',gemC:'#f3abc5',gemD:'#fff1c9'},
+        blue:{bg1:'#fbfdff',bg2:'#dfeeff',bg3:'#fff3d9',bg4:'#f1f7ff',gemA:'#ffffff',gemB:'#d8eaff',gemC:'#8fc8ff',gemD:'#fff2c7'},
+        green:{bg1:'#fbfffc',bg2:'#dff8ea',bg3:'#fff3d6',bg4:'#f1fbf4',gemA:'#ffffff',gemB:'#dcf7e8',gemC:'#92d9b2',gemD:'#fff2c4'},
+        black:{bg1:'#fbf9ff',bg2:'#e5dfef',bg3:'#fff2cc',bg4:'#f8f8fb',gemA:'#ffffff',gemB:'#ded9e8',gemC:'#938ba3',gemD:'#f5d689'}
+      }[color] || {bg1:'#fffdfb',bg2:'#f8f2ff',bg3:'#fff4d8',bg4:'#edf4ff',gemA:p[0],gemB:p[1],gemC:p[2],gemD:p[3]};
       let defs=`<defs>
-        <radialGradient id="bg" cx="50%" cy="36%" r="78%"><stop offset="0" stop-color="#ffffff"/><stop offset=".30" stop-color="#fbf5ff"/><stop offset=".56" stop-color="#fff7e9"/><stop offset=".78" stop-color="#f4f1fb"/><stop offset="1" stop-color="#fffdf9"/></radialGradient>
-        <radialGradient id="gem" cx="50%" cy="47%" r="58%"><stop offset="0" stop-color="${p[0]}" stop-opacity=".98"/><stop offset=".16" stop-color="${p[1]}" stop-opacity=".76"/><stop offset=".30" stop-color="#ffffff" stop-opacity=".62"/><stop offset=".43" stop-color="${p[2]}" stop-opacity=".50"/><stop offset=".58" stop-color="#fff6dd" stop-opacity=".43"/><stop offset=".74" stop-color="${p[1]}" stop-opacity=".30"/><stop offset="1" stop-color="#ffffff" stop-opacity=".08"/></radialGradient>
-        <radialGradient id="facet" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffffff" stop-opacity=".88"/><stop offset=".22" stop-color="#ffffff" stop-opacity=".34"/><stop offset=".23" stop-color="#f4d88a" stop-opacity=".20"/><stop offset=".42" stop-color="#ffffff" stop-opacity=".16"/><stop offset=".43" stop-color="${p[2]}" stop-opacity=".16"/><stop offset=".62" stop-color="#ffffff" stop-opacity=".10"/><stop offset=".63" stop-color="#f4d88a" stop-opacity=".12"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
-        <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="2.4" flood-color="#fff0ad" flood-opacity=".92"/><feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#d8a12c" flood-opacity=".32"/></filter>
-        <filter id="whiteGlow"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#fff" flood-opacity="1"/><feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#fff5d6" flood-opacity=".35"/></filter>
-        <linearGradient id="ringGold" x1="0" x2="1"><stop offset="0" stop-color="#7c560b"/><stop offset=".20" stop-color="#c9982a"/><stop offset=".44" stop-color="#fff0ac"/><stop offset=".58" stop-color="#d9ad43"/><stop offset=".78" stop-color="#9d7016"/><stop offset="1" stop-color="#6e4b08"/></linearGradient>
+        <radialGradient id="bg" cx="50%" cy="36%" r="84%">
+          <stop offset="0" stop-color="#ffffff"/>
+          <stop offset=".18" stop-color="${mood.bg1}"/>
+          <stop offset=".42" stop-color="${mood.bg2}"/>
+          <stop offset=".64" stop-color="${mood.bg3}"/>
+          <stop offset=".82" stop-color="${mood.bg4}"/>
+          <stop offset="1" stop-color="#fffdf9"/>
+        </radialGradient>
+        <radialGradient id="gem" cx="50%" cy="46%" r="62%">
+          <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+          <stop offset=".12" stop-color="${mood.gemA}" stop-opacity=".96"/>
+          <stop offset=".24" stop-color="${mood.gemB}" stop-opacity=".72"/>
+          <stop offset=".36" stop-color="#ffffff" stop-opacity=".70"/>
+          <stop offset=".49" stop-color="${mood.gemC}" stop-opacity=".48"/>
+          <stop offset=".62" stop-color="${mood.gemD}" stop-opacity=".36"/>
+          <stop offset=".77" stop-color="#ffffff" stop-opacity=".62"/>
+          <stop offset="1" stop-color="#fffdf8" stop-opacity=".90"/>
+        </radialGradient>
+        <radialGradient id="facet" cx="42%" cy="36%" r="76%">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".88"/>
+          <stop offset=".22" stop-color="${mood.gemB}" stop-opacity=".28"/>
+          <stop offset=".36" stop-color="#fff6cf" stop-opacity=".35"/>
+          <stop offset=".52" stop-color="${mood.gemC}" stop-opacity=".24"/>
+          <stop offset=".68" stop-color="#ffffff" stop-opacity=".44"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity=".08"/>
+        </radialGradient>
+        <linearGradient id="ringGold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0" stop-color="#74500a"/><stop offset=".18" stop-color="#caa13b"/><stop offset=".38" stop-color="#fff0a8"/><stop offset=".56" stop-color="#a67508"/><stop offset=".77" stop-color="#f6d97a"/><stop offset="1" stop-color="#6b4703"/></linearGradient>
+        <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="2.4" flood-color="#ffe7a0" flood-opacity=".75"/><feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#d7a72d" flood-opacity=".28"/></filter>
+        <filter id="whiteGlow" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="0" stdDeviation="3.2" flood-color="#ffffff" flood-opacity=".95"/><feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#ffffff" flood-opacity=".35"/></filter>
+        <filter id="softBlur"><feGaussianBlur stdDeviation="8"/></filter>
       </defs>`;
-      let bg=`<rect width="100%" height="100%" fill="url(#bg)"/><g opacity=".30" filter="url(#whiteGlow)"><path d="M60 ${H*.18} C260 ${H*.06}, 370 ${H*.22}, 540 ${H*.12} S820 ${H*.07}, 1020 ${H*.18}" fill="none" stroke="#fff" stroke-width="2"/><path d="M34 ${H*.68} C250 ${H*.55}, 410 ${H*.72}, 604 ${H*.60} S830 ${H*.55}, 1060 ${H*.70}" fill="none" stroke="#fff" stroke-width="1.4"/></g>`;
-      let particles=''; for(let i=0;i<340;i++){let a=i*137.5*Math.PI/180, rr=(i%89)/89*R*2.05+R*.10; let x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr; particles+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(i%9===0?3.2:(i%5?1.2:2.2))}" fill="#fff" opacity="${i%4?.42:.9}" filter="url(#whiteGlow)"><animate attributeName="opacity" values=".18;.92;.18" dur="${3+i%5}s" repeatCount="indefinite"/></circle>`;}
-      let circles=`<circle cx="${cx}" cy="${cy}" r="${R*1.03}" fill="url(#gem)" opacity=".96"/><circle cx="${cx}" cy="${cy}" r="${R*.98}" fill="url(#facet)" opacity=".92"/><circle cx="${cx}" cy="${cy}" r="${R*1.08}" fill="none" stroke="#fff" stroke-width="1.5" opacity=".82"/><circle cx="${cx}" cy="${cy}" r="${R*1.17}" fill="none" stroke="#d7aa36" stroke-width="1.8" opacity=".42"/>`;
-      for(let k=0;k<9;k++) circles+=`<circle cx="${cx}" cy="${cy}" r="${R*(.22+k*.095)}" fill="none" stroke="#d4aa3a" stroke-width="1" opacity="${.16+k*.045}"/>`;
-      let flower=''; const fr=R*.205; for(let ring=0; ring<4; ring++){let n=ring?ring*6:1; for(let i=0;i<n;i++){let a=i*2*Math.PI/n+(ring*.0); let x=cx+Math.cos(a)*fr*ring, y=cy+Math.sin(a)*fr*ring; flower+=`<circle cx="${x}" cy="${y}" r="${fr}" fill="none" stroke="#d7a72d" stroke-width="1.55" opacity="${ring<3?.92:.54}" filter="url(#goldGlow)"/>`;}}
-      let petals=''; for(let i=0;i<12;i++){petals+=`<ellipse cx="${cx}" cy="${cy}" rx="${R*.78}" ry="${R*.255}" fill="none" stroke="#d7a72d" stroke-width="1.25" opacity=".70" transform="rotate(${i*30} ${cx} ${cy})" filter="url(#goldGlow)"/>`;}
-      let ring=`<circle cx="${cx}" cy="${cy}" r="${R*1.19}" fill="none" stroke="url(#ringGold)" stroke-width="38" filter="url(#goldGlow)"/>`;
-      let symbols=''; const all=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ']; for(let i=0;i<20;i++){let a=-Math.PI/2+i*2*Math.PI/20, x=cx+Math.cos(a)*R*1.19, y=cy+Math.sin(a)*R*1.19; const runeAngle=(a*180/Math.PI)+90; symbols+=`<text x="${x}" y="${y+8}" text-anchor="middle" dominant-baseline="middle" font-size="30" fill="#fff" font-family="serif" filter="url(#whiteGlow)" transform="rotate(${runeAngle} ${x} ${y})">${chosen[i%chosen.length]||all[i]}</text>`; if(i%2===0){let sx=cx+Math.cos(a+Math.PI/20)*R*1.03, sy=cy+Math.sin(a+Math.PI/20)*R*1.03; symbols+=`<text x="${sx}" y="${sy}" text-anchor="middle" font-size="25" fill="#fff" opacity=".86" filter="url(#whiteGlow)">✕</text>`;}}
-      let starbursts=''; for(let i=0;i<30;i++){let a=i*2*Math.PI/30, x=cx+Math.cos(a)*R*(1.30+(i%3)*.11), y=cy+Math.sin(a)*R*(1.30+(i%3)*.11); starbursts+=`<g transform="translate(${x} ${y})" filter="url(#whiteGlow)"><path d="M0 -30 L3 -4 L30 0 L3 4 L0 30 L-3 4 L-30 0 L-3 -4Z" fill="#fff" opacity=".72"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="12s" repeatCount="indefinite"/></path></g>`;}
-      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${starbursts}<g>${circles}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="${H*.735}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="${H*.766}" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬幸運符文</text><text x="${cx}" y="${H*.925}" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="${H*.947}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
+      let bg=`<rect width="100%" height="100%" fill="url(#bg)"/>
+        <circle cx="${cx}" cy="${cy}" r="${R*2.24}" fill="none" stroke="#ffffff" stroke-width="48" opacity=".16"/>
+        <circle cx="${cx}" cy="${cy}" r="${R*1.82}" fill="none" stroke="#fff8df" stroke-width="30" opacity=".22"/>
+        <g opacity=".38" filter="url(#whiteGlow)"><path d="M42 ${H*.145} C250 ${H*.03}, 386 ${H*.215}, 560 ${H*.105} S815 ${H*.055}, 1040 ${H*.18}" fill="none" stroke="#fff" stroke-width="2"/><path d="M34 ${H*.69} C240 ${H*.55}, 410 ${H*.73}, 610 ${H*.60} S838 ${H*.555}, 1060 ${H*.705}" fill="none" stroke="#fff" stroke-width="1.5"/></g>`;
+      let particles='';
+      for(let i=0;i<860;i++){
+        let a=i*137.507764*Math.PI/180;
+        let rr=Math.sqrt((i%860)/860)*R*2.36+R*.18;
+        let x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
+        let big=i%23===0, mid=i%9===0;
+        particles+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${big?3.6:(mid?2.2:.95)}" fill="#fff" opacity="${big?.82:(mid?.62:.32)}" filter="url(#whiteGlow)"><animate attributeName="opacity" values=".10;.92;.10" dur="${2.5+i%7}s" begin="${(i%19)*.07}s" repeatCount="indefinite"/></circle>`;
+      }
+      let whitePanels='';
+      for(let i=0;i<18;i++){
+        let a=i*20, rx=R*(.78+(i%3)*.06), ry=R*(.22+(i%4)*.025);
+        whitePanels+=`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="#ffffff" stroke-width="${i%3===0?7:3}" opacity="${i%3===0?.13:.22}" transform="rotate(${a} ${cx} ${cy})"/>`;
+      }
+      let circles=`<circle cx="${cx}" cy="${cy}" r="${R*1.06}" fill="url(#gem)" opacity=".98"/><circle cx="${cx}" cy="${cy}" r="${R*1.00}" fill="url(#facet)" opacity=".96"/><circle cx="${cx}" cy="${cy}" r="${R*1.17}" fill="none" stroke="#d7aa36" stroke-width="1.8" opacity=".42"/>`;
+      for(let k=0;k<12;k++) circles+=`<circle cx="${cx}" cy="${cy}" r="${R*(.18+k*.083)}" fill="none" stroke="#d4aa3a" stroke-width="${k%3===0?1.25:.75}" opacity="${.14+k*.035}"/>`;
+      let flower='';
+      const fr=R*.192;
+      for(let ring=0; ring<=4; ring++){
+        let n=ring?ring*6:1;
+        for(let i=0;i<n;i++){
+          let a=i*2*Math.PI/n + (ring%2 ? Math.PI/n : 0);
+          let x=cx+Math.cos(a)*fr*ring, y=cy+Math.sin(a)*fr*ring;
+          flower+=`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${fr.toFixed(2)}" fill="none" stroke="#d7a72d" stroke-width="${ring<3?1.55:1.05}" opacity="${ring<3?.88:.46}" filter="url(#goldGlow)"/>`;
+        }
+      }
+      let petals='';
+      for(let i=0;i<18;i++) petals+=`<ellipse cx="${cx}" cy="${cy}" rx="${R*.80}" ry="${R*.205}" fill="none" stroke="#d7a72d" stroke-width="1.05" opacity="${i%3===0?.72:.54}" transform="rotate(${i*10} ${cx} ${cy})" filter="url(#goldGlow)"/>`;
+      for(let i=0;i<12;i++) petals+=`<ellipse cx="${cx}" cy="${cy}" rx="${R*.56}" ry="${R*.155}" fill="none" stroke="#ffffff" stroke-width="2.5" opacity=".16" transform="rotate(${i*15+7.5} ${cx} ${cy})"/>`;
+      let ring=`<circle cx="${cx}" cy="${cy}" r="${R*1.19}" fill="none" stroke="url(#ringGold)" stroke-width="38" filter="url(#goldGlow)"/><circle cx="${cx}" cy="${cy}" r="${R*1.19}" fill="none" stroke="#fff7d8" stroke-width="1.2" opacity=".38"/><circle cx="${cx}" cy="${cy}" r="${R*1.095}" fill="none" stroke="#ffffff" stroke-width="1.4" opacity=".18"/>`;
+      let symbols=''; const all=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ'];
+      for(let i=0;i<20;i++){
+        let a=-Math.PI/2+i*2*Math.PI/20, deg=a*180/Math.PI+270, x=cx+Math.cos(a)*R*1.19, y=cy+Math.sin(a)*R*1.19;
+        symbols+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="30" fill="#fff" font-family="serif" opacity=".98" filter="url(#whiteGlow)" transform="rotate(${deg.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})">${chosen[i%chosen.length]||all[i]}</text>`;
+      }
+      let starbursts='';
+      for(let i=0;i<96;i++){
+        let a=i*2*Math.PI/96, x=cx+Math.cos(a)*R*(1.23+(i%7)*.13), y=cy+Math.sin(a)*R*(1.23+(i%7)*.13); const size=(i%5===0?40:(i%3===0?25:15));
+        starbursts+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})" filter="url(#whiteGlow)"><path d="M0 -${size} L${size*.10} -${size*.14} L${size} 0 L${size*.10} ${size*.14} L0 ${size} L-${size*.10} ${size*.14} L-${size} 0 L-${size*.10} -${size*.14}Z" fill="#fff" opacity="${i%5===0?.82:.52}"><animate attributeName="opacity" values=".18;.95;.18" dur="${3+i%6}s" begin="${(i%21)*.06}s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="${9+i%8}s" repeatCount="indefinite"/></path></g>`;
+      }
+      for(let i=0;i<130;i++){
+        let a=i*2*Math.PI/130+Math.PI/90, x=cx+Math.cos(a)*R*(.38+(i%11)*.18), y=cy+Math.sin(a)*R*(.38+(i%11)*.18);
+        starbursts+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="${i%7===0?24:13}" opacity="${i%7===0?.72:.34}" filter="url(#whiteGlow)">✦<animate attributeName="opacity" values=".12;.9;.12" dur="${2.4+i%5}s" begin="${(i%13)*.11}s" repeatCount="indefinite"/></text>`;
+      }
+      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${starbursts}<g>${circles}${whitePanels}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="${H*.735}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="${H*.766}" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬幸運符文</text><text x="${cx}" y="${H*.925}" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="${H*.947}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
     }
+
     function renderResult(){
       try{
         document.getElementById('artStage').innerHTML = svgMarkup();
@@ -231,7 +303,7 @@
     document.getElementById('editForm').addEventListener('click', showFormPage);
     document.getElementById('recommend').addEventListener('click',()=>{const c=document.getElementById('crystal').value; document.getElementById('modalText').innerHTML=`你的主水晶頻率為 <b>${c}</b>。建議將它作為今天的能量錨點：放在桌面、床邊或隨身佩戴，讓你的幸運幾何與日常節奏形成同頻。`; document.getElementById('modal').classList.add('show')});
     document.getElementById('close').addEventListener('click',()=>document.getElementById('modal').classList.remove('show'));
-    document.getElementById('download').addEventListener('click',()=>{
+    document.getElementById('download').addEventListener('click', async()=>{
       const svg=document.getElementById('sigilSvg');
       if(!svg){ renderResult(); return; }
       const cloned=svg.cloneNode(true);
@@ -241,7 +313,7 @@
       const svgBlob=new Blob([data],{type:'image/svg+xml;charset=utf-8'});
       const url=URL.createObjectURL(svgBlob);
       const img=new Image();
-      img.onload=()=>{
+      img.onload=async()=>{
         const vb=svg.viewBox.baseVal;
         const scale=2;
         const canvas=document.createElement('canvas');
@@ -250,10 +322,31 @@
         ctx.fillStyle='#fffaf4'; ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.drawImage(img,0,0,canvas.width,canvas.height);
         URL.revokeObjectURL(url);
-        canvas.toBlob(blob=>{
+        const fileName='shemy-lucky-sigil.png';
+        canvas.toBlob(async(blob)=>{
+          if(!blob){ alert('下載暫時沒有啟動，請長按生成圖截圖保存。'); return; }
+          const file=new File([blob], fileName, {type:'image/png'});
+          try{
+            if(navigator.canShare && navigator.canShare({files:[file]})){
+              await navigator.share({files:[file], title:'Shemy Lucky Sigil'});
+              return;
+            }
+          }catch(e){ /* 使用者取消分享時不顯示錯誤 */ }
+          const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+          if(isMobile){
+            const dataUrl=canvas.toDataURL('image/png',1);
+            const opened=window.open(dataUrl,'_blank');
+            if(!opened){
+              const preview=document.createElement('div');
+              preview.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(255,250,244,.96);padding:24px;overflow:auto;text-align:center;';
+              preview.innerHTML='<button style="border:1px solid rgba(183,138,34,.45);border-radius:999px;background:white;color:#9a711b;padding:12px 20px;margin-bottom:16px;letter-spacing:.12em;" onclick="this.parentNode.remove()">關閉</button><p style="color:#9a711b;letter-spacing:.12em;line-height:1.8;">請長按圖片儲存到相簿</p><img alt="Shemy Lucky Sigil" style="max-width:100%;height:auto;border-radius:18px;box-shadow:0 18px 60px rgba(184,151,88,.18)" src="'+dataUrl+'">';
+              document.body.appendChild(preview);
+            }
+            return;
+          }
           const fileUrl=URL.createObjectURL(blob);
           const a=document.createElement('a');
-          a.href=fileUrl; a.download='shemy-lucky-sigil.png';
+          a.href=fileUrl; a.download=fileName;
           a.style.display='none'; document.body.appendChild(a);
           a.click();
           setTimeout(()=>{URL.revokeObjectURL(fileUrl); a.remove();},3000);

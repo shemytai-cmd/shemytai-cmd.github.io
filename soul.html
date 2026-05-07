@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>內在屬靈曼陀羅｜Soul Mandala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+TC:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#b9903f;
+  --gold2:#d9bd75;
+  --gold3:#f3dfaa;
+  --deep:#604926;
+  --ink:#5f5145;
+  --muted:#968779;
+  --pearl:#fffaf3;
+  --line:rgba(185,144,63,.28);
+  --glass:rgba(255,255,255,.48);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  font-family:'Noto Serif TC',serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255,255,255,.98), transparent 23%),
+    radial-gradient(circle at 18% 20%, rgba(255,213,235,.55), transparent 28%),
+    radial-gradient(circle at 82% 34%, rgba(209,230,255,.55), transparent 29%),
+    radial-gradient(circle at 50% 88%, rgba(235,221,255,.55), transparent 33%),
+    linear-gradient(135deg,#fffaf3 0%,#f7efe6 45%,#f1ecff 100%);
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:-2;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.95) 0 1px,transparent 1.7px),
+    radial-gradient(circle,rgba(217,189,117,.25) 0 1px,transparent 1.7px);
+  background-size:74px 74px,136px 136px;
+  opacity:.62;
+  animation:drift 28s linear infinite;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:
+    linear-gradient(115deg,transparent 10%,rgba(255,255,255,.42) 36%,transparent 54%),
+    radial-gradient(circle at 50% 42%,rgba(255,255,255,.44),transparent 36%);
+  mix-blend-mode:screen;
+}
+@keyframes drift{to{transform:translate3d(-74px,-74px,0)}}
+.page{width:min(980px,calc(100% - 30px));margin:0 auto}
+.hero{text-align:center;padding:52px 0 30px}
+.hero-mark{width:178px;height:178px;margin:0 auto 22px;filter:drop-shadow(0 0 18px rgba(255,255,255,.88)) drop-shadow(0 0 26px rgba(217,189,117,.2))}
+.kicker{font-family:'Noto Sans TC',sans-serif;letter-spacing:.32em;color:var(--gold);font-size:.72rem;margin-bottom:12px;text-transform:uppercase}
+h1{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:300;letter-spacing:.16em;line-height:1;color:#76551f;text-shadow:0 0 28px rgba(255,255,255,.9)}
+.hero .zh{margin-top:14px;font-size:clamp(1.16rem,4vw,1.75rem);letter-spacing:.2em;color:#8d7147}
+.hero p{max-width:700px;margin:18px auto 0;font-family:'Noto Sans TC',sans-serif;letter-spacing:.11em;line-height:2;color:#8c8177;font-size:.9rem}
+.panel{position:relative;background:linear-gradient(155deg,rgba(255,255,255,.62),rgba(255,255,255,.28));border:1px solid rgba(185,144,63,.22);border-radius:34px;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 24px 78px rgba(120,87,40,.08);overflow:hidden}
+.panel::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.78),transparent 28%,rgba(217,189,117,.13)),radial-gradient(circle at 22% 18%,rgba(255,255,255,.66),transparent 24%);opacity:.74}
+.form-panel{padding:34px clamp(18px,5vw,52px) 42px;margin-bottom:36px}
+.section-title{position:relative;z-index:2;text-align:center;margin-bottom:30px}
+.section-title small{display:block;font-family:'Noto Sans TC',sans-serif;letter-spacing:.32em;color:var(--gold);font-size:.68rem;text-transform:uppercase;margin-bottom:10px}
+.section-title h2{font-weight:300;letter-spacing:.12em;font-size:clamp(1.35rem,4.5vw,2.15rem);line-height:1.55;color:#5e503f}
+.field{position:relative;z-index:2;margin-bottom:28px}
+.field-label{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.field-label strong{font-size:1rem;font-weight:400;letter-spacing:.11em;color:#735b32}
+.field-label span{font-family:'Cormorant Garamond',serif;font-size:.96rem;letter-spacing:.1em;color:#b09566}
+.input{width:100%;border:1px solid rgba(185,144,63,.24);border-radius:18px;padding:16px 18px;background:rgba(255,255,255,.48);outline:none;font-family:'Noto Sans TC',sans-serif;color:#5d5248;letter-spacing:.08em}
+.options{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.option{position:relative;cursor:pointer}
+.option input{position:absolute;opacity:0;pointer-events:none}
+.option span{display:flex;align-items:center;justify-content:center;min-height:58px;padding:12px 10px;border-radius:18px;border:1px solid rgba(185,144,63,.2);background:rgba(255,255,255,.34);font-family:'Noto Sans TC',sans-serif;font-size:.86rem;letter-spacing:.05em;line-height:1.45;color:#806d5d;transition:.28s ease;text-align:center}
+.option input:checked + span{color:#835e22;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.95),transparent 36%),linear-gradient(135deg,rgba(255,220,246,.7),rgba(255,255,255,.54),rgba(238,213,127,.44));border-color:rgba(185,144,63,.55);box-shadow:0 10px 28px rgba(185,144,63,.12), inset 0 0 18px rgba(255,255,255,.66)}
+.generate{position:relative;z-index:2;width:min(440px,100%);min-height:60px;margin:16px auto 0;display:flex;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(185,144,63,.58);background:rgba(255,255,255,.3);color:#8a6427;font-family:'Noto Sans TC',sans-serif;font-size:.9rem;letter-spacing:.18em;cursor:pointer;backdrop-filter:blur(14px);transition:.3s ease}
+.generate:hover{transform:translateY(-2px);background:rgba(255,255,255,.48);box-shadow:0 15px 44px rgba(185,144,63,.13), inset 0 0 24px rgba(255,255,255,.72)}
+.result-panel{display:none;padding:36px clamp(14px,5vw,48px) 42px;margin-bottom:48px}
+.result-panel.active{display:block}
+.result-header{position:relative;z-index:2;text-align:center;margin-bottom:24px}
+.result-header small{display:block;font-family:'Noto Sans TC',sans-serif;letter-spacing:.28em;color:#b08c4f;margin-bottom:8px}
+.result-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,7vw,4.8rem);font-weight:300;letter-spacing:.16em;color:#725420}
+.wallpaper-stage{position:relative;z-index:2;width:min(520px,100%);aspect-ratio:9/16;margin:0 auto;border-radius:28px;overflow:hidden;background:var(--pearl);box-shadow:0 28px 80px rgba(125,90,44,.12);border:1px solid rgba(217,189,117,.25)}
+#wallpaperSvg{width:100%;height:100%;display:block}
+.result-message{position:relative;z-index:2;text-align:center;max-width:720px;margin:32px auto 0;padding:28px 24px;border:1px solid rgba(185,144,63,.22);border-radius:26px;background:rgba(255,255,255,.36);font-family:'Noto Sans TC',sans-serif;letter-spacing:.08em;line-height:2.05;color:#76695f}
+.result-message strong{color:#9a6f28;font-weight:400}
+.actions{position:relative;z-index:2;display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:28px}
+.btn{min-width:220px;min-height:54px;display:flex;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(185,144,63,.46);background:rgba(255,255,255,.3);color:#8a6427;text-decoration:none;font-family:'Noto Sans TC',sans-serif;letter-spacing:.14em;cursor:pointer}
+.footer{text-align:center;padding:20px 0 60px;color:#a3927f;letter-spacing:.22em;font-size:.78rem;font-family:'Noto Sans TC',sans-serif}
+@media(max-width:720px){
+  .page{width:min(100% - 22px,980px)}
+  .hero{padding-top:36px}
+  .hero-mark{width:136px;height:136px}
+  .options{grid-template-columns:repeat(2,1fr)}
+  .option span{min-height:54px;font-size:.8rem}
+  .form-panel{border-radius:26px;padding:28px 16px 34px}
+  .result-panel{border-radius:26px;padding:28px 12px 34px}
+  .wallpaper-stage{border-radius:22px}
+  .btn{width:100%}
+}
+
+/* === v9 fixed visible half mandala header === */
+.hero{
+  position:relative !important;
+  min-height:590px !important;
+  padding:318px 0 42px !important;
+  overflow:hidden !important;
+  text-align:center !important;
+  background:transparent !important;
+}
+
+.hero-mandala-bg{
+  position:absolute !important;
+  left:50% !important;
+  top:-56vw !important;
+  width:100vw !important;
+  height:100vw !important;
+  transform:translateX(-50%) !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+  opacity:1 !important;
+}
+
+.hero-mark-bg{
+  display:block !important;
+  width:100vw !important;
+  height:100vw !important;
+  max-width:none !important;
+  opacity:1 !important;
+  filter:
+    drop-shadow(0 0 20px rgba(255,255,255,.96))
+    drop-shadow(0 0 32px rgba(217,189,117,.38)) !important;
+}
+
+.hero::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:1 !important;
+  pointer-events:none !important;
+  background:
+    linear-gradient(to bottom,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.08) 34%,
+      rgba(255,250,243,0.74) 72%,
+      rgba(255,250,243,0.94) 100%) !important;
+}
+
+.hero-text{
+  position:relative !important;
+  z-index:2 !important;
+}
+
+@media(max-width:720px){
+  .hero{
+    min-height:585px !important;
+    padding:316px 0 38px !important;
+  }
+  .hero-mandala-bg{
+    width:760px !important;
+    height:760px !important;
+    top:-428px !important;
+  }
+  .hero-mark-bg{
+    width:760px !important;
+    height:760px !important;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+<section class="hero">
+  <div class="hero-mandala-bg">
+    <svg class="hero-mark hero-mark-bg" viewBox="0 0 260 260" aria-hidden="true">
+    <defs>
+      <radialGradient id="heroFill" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+        <stop offset="42%" stop-color="#ffd6ee" stop-opacity=".58"/>
+        <stop offset="78%" stop-color="#d9d1ff" stop-opacity=".28"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="heroGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="#d9bd75" flood-opacity=".6"/>
+      </filter>
+    </defs>
+
+    <!-- outer guide circles -->
+    <circle cx="130" cy="130" r="112" fill="rgba(255,255,255,.12)" stroke="#d9bd75" stroke-width="1" opacity=".68"/>
+    <circle cx="130" cy="130" r="88" fill="none" stroke="#d9bd75" stroke-width=".8" opacity=".45"/>
+    <circle cx="130" cy="130" r="62" fill="none" stroke="#ffffff" stroke-width=".8" opacity=".52"/>
+
+    <!-- Layer 5：24 outer petals -->
+    <g fill="url(#heroFill)" stroke="#d9bd75" stroke-width=".65" opacity=".58">
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(0 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(15 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(30 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(45 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(60 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(75 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(90 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(105 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(120 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(135 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(150 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(165 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(180 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(195 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(210 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(225 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(240 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(255 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(270 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(285 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(300 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(315 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(330 130 130)"/>
+      <path d="M130 18 C145 55 145 76 130 105 C115 76 115 55 130 18Z" transform="rotate(345 130 130)"/>
+    </g>
+
+    <!-- Layer 4：20 middle petals -->
+    <g fill="url(#heroFill)" stroke="#d9bd75" stroke-width=".75" opacity=".66">
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(0 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(18 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(36 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(54 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(72 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(90 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(108 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(126 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(144 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(162 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(180 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(198 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(216 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(234 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(252 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(270 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(288 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(306 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(324 130 130)"/>
+      <path d="M130 34 C151 69 151 91 130 116 C109 91 109 69 130 34Z" transform="rotate(342 130 130)"/>
+    </g>
+
+    <!-- Layer 3：16 petals -->
+    <g fill="url(#heroFill)" stroke="#ffffff" stroke-width=".9" opacity=".72">
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(0 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(22.5 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(45 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(67.5 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(90 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(112.5 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(135 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(157.5 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(180 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(202.5 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(225 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(247.5 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(270 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(292.5 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(315 130 130)"/>
+      <path d="M130 55 C148 82 148 101 130 121 C112 101 112 82 130 55Z" transform="rotate(337.5 130 130)"/>
+    </g>
+
+    <!-- Layer 2：12 inner petals -->
+    <g fill="rgba(255,255,255,.42)" stroke="#d9bd75" stroke-width=".85" opacity=".82">
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(0 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(30 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(60 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(90 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(120 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(150 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(180 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(210 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(240 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(270 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(300 130 130)"/>
+      <path d="M130 78 C145 98 145 112 130 125 C115 112 115 98 130 78Z" transform="rotate(330 130 130)"/>
+    </g>
+
+    <!-- Layer 1：8 tiny petals -->
+    <g filter="url(#heroGlow)" fill="rgba(255,255,255,.72)" stroke="#c9a86a" stroke-width=".9">
+      <path d="M130 96 C141 108 141 119 130 129 C119 119 119 108 130 96Z" transform="rotate(0 130 130)"/>
+      <path d="M130 96 C141 108 141 119 130 129 C119 119 119 108 130 96Z" transform="rotate(45 130 130)"/>
+      <path d="M130 96 C141 108 141 119 130 129 C119 119 119 108 130 96Z" transform="rotate(90 130 130)"/>
+      <path d="M130 96 C141 108 141 119 130 129 C119 119 119 108 130 96Z" transform="rotate(135 130 130)"/>
+      <path d="M130 96 C141 108 141 119 130 129 C119 119 119 108 130 96Z" transform="rotate(180 130 130)"/>
+      <path d="M130 96 C141 108 141 119 130 129 C119 119 119 108 130 96Z" transform="rotate(225 130 130)"/>
+      <path d="M130 96 C141 108 141 119 130 129 C119 119 119 108 130 96Z" transform="rotate(270 130 130)"/>
+      <path d="M130 96 C141 108 141 119 130 129 C119 119 119 108 130 96Z" transform="rotate(315 130 130)"/>
+    </g>
+
+    <!-- top gold geometry -->
+    <g filter="url(#heroGlow)" stroke="#c9a86a" stroke-width="1" fill="none" opacity=".86">
+      <circle cx="130" cy="130" r="110"/>
+      <circle cx="130" cy="130" r="84"/>
+      <circle cx="130" cy="130" r="58"/>
+      <circle cx="130" cy="130" r="32"/>
+      <circle cx="130" cy="130" r="14"/>
+    </g>
+    <circle cx="130" cy="130" r="7" fill="#ffffff" opacity=".9"/>
+  </svg>
+  </div>
+
+  <div class="hero-text">
+    <div class="kicker">SOUL BLOOM EXPERIENCE</div>
+    <h1>SOUL MANDALA</h1>
+    <div class="zh">內在屬靈曼陀羅</div>
+    <p>不是測驗，而是一場靈魂花園生成儀式。讓情緒、能量、靈魂狀態與內在宇宙，綻放成你的專屬曼陀羅。</p>
+  </div>
+</section>
+
+<section class="panel form-panel" id="formPanel">
+  <div class="section-title">
+    <small>INNER UNIVERSE</small>
+    <h2>請跟著直覺，選擇最有共鳴的答案</h2>
+  </div>
+
+  <div class="field">
+    <label class="field-label"><strong>你的名字</strong><span>Your Name</span></label>
+    <input id="name" class="input" type="text" placeholder="例如 Snow / Jeanne / Shemy" />
+  </div>
+
+  <div class="field">
+    <label class="field-label"><strong>你是來自哪個維度的存有？</strong><span>Which dimension does your soul come from?</span></label>
+    <div class="options">
+      <label class="option"><input type="radio" name="dimension" value="Earth" checked><span>地球<br>Earth</span></label>
+      <label class="option"><input type="radio" name="dimension" value="Ocean"><span>海洋<br>Ocean</span></label>
+      <label class="option"><input type="radio" name="dimension" value="Lunar"><span>月光<br>Lunar</span></label>
+      <label class="option"><input type="radio" name="dimension" value="Forest"><span>森林<br>Forest</span></label>
+      <label class="option"><input type="radio" name="dimension" value="Stellar"><span>星際<br>Stellar</span></label>
+      <label class="option"><input type="radio" name="dimension" value="Inner Earth"><span>地心<br>Inner Earth</span></label>
+      <label class="option"><input type="radio" name="dimension" value="Light Realm"><span>光之維度<br>Light Realm</span></label>
+      <label class="option"><input type="radio" name="dimension" value="Unknown"><span>未知<br>Unknown</span></label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label"><strong>最近最吸引你的光是什麼？</strong><span>Which light attracts you most recently?</span></label>
+    <div class="options">
+      <label class="option"><input type="radio" name="light" value="月光" checked><span>月光<br>Moonlight</span></label>
+      <label class="option"><input type="radio" name="light" value="黃昏"><span>黃昏<br>Dusk</span></label>
+      <label class="option"><input type="radio" name="light" value="雲層光"><span>雲層光<br>Cloud Light</span></label>
+      <label class="option"><input type="radio" name="light" value="海面反光"><span>海面反光<br>Sea Glow</span></label>
+      <label class="option"><input type="radio" name="light" value="森林光"><span>森林光<br>Forest Light</span></label>
+      <label class="option"><input type="radio" name="light" value="水晶折射"><span>水晶折射<br>Crystal Ray</span></label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label"><strong>置身哪個場景讓你感到療癒？</strong><span>Which scene feels healing to you?</span></label>
+    <div class="options">
+      <label class="option"><input type="radio" name="scene" value="粉色海岸" checked><span>粉色海岸<br>Pink Coast</span></label>
+      <label class="option"><input type="radio" name="scene" value="星空湖泊"><span>星空湖泊<br>Star Lake</span></label>
+      <label class="option"><input type="radio" name="scene" value="白霧山谷"><span>白霧山谷<br>Mist Valley</span></label>
+      <label class="option"><input type="radio" name="scene" value="極光冰原"><span>極光冰原<br>Aurora Field</span></label>
+      <label class="option"><input type="radio" name="scene" value="黃昏花園"><span>黃昏花園<br>Dusk Garden</span></label>
+      <label class="option"><input type="radio" name="scene" value="水晶洞穴"><span>水晶洞穴<br>Crystal Cave</span></label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label"><strong>你的能量比較像哪種流動？</strong><span>Which movement feels closest to your energy?</span></label>
+    <div class="options">
+      <label class="option"><input type="radio" name="flow" value="水波" checked><span>水波<br>Wave</span></label>
+      <label class="option"><input type="radio" name="flow" value="漣漪"><span>漣漪<br>Ripple</span></label>
+      <label class="option"><input type="radio" name="flow" value="呼吸"><span>呼吸<br>Breath</span></label>
+      <label class="option"><input type="radio" name="flow" value="霧氣"><span>霧氣<br>Mist</span></label>
+      <label class="option"><input type="radio" name="flow" value="星塵"><span>星塵<br>Stardust</span></label>
+      <label class="option"><input type="radio" name="flow" value="花瓣綻放"><span>花瓣綻放<br>Bloom</span></label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label"><strong>你現在最想召喚什麼？</strong><span>What do you want to invite now?</span></label>
+    <div class="options">
+      <label class="option"><input type="radio" name="calling" value="愛" checked><span>愛<br>Love</span></label>
+      <label class="option"><input type="radio" name="calling" value="平靜"><span>平靜<br>Peace</span></label>
+      <label class="option"><input type="radio" name="calling" value="靈感"><span>靈感<br>Inspiration</span></label>
+      <label class="option"><input type="radio" name="calling" value="豐盛"><span>豐盛<br>Abundance</span></label>
+      <label class="option"><input type="radio" name="calling" value="重生"><span>重生<br>Rebirth</span></label>
+      <label class="option"><input type="radio" name="calling" value="保護"><span>保護<br>Protection</span></label>
+    </div>
+  </div>
+
+  <button class="generate" id="generateBtn">生成我的靈魂曼陀羅</button>
+</section>
+
+<section class="panel result-panel" id="resultPanel">
+  <div class="result-header">
+    <small>YOUR SOUL MANDALA</small>
+    <h2 id="energyName">LUMINA</h2>
+  </div>
+  <div class="wallpaper-stage">
+    <svg id="wallpaperSvg" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <div class="result-message" id="resultMessage"></div>
+  <div class="actions">
+    <button class="btn" id="downloadBtn">下載手機桌布</button>
+    <button class="btn" id="shareBtn">產生分享圖</button>
+  </div>
+  <div class="actions" style="margin-top:16px">
+    <a class="btn" href="index.html">返回品牌首頁</a>
+  </div>
+</section>
+
+<footer class="footer">閃閃發光設計工作室<br>Sparkling Design Studio</footer>
+</div>
+
+<script>
+const palettes={
+  "Earth":["#b8d6a5","#f2d8a7","#ffd9ed","#d0b063"],
+  "Ocean":["#aeeaff","#d4dfff","#ffd8ee","#d4af6e"],
+  "Lunar":["#f5f0ff","#d7e9ff","#ffe1f4","#c9a86a"],
+  "Forest":["#c8e8c8","#dcebb8","#ffd7eb","#d2b46c"],
+  "Stellar":["#cbb5ff","#ffcaed","#a8d8ff","#d4af6e"],
+  "Inner Earth":["#ffc8a8","#ffd8b8","#ffbfdc","#c9964a"],
+  "Light Realm":["#ffffff","#fff0bd","#ffe0f4","#d8bb72"],
+  "Unknown":["#dcc8ff","#c8f1ff","#ffe2f2","#d8bb72"]
+};
+const names={"愛":"AMORIA","平靜":"SERENIA","靈感":"AURELIA","豐盛":"ABUNDIA","重生":"NOVALITH","保護":"CELESTIA"};
+const messages={
+  "愛":"你的曼陀羅帶著柔軟而強大的連結能量。當你願意溫柔地靠近自己，世界也會以愛回應你。",
+  "平靜":"你的曼陀羅像一座安靜的光之庭園。它提醒你，真正的力量不必喧嘩，穩定本身就是祝福。",
+  "靈感":"你的曼陀羅正在召喚新的光。靈感不是被追逐而來，而是在你允許自己發光時自然降臨。",
+  "豐盛":"你的曼陀羅承載著流動與收穫。當你相信自己值得，美好的能量會開始找到入口。",
+  "重生":"你的曼陀羅是更新的訊號。過去不再限制你，新的自己正在一層一層綻放。",
+  "保護":"你的曼陀羅形成柔光結界。你可以敞開，也可以有邊界；真正的保護，是回到自己的中心。"
+};
+function val(n){return document.querySelector(`input[name="${n}"]:checked`).value}
+function seedFrom(str){let h=0;for(let i=0;i<str.length;i++){h=(h*31+str.charCodeAt(i))>>>0}return h}
+function rand(seed){let x=seed||1234567;return function(){x=(1664525*x+1013904223)>>>0;return x/4294967296}}
+function polar(cx,cy,r,a){const rad=(a-90)*Math.PI/180;return [cx+r*Math.cos(rad),cy+r*Math.sin(rad)]}
+function petalPath(cx,cy,r1,r2,a,w,curve=1){
+  const [baseX,baseY]=polar(cx,cy,r1,a),[tipX,tipY]=polar(cx,cy,r2,a);
+  const [l1x,l1y]=polar(cx,cy,(r1+r2)/2,a-w),[r1x,r1y]=polar(cx,cy,(r1+r2)/2,a+w);
+  return `M ${baseX} ${baseY} C ${l1x} ${l1y}, ${l1x} ${l1y}, ${tipX} ${tipY} C ${r1x} ${r1y}, ${r1x} ${r1y}, ${baseX} ${baseY} Z`;
+}
+function star(cx,cy,r,op=.75){return `<path d="M${cx} ${cy-r} L${cx+r*.18} ${cy-r*.18} L${cx+r} ${cy} L${cx+r*.18} ${cy+r*.18} L${cx} ${cy+r} L${cx-r*.18} ${cy+r*.18} L${cx-r} ${cy} L${cx-r*.18} ${cy-r*.18} Z" fill="#fff" opacity="${op}"/>`}
+function makeMandalaSVG(){
+  const name=document.getElementById("name").value.trim()||"Soul";
+  const dimension=val("dimension"),light=val("light"),scene=val("scene"),flow=val("flow"),calling=val("calling");
+  const pal=palettes[dimension]||palettes["Light Realm"];
+  const energy=names[calling]||"LUMINA";
+  document.getElementById("energyName").textContent=energy;
+  const seed=seedFrom(name+dimension+light+scene+flow+calling);
+  const rng=rand(seed);
+  const cx=540,cy=730;
+  const petalBoost = flow==="花瓣綻放" ? 1.08 : flow==="呼吸" ? .96 : 1;
+  const starDensity = light==="雲層光" || flow==="星塵" ? 1.3 : 1;
+  let svg=`
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="39%" r="72%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="22%" stop-color="${pal[0]}" stop-opacity=".54"/>
+      <stop offset="44%" stop-color="${pal[1]}" stop-opacity=".42"/>
+      <stop offset="66%" stop-color="${pal[2]}" stop-opacity=".34"/>
+      <stop offset="100%" stop-color="#fffaf4" stop-opacity="1"/>
+    </radialGradient>
+    <radialGradient id="petalFill" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".82"/>
+      <stop offset="42%" stop-color="${pal[2]}" stop-opacity=".48"/>
+      <stop offset="78%" stop-color="${pal[0]}" stop-opacity=".24"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="30%" stop-color="${pal[1]}" stop-opacity=".68"/>
+      <stop offset="70%" stop-color="${pal[0]}" stop-opacity=".24"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="lineGlow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="${pal[3]}" flood-opacity=".54"/></filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="${cx}" cy="${cy}" r="520" fill="url(#centerGlow)" opacity=".9"/>
+  <circle cx="${cx}" cy="${cy}" r="455" fill="none" stroke="#fff" stroke-width="2" opacity=".3"/>
+  <circle cx="${cx}" cy="${cy}" r="390" fill="none" stroke="${pal[3]}" stroke-width="1.2" opacity=".22"/>
+  `;
+  for(let i=0;i<Math.floor(80*starDensity);i++){
+    svg+=star(70+rng()*940,70+rng()*1260,4+rng()*18,.45+rng()*.4);
+  }
+  for(let i=0;i<6;i++){
+    const y=230+i*92+rng()*40;
+    svg+=`<path d="M ${-60+rng()*80} ${y} C ${260+rng()*120} ${y-90+rng()*180}, ${760-rng()*120} ${y+120-rng()*200}, ${1140-rng()*80} ${y+20}" fill="none" stroke="#fff" stroke-width="${1+rng()*1.4}" opacity=".23"/>`;
+  }
+  const layers=[
+    {n:12,r1:48,r2:185*petalBoost,w:13,op:.48,sw:1.1},
+    {n:16,r1:96,r2:275*petalBoost,w:10,op:.38,sw:1.0},
+    {n:20,r1:166,r2:360*petalBoost,w:7.4,op:.28,sw:.9},
+    {n:24,r1:250,r2:445*petalBoost,w:5.8,op:.2,sw:.8}
+  ];
+  layers.forEach((L,li)=>{
+    svg+=`<g filter="url(#softGlow)">`;
+    for(let i=0;i<L.n;i++){
+      const a=(360/L.n)*i+(li%2?360/L.n/2:0);
+      svg+=`<path d="${petalPath(cx,cy,L.r1,L.r2,a,L.w)}" fill="url(#petalFill)" fill-opacity="${L.op}" stroke="${li<2?'#fff':pal[3]}" stroke-opacity=".58" stroke-width="${L.sw}"/>`;
+      if(li<2){
+        svg+=`<path d="${petalPath(cx,cy,L.r1+12,L.r2-22,a,L.w*.55)}" fill="none" stroke="${pal[3]}" stroke-opacity=".36" stroke-width=".8"/>`;
+      }
+    }
+    svg+=`</g>`;
+  });
+  // dotted and lace rings
+  for(let ring of [125,195,280,372]){
+    const n=Math.round(ring/8.6);
+    for(let i=0;i<n;i++){
+      const [x,y]=polar(cx,cy,ring,i*360/n);
+      svg+=`<circle cx="${x}" cy="${y}" r="${ring>260?3:2.2}" fill="${ring>260?pal[3]:'#fff'}" opacity="${ring>260?.44:.68}"/>`;
+    }
+  }
+  svg+=`<g filter="url(#lineGlow)" fill="none" stroke="${pal[3]}" opacity=".78">
+    <circle cx="${cx}" cy="${cy}" r="455" stroke-width="6" opacity=".62"/>
+    <circle cx="${cx}" cy="${cy}" r="430" stroke-width="1"/>
+    <circle cx="${cx}" cy="${cy}" r="355" stroke-width="1"/>
+    <circle cx="${cx}" cy="${cy}" r="210" stroke-width="1.1"/>
+    <circle cx="${cx}" cy="${cy}" r="92" stroke-width="1.4"/>
+  </g>`;
+  svg+=`<circle cx="${cx}" cy="${cy}" r="106" fill="rgba(255,255,255,.55)"/>`;
+  svg+=`<g stroke="${pal[3]}" stroke-width="1.2" fill="none" opacity=".7" filter="url(#lineGlow)">`;
+  for(let i=0;i<12;i++){
+    svg+=`<path d="${petalPath(cx,cy,16,90,i*30,10)}"/>`;
+  }
+  svg+=`<circle cx="${cx}" cy="${cy}" r="34"/><circle cx="${cx}" cy="${cy}" r="12"/></g>`;
+  const displayName=name.toUpperCase();
+  svg+=`
+  <text x="540" y="1370" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="82" letter-spacing="14" fill="#6e4f1d">${displayName}</text>
+  <text x="540" y="1435" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="30" letter-spacing="12" fill="#8f7651">的靈魂曼陀羅</text>
+  <text x="540" y="1615" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="24" letter-spacing="9" fill="#9a7c4f">閃閃發光設計工作室</text>
+  <text x="540" y="1660" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="22" letter-spacing="10" fill="#b59b73">Sparkling Design Studio</text>`;
+  document.getElementById("wallpaperSvg").innerHTML=svg;
+  document.getElementById("resultMessage").innerHTML=`<strong>${name}</strong>，你的內在屬靈曼陀羅已生成。<br>你來自 <strong>${dimension}</strong> 的頻率，受到 <strong>${light}</strong> 牽引，並在 <strong>${scene}</strong> 中找回療癒。<br>${messages[calling]}`;
+}
+document.getElementById("generateBtn").addEventListener("click",()=>{
+  makeMandalaSVG();
+  document.getElementById("resultPanel").classList.add("active");
+  setTimeout(()=>document.getElementById("resultPanel").scrollIntoView({behavior:"smooth",block:"start"}),100);
+});
+document.getElementById("downloadBtn").addEventListener("click",()=>{
+  const svg=document.getElementById("wallpaperSvg");
+  const svgString=new XMLSerializer().serializeToString(svg);
+  const blob=new Blob([svgString],{type:"image/svg+xml;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const img=new Image();
+  img.onload=()=>{
+    const canvas=document.createElement("canvas");
+    canvas.width=1080;canvas.height=1920;
+    const ctx=canvas.getContext("2d");
+    ctx.fillStyle="#fffaf4";ctx.fillRect(0,0,1080,1920);
+    ctx.drawImage(img,0,0);
+    URL.revokeObjectURL(url);
+    const a=document.createElement("a");
+    const filename=(document.getElementById("name").value.trim()||"soul").replace(/\s+/g,"-").toLowerCase();
+    a.download=`${filename}-soul-mandala.png`;
+    a.href=canvas.toDataURL("image/png");
+    document.body.appendChild(a);a.click();a.remove();
+  };
+  img.src=url;
+});
+document.getElementById("shareBtn").addEventListener("click",()=>alert("可先下載桌布後分享到社群；下一版可接手機原生分享。"));
+makeMandalaSVG();
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>水晶幸運幾何 · Shemy Sparkling Frequency</title>
+  <title>水晶幸運幾何 · Shemy Sparkling Frequency v55</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
@@ -61,7 +61,7 @@
     .artStage:before{content:""; position:absolute; inset:10% 5%; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.95),rgba(244,216,138,.26) 42%,rgba(223,203,255,.20) 62%,transparent 75%); filter:blur(28px); animation:pulse 4s ease-in-out infinite alternate;}
     @keyframes pulse{to{opacity:.58; transform:scale(1.025)}}
     #sigilSvg{position:relative; width:100%; height:auto; display:block; filter:drop-shadow(0 26px 60px rgba(128,89,20,.20));}
-    .resultNameBlock{margin:22px auto 18px; position:relative; z-index:2;}
+    .resultNameBlock{margin:-18px auto 18px; position:relative; z-index:2;}
     .resultNameBlock .sigilTitle{font-size:clamp(36px,5.4vw,58px); margin:0; letter-spacing:.08em; text-transform:none;}
     .meta{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:22px auto 26px; max-width:820px; border:0; padding:0;}
     .meta div{min-width:0; padding:18px 14px; border:1px solid rgba(183,138,34,.22); border-radius:24px; background:linear-gradient(145deg,rgba(255,255,255,.52),rgba(255,255,255,.20)); box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 18px 42px rgba(184,151,88,.08); backdrop-filter:blur(22px);}
@@ -71,69 +71,167 @@
     .resultActions .btn{min-width:210px;}.studio{margin-top:34px; font-size:12px; letter-spacing:.34em; color:#b08b52}.studio small{display:block; margin-top:8px; font-size:10px; letter-spacing:.18em;color:#c0a985}
     body.has-result .hero, body.has-result #form{display:none;} body.has-result #result{display:block;} body.has-result .wrap{padding-top:28px;}
     .modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(255,255,255,.45); backdrop-filter:blur(18px); z-index:10}.modal.show{display:grid}.modal .card{max-width:520px; width:90vw}.modal p{line-height:2;color:#80674b}.close{float:right; background:transparent;border:0;font-size:24px;color:#9a711b;cursor:pointer}
-    @media(max-width:820px){.grid{grid-template-columns:1fr}.topbar{flex-direction:column; margin-bottom:22px}.brand{font-size:22px}.card{padding:22px}.meta{grid-template-columns:1fr; gap:12px}.meta div+div{border-left:1px solid rgba(183,138,34,.22)}.btn{width:100%;}.wrap{padding-top:18px}.artStage{width:112%; margin-left:-6%;}.resultNameBlock{margin-top:16px}.messageBox{text-align:left}.resultActions .btn{min-width:0}}
+    @media(max-width:820px){.grid{grid-template-columns:1fr}.topbar{flex-direction:column; margin-bottom:22px}.brand{font-size:22px}.card{padding:22px}.meta{grid-template-columns:1fr; gap:12px}.meta div+div{border-left:1px solid rgba(183,138,34,.22)}.btn{width:100%;}.wrap{padding-top:18px}.artStage{width:112%; margin-left:-6%;}.resultNameBlock{margin-top:-10px}.messageBox{text-align:left}.resultActions .btn{min-width:0}}
+
+    /* v37: restore original full form + 24 Wish Runes; only refine top visual. */
+    .hero{margin:0 auto 34px; padding-top:6px;}
+    .kicker{margin-top:16px;font-size:12px;letter-spacing:.48em;color:#b88431;}
+    h1{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,6vw,42px);letter-spacing:.30em;text-indent:.30em;color:#a96f1d;margin:10px 0 18px;line-height:1.18;}
+    .lead{font-size:clamp(14px,3.3vw,18px);line-height:2.1;letter-spacing:.14em;color:#9a6f51;max-width:640px;}
+    .posterFlower{width:min(62vw,430px);aspect-ratio:1/1;margin:0 auto 28px;position:relative;filter:drop-shadow(0 18px 44px rgba(194,134,39,.10));}
+    .posterFlower:before{content:"";position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.78),rgba(244,204,231,.25) 37%,rgba(227,200,255,.18) 54%,transparent 74%);filter:blur(9px);}
+    .posterFlower svg{position:relative;width:100%;height:100%;display:block;}
+    .grid{margin-top:18px;}
+    .card h2{font-size:23px;letter-spacing:.16em;}
+    .choices{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;}
+    .pill span{min-height:48px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 8px;font-size:12px;line-height:1.35;border-radius:14px;background:rgba(255,255,255,.58);}
+    #size{display:none;}
+    label[for="size"]{display:none;}
+    @media(max-width:820px){
+      .posterFlower{width:70vw;}
+      .choices{grid-template-columns:repeat(3,minmax(0,1fr));}
+      h1{font-size:clamp(24px,7vw,34px);letter-spacing:.18em;text-indent:.18em;}
+      .lead{font-size:14px;}
+    }
+
 </style>
+
+<style id="v41TargetedFixCSS">
+  /* v41: keep v39 visual logic; only fix interaction/layering/spacing */
+  input, select, button, label, .pill, .pill span, .choices, .card, #form {
+    position: relative;
+    z-index: 5;
+    pointer-events: auto;
+  }
+
+  .posterFlower,
+  .posterFlower *,
+  .portalSigil,
+  .portalSigil *,
+  .artStage:before,
+  #result:before,
+  body:before,
+  body:after {
+    pointer-events: none !important;
+  }
+
+  .resultNameBlock {
+    margin-top: 18px !important;
+    padding-top: 6px;
+  }
+
+  .artStage {
+    margin-bottom: 22px !important;
+  }
+
+  @media(max-width:820px){
+    .resultNameBlock {
+      margin-top: 24px !important;
+    }
+    .artStage {
+      margin-bottom: 26px !important;
+    }
+  }
+</style>
+
+
+<style id="v43FrontRefineCSS">
+  /* v43 from v41: front visual refinement only */
+
+  /* Soft pastel glow inside front Flower of Life */
+  .posterFlower svg {
+    overflow: visible;
+  }
+
+  .posterFlower svg > defs + circle,
+  .posterFlower svg circle[fill*="posterGlow"] {
+    opacity: .96;
+  }
+  .posterFlower svg { position:relative; z-index:1; }
+
+
+  /* Restore elegant pink-gold button hover */
+  .btn:hover,
+  button:hover,
+  a.btn:hover {
+    background:
+      linear-gradient(135deg,
+        rgba(255,246,219,.92) 0%,
+        rgba(255,226,239,.86) 45%,
+        rgba(232,214,255,.82) 100%) !important;
+    box-shadow:
+      0 0 0 1px rgba(244,216,138,.55),
+      0 0 26px rgba(244,190,220,.28),
+      0 12px 30px rgba(183,138,34,.12) !important;
+    transform:translateY(-1px);
+  }
+
+  /* Make sure controls stay clickable */
+  input, select, button, .btn, .pill, .pill span {
+    position:relative;
+    z-index:10;
+    pointer-events:auto;
+  }
+</style>
+
 </head>
 <body>
   <main class="wrap">
     <div class="topbar"><a class="back" href="https://shemytai-cmd.github.io/Shemy-brand/">← 返回品牌首頁</a><a class="brand brandlink" href="https://shemytai-cmd.github.io/Shemy-brand/" aria-label="前往 Shemy 品牌首頁">SHEMY<small>SPARKLING FREQUENCY</small></a><span></span></div>
-    <section class="hero"><div class="kicker">Crystal Geometry Portal</div><h1>Your Lucky Sigil</h1><p class="lead">讓幾何成為光的容器，讓每一張圖都有寶石般的呼吸感。輸入你的頻率，生成專屬幸運符文。</p>
-      <div class="portalSigil" aria-hidden="true">
-        <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+    <section class="hero"><div class="kicker">Crystal Geometry Portal</div><h1>Your Lucky Geometry</h1><p class="lead">讓幾何成為光的容器，讓每一張圖都有寶石般的呼吸感。輸入你的頻率，生成專屬幸運幾何。</p>
+      
+      <div class="posterFlower" aria-hidden="true">
+        <svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="portalGem" cx="50%" cy="50%" r="52%">
-              <stop offset="0" stop-color="#ffffff" stop-opacity=".98"/>
-              <stop offset=".24" stop-color="#fff4cf" stop-opacity=".64"/>
-              <stop offset=".48" stop-color="#eadfff" stop-opacity=".50"/>
-              <stop offset=".72" stop-color="#ffffff" stop-opacity=".36"/>
-              <stop offset="1" stop-color="#fff9ec" stop-opacity=".08"/>
+            <radialGradient id="posterGlow" cx="50%" cy="50%" r="56%">
+              <stop offset="0%" stop-color="#FFE28A" stop-opacity=".92"/>
+              <stop offset="18%" stop-color="#FFE8A2" stop-opacity=".76"/>
+              <stop offset="34%" stop-color="#D4B4FF" stop-opacity=".92"/>
+              <stop offset="62%" stop-color="#D8BCFF" stop-opacity=".78"/>
+              <stop offset="74%" stop-color="#FFE6A8" stop-opacity=".56"/>
+              <stop offset="88%" stop-color="#FFCDE3" stop-opacity=".54"/>
+              <stop offset="100%" stop-color="#FFD6EA" stop-opacity="0"/>
             </radialGradient>
-            <filter id="portalGlow" x="-40%" y="-40%" width="180%" height="180%">
-              <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#ffe8a3" flood-opacity=".85"/>
-              <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#c89c34" flood-opacity=".28"/>
-            </filter>
+            <linearGradient id="posterGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#b87406"/>
+              <stop offset=".35" stop-color="#f4d57d"/>
+              <stop offset=".7" stop-color="#bf7d0f"/>
+              <stop offset="1" stop-color="#e8c365"/>
+            </linearGradient>
           </defs>
-          <circle cx="210" cy="210" r="174" fill="url(#portalGem)" stroke="rgba(183,138,34,.28)" stroke-width="1"/>
-          <g class="orbit" fill="none" stroke="#d4a43a" stroke-width="1.15" opacity=".72" filter="url(#portalGlow)">
-            <circle cx="210" cy="210" r="138"/>
-            <circle cx="210" cy="210" r="112"/>
-            <circle cx="210" cy="210" r="82"/>
+          <circle cx="600" cy="600" r="535" fill="url(#posterGlow)" opacity="1"/>
+          <g fill="rgba(255,255,255,.30)">
+            <circle cx="600" cy="240" r="120"/><circle cx="600" cy="360" r="120"/><circle cx="600" cy="480" r="120"/><circle cx="600" cy="600" r="120"/><circle cx="600" cy="720" r="120"/><circle cx="600" cy="840" r="120"/><circle cx="600" cy="960" r="120"/>
+            <circle cx="496.08" cy="300" r="120"/><circle cx="496.08" cy="420" r="120"/><circle cx="496.08" cy="540" r="120"/><circle cx="496.08" cy="660" r="120"/><circle cx="496.08" cy="780" r="120"/><circle cx="496.08" cy="900" r="120"/>
+            <circle cx="703.92" cy="300" r="120"/><circle cx="703.92" cy="420" r="120"/><circle cx="703.92" cy="540" r="120"/><circle cx="703.92" cy="660" r="120"/><circle cx="703.92" cy="780" r="120"/><circle cx="703.92" cy="900" r="120"/>
+            <circle cx="392.16" cy="360" r="120"/><circle cx="392.16" cy="480" r="120"/><circle cx="392.16" cy="600" r="120"/><circle cx="392.16" cy="720" r="120"/><circle cx="392.16" cy="840" r="120"/>
+            <circle cx="807.84" cy="360" r="120"/><circle cx="807.84" cy="480" r="120"/><circle cx="807.84" cy="600" r="120"/><circle cx="807.84" cy="720" r="120"/><circle cx="807.84" cy="840" r="120"/>
+            <circle cx="288.24" cy="420" r="120"/><circle cx="288.24" cy="540" r="120"/><circle cx="288.24" cy="660" r="120"/><circle cx="288.24" cy="780" r="120"/>
+            <circle cx="911.76" cy="420" r="120"/><circle cx="911.76" cy="540" r="120"/><circle cx="911.76" cy="660" r="120"/><circle cx="911.76" cy="780" r="120"/>
           </g>
-          <g fill="none" stroke="#d6a73a" stroke-width="1.35" opacity=".86" filter="url(#portalGlow)">
-            <circle cx="210" cy="210" r="42"/>
-            <circle cx="210" cy="168" r="42"/>
-            <circle cx="210" cy="252" r="42"/>
-            <circle cx="246.37" cy="189" r="42"/>
-            <circle cx="246.37" cy="231" r="42"/>
-            <circle cx="173.63" cy="189" r="42"/>
-            <circle cx="173.63" cy="231" r="42"/>
-            <circle cx="210" cy="126" r="42" opacity=".52"/>
-            <circle cx="210" cy="294" r="42" opacity=".52"/>
-            <circle cx="282.75" cy="168" r="42" opacity=".52"/>
-            <circle cx="282.75" cy="252" r="42" opacity=".52"/>
-            <circle cx="137.25" cy="168" r="42" opacity=".52"/>
-            <circle cx="137.25" cy="252" r="42" opacity=".52"/>
-          </g>
-          <g fill="#fff" filter="url(#portalGlow)">
-            <circle class="spark" cx="210" cy="52" r="3"/>
-            <circle class="spark" cx="334" cy="112" r="2.4" style="animation-delay:.4s"/>
-            <circle class="spark" cx="342" cy="286" r="2.8" style="animation-delay:.8s"/>
-            <circle class="spark" cx="86" cy="292" r="2.4" style="animation-delay:1.2s"/>
-            <circle class="spark" cx="78" cy="128" r="2.8" style="animation-delay:1.6s"/>
+          <g fill="none" stroke="url(#posterGold)" stroke-width="2.05">
+            <circle cx="600" cy="240" r="120"/><circle cx="600" cy="360" r="120"/><circle cx="600" cy="480" r="120"/><circle cx="600" cy="600" r="120"/><circle cx="600" cy="720" r="120"/><circle cx="600" cy="840" r="120"/><circle cx="600" cy="960" r="120"/>
+            <circle cx="496.08" cy="300" r="120"/><circle cx="496.08" cy="420" r="120"/><circle cx="496.08" cy="540" r="120"/><circle cx="496.08" cy="660" r="120"/><circle cx="496.08" cy="780" r="120"/><circle cx="496.08" cy="900" r="120"/>
+            <circle cx="703.92" cy="300" r="120"/><circle cx="703.92" cy="420" r="120"/><circle cx="703.92" cy="540" r="120"/><circle cx="703.92" cy="660" r="120"/><circle cx="703.92" cy="780" r="120"/><circle cx="703.92" cy="900" r="120"/>
+            <circle cx="392.16" cy="360" r="120"/><circle cx="392.16" cy="480" r="120"/><circle cx="392.16" cy="600" r="120"/><circle cx="392.16" cy="720" r="120"/><circle cx="392.16" cy="840" r="120"/>
+            <circle cx="807.84" cy="360" r="120"/><circle cx="807.84" cy="480" r="120"/><circle cx="807.84" cy="600" r="120"/><circle cx="807.84" cy="720" r="120"/><circle cx="807.84" cy="840" r="120"/>
+            <circle cx="288.24" cy="420" r="120"/><circle cx="288.24" cy="540" r="120"/><circle cx="288.24" cy="660" r="120"/><circle cx="288.24" cy="780" r="120"/>
+            <circle cx="911.76" cy="420" r="120"/><circle cx="911.76" cy="540" r="120"/><circle cx="911.76" cy="660" r="120"/><circle cx="911.76" cy="780" r="120"/>
+            <circle cx="600" cy="600" r="505"/><circle cx="600" cy="600" r="528"/>
           </g>
         </svg>
-      </div></section>
+      </div></div></section>
     <form id="form" class="grid">
       <div class="formIntro">填寫你的個人頻率，讓生命之花、符文與水晶色光，生成一張專屬於你的幸運幾何。</div>
       <section class="card"><h2>Identity</h2><label>✦ 你的名字</label><input id="name" placeholder="例如：Snow" value="Snow"><label>✦ 出生年月日</label><input id="birth" type="date" value="1975-01-03"><label>✦ 星座</label><select id="zodiac"><option>CAPRICORN</option><option>ARIES</option><option>TAURUS</option><option>GEMINI</option><option>CANCER</option><option>LEO</option><option>VIRGO</option><option>LIBRA</option><option>SCORPIO</option><option>SAGITTARIUS</option><option>AQUARIUS</option><option>PISCES</option></select><label>✦ MBTI 人格類型</label><select id="mbti"><option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option><option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option><option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option><option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option><option>OTHER</option></select></section>
-      <section class="card"><h2>Crystal</h2><label>✦ 最喜歡的顏色</label><select id="color"><option value="white">白 · White</option><option value="gold">金 · Gold</option><option value="violet">紫 · Violet</option><option value="pink">粉 · Rose</option><option value="blue">藍 · Blue</option><option value="green">綠 · Emerald</option><option value="black">黑 · Obsidian</option></select><label>✦ 喜歡的水晶或寶石</label><select id="crystal"><option>白水晶</option><option>紫水晶</option><option>粉晶</option><option>黃水晶</option><option>月光石</option><option>拉長石</option><option>蛋白石</option><option>鑽石</option><option>祖母綠</option><option>紅寶石</option><option>藍寶石</option></select><label>✦ 生成尺寸</label><select id="size"><option value="portrait">手機桌面（直式）</option><option value="landscape">電腦桌面（橫式）</option></select></section>
+      <section class="card"><h2>Crystal</h2><label>✦ 最喜歡的顏色</label><select id="color"><option value="white">白 · White</option><option value="gold">金 · Gold</option><option value="violet">紫 · Violet</option><option value="pink">粉 · Rose</option><option value="blue">藍 · Blue</option><option value="green">綠 · Emerald</option><option value="black">黑 · Obsidian</option></select><label>✦ 喜歡的水晶或寶石</label><select id="crystal"><option>白水晶</option><option>紫水晶</option><option>粉晶</option><option>黃水晶</option><option>月光石</option><option>拉長石</option><option>蛋白石</option><option>鑽石</option><option>祖母綠</option><option>紅寶石</option><option>藍寶石</option></select><select id="size" style="display:none"><option value="portrait" selected>手機桌面（直式）</option></select></section>
       <section class="card full"><h2>Wish Runes</h2><label>✦ 2026 最想提升的三個願望領域（最多選三項）</label><div class="choices" id="wishes"><label class="pill"><input type="checkbox" value="ᚠ 財富豐盛" checked><span>ᚠ 財富豐盛</span></label><label class="pill"><input type="checkbox" value="ᚢ 健康活力" checked><span>ᚢ 健康活力</span></label><label class="pill"><input type="checkbox" value="ᚦ 突破障礙" checked><span>ᚦ 突破障礙</span></label><label class="pill"><input type="checkbox" value="ᚨ 智慧溝通" ><span>ᚨ 智慧溝通</span></label><label class="pill"><input type="checkbox" value="ᚱ 旅行方向" ><span>ᚱ 旅行方向</span></label><label class="pill"><input type="checkbox" value="ᚲ 創造洞察" ><span>ᚲ 創造洞察</span></label><label class="pill"><input type="checkbox" value="ᚷ 關係平衡" ><span>ᚷ 關係平衡</span></label><label class="pill"><input type="checkbox" value="ᚹ 喜悅和諧" ><span>ᚹ 喜悅和諧</span></label><label class="pill"><input type="checkbox" value="ᚺ 轉化突破" ><span>ᚺ 轉化突破</span></label><label class="pill"><input type="checkbox" value="ᚾ 意志克服" ><span>ᚾ 意志克服</span></label><label class="pill"><input type="checkbox" value="ᛁ 靜心反省" ><span>ᛁ 靜心反省</span></label><label class="pill"><input type="checkbox" value="ᛃ 豐收循環" ><span>ᛃ 豐收循環</span></label><label class="pill"><input type="checkbox" value="ᛇ 韌性重生" ><span>ᛇ 韌性重生</span></label><label class="pill"><input type="checkbox" value="ᛈ 命運潛力" ><span>ᛈ 命運潛力</span></label><label class="pill"><input type="checkbox" value="ᛉ 保護連結" ><span>ᛉ 保護連結</span></label><label class="pill"><input type="checkbox" value="ᛊ 事業勝利" ><span>ᛊ 事業勝利</span></label><label class="pill"><input type="checkbox" value="ᛏ 正義榮譽" ><span>ᛏ 正義榮譽</span></label><label class="pill"><input type="checkbox" value="ᛒ 家庭新生" ><span>ᛒ 家庭新生</span></label><label class="pill"><input type="checkbox" value="ᛖ 合作信任" ><span>ᛖ 合作信任</span></label><label class="pill"><input type="checkbox" value="ᛗ 人際自我" ><span>ᛗ 人際自我</span></label><label class="pill"><input type="checkbox" value="ᛚ 直覺情感" ><span>ᛚ 直覺情感</span></label><label class="pill"><input type="checkbox" value="ᛝ 內在圓滿" ><span>ᛝ 內在圓滿</span></label><label class="pill"><input type="checkbox" value="ᛟ 根基穩定" ><span>ᛟ 根基穩定</span></label><label class="pill"><input type="checkbox" value="ᛞ 全新開始" ><span>ᛞ 全新開始</span></label></div><div class="btnrow"><button class="btn" id="generateBtn" type="button">✦ 生成你的宇宙印記 ✦</button><a class="btn ghost homeLink" href="https://shemytai-cmd.github.io/Shemy-brand/">回品牌首頁<br><small>HOME</small></a></div></section>
     </form>
     <section id="result" class="resultShell">
       <div class="resultHead">
         <div class="kicker">SPARKLING FREQUENCY</div>
-        <div class="sigilTitle">YOUR LUCKY SIGIL</div>
-        <div class="sigilSub">你的專屬幸運符文已啟動</div>
+        <div class="sigilTitle">YOUR LUCKY GEOMETRY</div>
+        <div class="sigilSub">你的專屬幸運幾何已啟動</div>
       </div>
       <div class="artStage" id="artStage"></div>
       <div class="resultNameBlock">
@@ -167,30 +265,98 @@
     function palette(key){return {white:['#ffffff','#f5eefc','#fff0c4','#d9aa38'], gold:['#fff7da','#f7d97f','#b88718','#fffaf0'], violet:['#fff','#e9d7ff','#b89cff','#f2d37b'], pink:['#fff','#ffe1ec','#f8b5cf','#f5d37f'], blue:['#fff','#dbeaff','#95c8ff','#f2d37b'], green:['#fff','#def7e9','#9bd9b3','#f2d37b'], black:['#fff','#ded9e6','#7a7482','#d9aa38']}[key]||['#fff','#f5eefc','#fff0c4','#d9aa38'];}
     function svgMarkup(){
       const name=document.getElementById('name').value||'Snow', color=document.getElementById('color').value, p=palette(color); const chosen=[...wishBox.querySelectorAll('input:checked')].map(x=>x.value.split(' ')[0]);
-      const W=1080,H=document.getElementById('size').value==='landscape'?720:1620, cx=W/2, cy=H*.47, R=Math.min(W,H)*.31;
+      const W=1080,H=document.getElementById('size').value==='landscape'?720:1620, cx=W/2, cy=H*.39, R=Math.min(W,H)*.31;
+      const mood={
+        white:{bg1:'#fffdfb',bg2:'#f8f2ff',bg3:'#fff4d8',bg4:'#edf4ff',gemA:'#ffffff',gemB:'#f3edff',gemC:'#fff0bf',gemD:'#d8efff'},
+        gold:{bg1:'#fff8e4',bg2:'#fff2c9',bg3:'#f9de85',bg4:'#fffdf7',gemA:'#fffbe8',gemB:'#ffe7a6',gemC:'#d6a331',gemD:'#fff7db'},
+        violet:{bg1:'#fffaff',bg2:'#ead8ff',bg3:'#fff0d6',bg4:'#f4f1ff',gemA:'#ffffff',gemB:'#ead9ff',gemC:'#b696ff',gemD:'#fff1be'},
+        pink:{bg1:'#fffafb',bg2:'#ffe4ef',bg3:'#fff3d8',bg4:'#f8f2ff',gemA:'#ffffff',gemB:'#ffdfea',gemC:'#f3abc5',gemD:'#fff1c9'},
+        blue:{bg1:'#fbfdff',bg2:'#dfeeff',bg3:'#fff3d9',bg4:'#f1f7ff',gemA:'#ffffff',gemB:'#d8eaff',gemC:'#8fc8ff',gemD:'#fff2c7'},
+        green:{bg1:'#fbfffc',bg2:'#dff8ea',bg3:'#fff3d6',bg4:'#f1fbf4',gemA:'#ffffff',gemB:'#dcf7e8',gemC:'#92d9b2',gemD:'#fff2c4'},
+        black:{bg1:'#fbf9ff',bg2:'#e5dfef',bg3:'#fff2cc',bg4:'#f8f8fb',gemA:'#ffffff',gemB:'#ded9e8',gemC:'#938ba3',gemD:'#f5d689'}
+      }[color] || {bg1:'#fffdfb',bg2:'#f8f2ff',bg3:'#fff4d8',bg4:'#edf4ff',gemA:p[0],gemB:p[1],gemC:p[2],gemD:p[3]};
       let defs=`<defs>
-        <radialGradient id="bg" cx="50%" cy="36%" r="78%"><stop offset="0" stop-color="#ffffff"/><stop offset=".30" stop-color="#fbf5ff"/><stop offset=".56" stop-color="#fff7e9"/><stop offset=".78" stop-color="#f4f1fb"/><stop offset="1" stop-color="#fffdf9"/></radialGradient>
-        <radialGradient id="gem" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="#ffffff" stop-opacity=".98"/><stop offset=".18" stop-color="#fff8dd" stop-opacity=".66"/><stop offset=".36" stop-color="#ffffff" stop-opacity=".58"/><stop offset=".56" stop-color="#fff6dd" stop-opacity=".34"/><stop offset=".76" stop-color="#f7efe8" stop-opacity=".16"/><stop offset="1" stop-color="#ffffff" stop-opacity=".06"/></radialGradient>
-        <radialGradient id="flowerTintGrad" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="${p[0]}" stop-opacity=".58"/><stop offset=".36" stop-color="${p[2]}" stop-opacity=".28"/><stop offset=".72" stop-color="${p[1]}" stop-opacity=".14"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
-        <radialGradient id="facet" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffffff" stop-opacity=".88"/><stop offset=".22" stop-color="#ffffff" stop-opacity=".34"/><stop offset=".23" stop-color="#f4d88a" stop-opacity=".20"/><stop offset=".42" stop-color="#ffffff" stop-opacity=".16"/><stop offset=".43" stop-color="${p[2]}" stop-opacity=".16"/><stop offset=".62" stop-color="#ffffff" stop-opacity=".10"/><stop offset=".63" stop-color="#f4d88a" stop-opacity=".12"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
-        <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="2.4" flood-color="#fff0ad" flood-opacity=".92"/><feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#d8a12c" flood-opacity=".32"/></filter>
-        <filter id="whiteGlow"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#fff" flood-opacity="1"/><feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#fff5d6" flood-opacity=".35"/></filter>
-        <linearGradient id="ringGold" x1="0" x2="1"><stop offset="0" stop-color="#7c560b"/><stop offset=".20" stop-color="#c9982a"/><stop offset=".44" stop-color="#fff0ac"/><stop offset=".58" stop-color="#d9ad43"/><stop offset=".78" stop-color="#9d7016"/><stop offset="1" stop-color="#6e4b08"/></linearGradient>
+        <radialGradient id="bg" cx="50%" cy="36%" r="84%">
+          <stop offset="0" stop-color="#ffffff"/>
+          <stop offset=".18" stop-color="${mood.bg1}"/>
+          <stop offset=".42" stop-color="${mood.bg2}"/>
+          <stop offset=".64" stop-color="${mood.bg3}"/>
+          <stop offset=".82" stop-color="${mood.bg4}"/>
+          <stop offset="1" stop-color="#fffdf9"/>
+        </radialGradient>
+        <radialGradient id="gem" cx="50%" cy="46%" r="62%">
+          <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+          <stop offset=".12" stop-color="${mood.gemA}" stop-opacity=".96"/>
+          <stop offset=".24" stop-color="${mood.gemB}" stop-opacity=".72"/>
+          <stop offset=".36" stop-color="#ffffff" stop-opacity=".70"/>
+          <stop offset=".49" stop-color="${mood.gemC}" stop-opacity=".48"/>
+          <stop offset=".62" stop-color="${mood.gemD}" stop-opacity=".36"/>
+          <stop offset=".77" stop-color="#ffffff" stop-opacity=".62"/>
+          <stop offset="1" stop-color="#fffdf8" stop-opacity=".90"/>
+        </radialGradient>
+        <radialGradient id="facet" cx="42%" cy="36%" r="76%">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".88"/>
+          <stop offset=".22" stop-color="${mood.gemB}" stop-opacity=".28"/>
+          <stop offset=".36" stop-color="#fff6cf" stop-opacity=".35"/>
+          <stop offset=".52" stop-color="${mood.gemC}" stop-opacity=".24"/>
+          <stop offset=".68" stop-color="#ffffff" stop-opacity=".44"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity=".08"/>
+        </radialGradient>
+        <linearGradient id="ringGold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0" stop-color="#74500a"/><stop offset=".18" stop-color="#caa13b"/><stop offset=".38" stop-color="#fff0a8"/><stop offset=".56" stop-color="#a67508"/><stop offset=".77" stop-color="#f6d97a"/><stop offset="1" stop-color="#6b4703"/></linearGradient>
+        <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="2.4" flood-color="#ffe7a0" flood-opacity=".75"/><feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#d7a72d" flood-opacity=".28"/></filter>
+        <filter id="whiteGlow" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="0" stdDeviation="3.2" flood-color="#ffffff" flood-opacity=".95"/><feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#ffffff" flood-opacity=".35"/></filter>
+        <filter id="softBlur"><feGaussianBlur stdDeviation="8"/></filter>
       </defs>`;
-      let bg=`<rect width="100%" height="100%" fill="url(#bg)"/><g opacity=".30" filter="url(#whiteGlow)"><path d="M60 ${H*.18} C260 ${H*.06}, 370 ${H*.22}, 540 ${H*.12} S820 ${H*.07}, 1020 ${H*.18}" fill="none" stroke="#fff" stroke-width="2"/><path d="M34 ${H*.68} C250 ${H*.55}, 410 ${H*.72}, 604 ${H*.60} S830 ${H*.55}, 1060 ${H*.70}" fill="none" stroke="#fff" stroke-width="1.4"/></g>`;
-      let particles=''; for(let i=0;i<680;i++){let a=i*137.5*Math.PI/180, rr=(i%144)/144*R*2.35+R*.06; let x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr; particles+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(i%11===0?3.8:(i%7===0?2.4:1.25))}" fill="#fff" opacity="${i%5?.50:.95}" filter="url(#whiteGlow)"><animate attributeName="opacity" values=".16;1;.16" dur="${2.6+i%6}s" begin="${(i%17)*.08}s" repeatCount="indefinite"/></circle>`;}
-      let circles=`<circle cx="${cx}" cy="${cy}" r="${R*1.03}" fill="url(#gem)" opacity=".96"/><circle cx="${cx}" cy="${cy}" r="${R*.98}" fill="url(#facet)" opacity=".92"/><circle cx="${cx}" cy="${cy}" r="${R*1.17}" fill="none" stroke="#d7aa36" stroke-width="1.8" opacity=".42"/>`;
-      for(let k=0;k<9;k++) circles+=`<circle cx="${cx}" cy="${cy}" r="${R*(.22+k*.095)}" fill="none" stroke="#d4aa3a" stroke-width="1" opacity="${.16+k*.045}"/>`;
-      let flowerMaskCircles=''; const fr=R*.205; for(let ring=0; ring<4; ring++){let n=ring?ring*6:1; for(let i=0;i<n;i++){let a=i*2*Math.PI/n; let x=cx+Math.cos(a)*fr*ring, y=cy+Math.sin(a)*fr*ring; flowerMaskCircles+=`<circle cx="${x}" cy="${y}" r="${fr*.98}" fill="#fff"/>`;}}
-      const flowerTintMask=`<defs><mask id="flowerTintMask" maskUnits="userSpaceOnUse"><rect width="${W}" height="${H}" fill="#000"/>${flowerMaskCircles}</mask></defs>`;
-      const flowerTintLayer=`<rect width="${W}" height="${H}" fill="url(#flowerTintGrad)" mask="url(#flowerTintMask)" opacity=".78"/>`;
-      let flower=''; for(let ring=0; ring<4; ring++){let n=ring?ring*6:1; for(let i=0;i<n;i++){let a=i*2*Math.PI/n+(ring*.0); let x=cx+Math.cos(a)*fr*ring, y=cy+Math.sin(a)*fr*ring; flower+=`<circle cx="${x}" cy="${y}" r="${fr}" fill="none" stroke="#d7a72d" stroke-width="1.55" opacity="${ring<3?.92:.54}" filter="url(#goldGlow)"/>`;}}
-      let petals=''; for(let i=0;i<12;i++){petals+=`<ellipse cx="${cx}" cy="${cy}" rx="${R*.78}" ry="${R*.255}" fill="none" stroke="#d7a72d" stroke-width="1.25" opacity=".70" transform="rotate(${i*30} ${cx} ${cy})" filter="url(#goldGlow)"/>`;}
-      let ring=`<circle cx="${cx}" cy="${cy}" r="${R*1.19}" fill="none" stroke="url(#ringGold)" stroke-width="38" filter="url(#goldGlow)"/>`;
-      let symbols=''; const all=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ']; for(let i=0;i<20;i++){let a=-Math.PI/2+i*2*Math.PI/20, x=cx+Math.cos(a)*R*1.19, y=cy+Math.sin(a)*R*1.19; symbols+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" font-size="32" fill="#fff" font-family="serif" opacity=".96" filter="url(#whiteGlow)">${chosen[i%chosen.length]||all[i]}</text>`;}
-      let starbursts=''; for(let i=0;i<64;i++){let a=i*2*Math.PI/64, x=cx+Math.cos(a)*R*(1.24+(i%5)*.12), y=cy+Math.sin(a)*R*(1.24+(i%5)*.12); const size=(i%4===0?34:(i%3===0?24:15)); starbursts+=`<g transform="translate(${x} ${y})" filter="url(#whiteGlow)"><path d="M0 -${size} L${size*.10} -${size*.14} L${size} 0 L${size*.10} ${size*.14} L0 ${size} L-${size*.10} ${size*.14} L-${size} 0 L-${size*.10} -${size*.14}Z" fill="#fff" opacity="${i%4===0?.78:.56}"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="${9+i%7}s" repeatCount="indefinite"/></path></g>`;} for(let i=0;i<90;i++){let a=i*2*Math.PI/90+Math.PI/90, x=cx+Math.cos(a)*R*(.34+(i%9)*.20), y=cy+Math.sin(a)*R*(.34+(i%9)*.20); starbursts+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="${i%6===0?22:13}" opacity="${i%6===0?.78:.42}" filter="url(#whiteGlow)">✦<animate attributeName="opacity" values=".18;.9;.18" dur="${2.4+i%5}s" begin="${(i%13)*.11}s" repeatCount="indefinite"/></text>`;}
-      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${starbursts}<g>${circles}${flowerTintMask}<g filter="url(#whiteGlow)">${flowerTintLayer}</g>${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="${Math.min(H*.875, H-165)}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="64" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="${Math.min(H*.905, H-120)}" text-anchor="middle" font-family="Noto Sans TC" font-size="22" letter-spacing="7" fill="#a88758">的專屬幸運符文</text><text x="${cx}" y="${H*.945}" text-anchor="middle" font-family="Noto Sans TC" font-size="18" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="${H*.965}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="16" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
+      let bg=`<rect width="100%" height="100%" fill="url(#bg)"/>
+        <circle cx="${cx}" cy="${cy}" r="${R*2.24}" fill="none" stroke="#ffffff" stroke-width="48" opacity=".16"/>
+        <circle cx="${cx}" cy="${cy}" r="${R*1.82}" fill="none" stroke="#fff8df" stroke-width="30" opacity=".22"/>
+        <g opacity=".38" filter="url(#whiteGlow)"><path d="M42 ${H*.145} C250 ${H*.03}, 386 ${H*.215}, 560 ${H*.105} S815 ${H*.055}, 1040 ${H*.18}" fill="none" stroke="#fff" stroke-width="2"/><path d="M34 ${H*.69} C240 ${H*.55}, 410 ${H*.73}, 610 ${H*.60} S838 ${H*.555}, 1060 ${H*.705}" fill="none" stroke="#fff" stroke-width="1.5"/></g>`;
+      let particles='';
+      for(let i=0;i<860;i++){
+        let a=i*137.507764*Math.PI/180;
+        let rr=Math.sqrt((i%860)/860)*R*2.36+R*.18;
+        let x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
+        let big=i%23===0, mid=i%9===0;
+        particles+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${big?3.6:(mid?2.2:.95)}" fill="#fff" opacity="${big?.82:(mid?.62:.32)}" filter="url(#whiteGlow)"><animate attributeName="opacity" values=".10;.92;.10" dur="${2.5+i%7}s" begin="${(i%19)*.07}s" repeatCount="indefinite"/></circle>`;
+      }
+      let whitePanels='';
+      for(let i=0;i<18;i++){
+        let a=i*20, rx=R*(.78+(i%3)*.06), ry=R*(.22+(i%4)*.025);
+        whitePanels+=`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="#ffffff" stroke-width="${i%3===0?7:3}" opacity="${i%3===0?.13:.22}" transform="rotate(${a} ${cx} ${cy})"/>`;
+      }
+      let circles=`<circle cx="${cx}" cy="${cy}" r="${R*1.06}" fill="url(#gem)" opacity=".98"/><circle cx="${cx}" cy="${cy}" r="${R*1.00}" fill="url(#facet)" opacity=".96"/><circle cx="${cx}" cy="${cy}" r="${R*1.17}" fill="none" stroke="#d7aa36" stroke-width="1.8" opacity=".42"/>`;
+      for(let k=0;k<12;k++) circles+=`<circle cx="${cx}" cy="${cy}" r="${R*(.18+k*.083)}" fill="none" stroke="#d4aa3a" stroke-width="${k%3===0?1.25:.75}" opacity="${.14+k*.035}"/>`;
+      let flower='';
+      const fr=R*.192;
+      for(let ring=0; ring<=4; ring++){
+        let n=ring?ring*6:1;
+        for(let i=0;i<n;i++){
+          let a=i*2*Math.PI/n + (ring%2 ? Math.PI/n : 0);
+          let x=cx+Math.cos(a)*fr*ring, y=cy+Math.sin(a)*fr*ring;
+          flower+=`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${fr.toFixed(2)}" fill="none" stroke="#d7a72d" stroke-width="${ring<3?1.55:1.05}" opacity="${ring<3?.88:.46}" filter="url(#goldGlow)"/>`;
+        }
+      }
+      let petals='';
+      for(let i=0;i<18;i++) petals+=`<ellipse cx="${cx}" cy="${cy}" rx="${R*.80}" ry="${R*.205}" fill="none" stroke="#d7a72d" stroke-width="1.05" opacity="${i%3===0?.72:.54}" transform="rotate(${i*10} ${cx} ${cy})" filter="url(#goldGlow)"/>`;
+      for(let i=0;i<12;i++) petals+=`<ellipse cx="${cx}" cy="${cy}" rx="${R*.56}" ry="${R*.155}" fill="none" stroke="#ffffff" stroke-width="2.5" opacity=".16" transform="rotate(${i*15+7.5} ${cx} ${cy})"/>`;
+      let ring=`<circle cx="${cx}" cy="${cy}" r="${R*1.19}" fill="none" stroke="url(#ringGold)" stroke-width="38" filter="url(#goldGlow)"/><circle cx="${cx}" cy="${cy}" r="${R*1.19}" fill="none" stroke="#fff7d8" stroke-width="1.2" opacity=".38"/><circle cx="${cx}" cy="${cy}" r="${R*1.095}" fill="none" stroke="#ffffff" stroke-width="1.4" opacity=".18"/>`;
+      let symbols=''; const all=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ'];
+      for(let i=0;i<20;i++){
+        let a=-Math.PI/2+i*2*Math.PI/20, deg=a*180/Math.PI+270, x=cx+Math.cos(a)*R*1.19, y=cy+Math.sin(a)*R*1.19;
+        symbols+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="30" fill="#fff" font-family="serif" opacity=".98" filter="url(#whiteGlow)" transform="rotate(${deg.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})">${chosen[i%chosen.length]||all[i]}</text>`;
+      }
+      let starbursts='';
+      for(let i=0;i<96;i++){
+        let a=i*2*Math.PI/96, x=cx+Math.cos(a)*R*(1.23+(i%7)*.13), y=cy+Math.sin(a)*R*(1.23+(i%7)*.13); const size=(i%5===0?40:(i%3===0?25:15));
+        starbursts+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})" filter="url(#whiteGlow)"><path d="M0 -${size} L${size*.10} -${size*.14} L${size} 0 L${size*.10} ${size*.14} L0 ${size} L-${size*.10} ${size*.14} L-${size} 0 L-${size*.10} -${size*.14}Z" fill="#fff" opacity="${i%5===0?.82:.52}"><animate attributeName="opacity" values=".18;.95;.18" dur="${3+i%6}s" begin="${(i%21)*.06}s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="${9+i%8}s" repeatCount="indefinite"/></path></g>`;
+      }
+      for(let i=0;i<130;i++){
+        let a=i*2*Math.PI/130+Math.PI/90, x=cx+Math.cos(a)*R*(.38+(i%11)*.18), y=cy+Math.sin(a)*R*(.38+(i%11)*.18);
+        starbursts+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="${i%7===0?24:13}" opacity="${i%7===0?.72:.34}" filter="url(#whiteGlow)">✦<animate attributeName="opacity" values=".12;.9;.12" dur="${2.4+i%5}s" begin="${(i%13)*.11}s" repeatCount="indefinite"/></text>`;
+      }
+      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${starbursts}<g>${circles}${whitePanels}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="${H*.735}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="${H*.766}" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬幸運幾何</text><text x="${cx}" y="${H*.925}" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="${H*.947}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
     }
+
     function renderResult(){
       try{
         document.getElementById('artStage').innerHTML = svgMarkup();
@@ -260,7 +426,7 @@
           const file=new File([blob], fileName, {type:'image/png'});
           try{
             if(navigator.canShare && navigator.canShare({files:[file]})){
-              await navigator.share({files:[file], title:'Shemy Lucky Sigil'});
+              await navigator.share({files:[file], title:'Shemy Lucky Geometry'});
               return;
             }
           }catch(e){ /* 使用者取消分享時不顯示錯誤 */ }
@@ -271,7 +437,7 @@
             if(!opened){
               const preview=document.createElement('div');
               preview.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(255,250,244,.96);padding:24px;overflow:auto;text-align:center;';
-              preview.innerHTML='<button style="border:1px solid rgba(183,138,34,.45);border-radius:999px;background:white;color:#9a711b;padding:12px 20px;margin-bottom:16px;letter-spacing:.12em;" onclick="this.parentNode.remove()">關閉</button><p style="color:#9a711b;letter-spacing:.12em;line-height:1.8;">請長按圖片儲存到相簿</p><img alt="Shemy Lucky Sigil" style="max-width:100%;height:auto;border-radius:18px;box-shadow:0 18px 60px rgba(184,151,88,.18)" src="'+dataUrl+'">';
+              preview.innerHTML='<button style="border:1px solid rgba(183,138,34,.45);border-radius:999px;background:white;color:#9a711b;padding:12px 20px;margin-bottom:16px;letter-spacing:.12em;" onclick="this.parentNode.remove()">關閉</button><p style="color:#9a711b;letter-spacing:.12em;line-height:1.8;">請長按圖片儲存到相簿</p><img alt="Shemy Lucky Geometry" style="max-width:100%;height:auto;border-radius:18px;box-shadow:0 18px 60px rgba(184,151,88,.18)" src="'+dataUrl+'">';
               document.body.appendChild(preview);
             }
             return;
@@ -291,7 +457,252 @@
       img.src=url;
     });
     document.getElementById('birth').value=document.getElementById('birth').value||'1975-01-03';
-    window.shemyGenerate = renderResult;
   </script>
+
+<script>
+(function(){
+  function fixGeneratedColorCenter(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    const vb = svg.viewBox && svg.viewBox.baseVal ? svg.viewBox.baseVal : null;
+    if(!vb || !vb.width || !vb.height) return;
+
+    const cx = vb.width / 2;
+    const cy = vb.height * 0.39;
+
+    svg.querySelectorAll('radialGradient').forEach(g => {
+      const id = g.getAttribute('id') || '';
+      if(id === 'gem' || id === 'facet' || id.toLowerCase().includes('gem') || id.toLowerCase().includes('facet')){
+        g.setAttribute('cx','50%');
+        g.setAttribute('cy','50%');
+        g.setAttribute('r','62%');
+      }
+    });
+
+    svg.querySelectorAll('circle').forEach(c => {
+      const r = parseFloat(c.getAttribute('r') || '0');
+      const fill = c.getAttribute('fill') || '';
+      const stroke = c.getAttribute('stroke') || '';
+
+      const isMainColorDisk =
+        fill.includes('url(#gem)') ||
+        fill.includes('url(#facet)') ||
+        (stroke.includes('#d7aa36') && r > 100) ||
+        (stroke.includes('ringGold') && r > 100);
+
+      if(isMainColorDisk){
+        c.setAttribute('cx', cx);
+        c.setAttribute('cy', cy);
+      }
+    });
+  }
+
+  const originalRender = window.renderResult;
+  if(typeof originalRender === 'function'){
+    window.renderResult = function(){
+      originalRender.apply(this, arguments);
+      requestAnimationFrame(fixGeneratedColorCenter);
+      setTimeout(fixGeneratedColorCenter, 80);
+    };
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target && (e.target.id === 'generateBtn' || e.target.id === 'regen')){
+      setTimeout(fixGeneratedColorCenter, 120);
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  function refineResultLayersV39(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    const vb = svg.viewBox && svg.viewBox.baseVal ? svg.viewBox.baseVal : null;
+    if(!vb || !vb.width || !vb.height) return;
+
+    const cx = vb.width / 2;
+    const cy = vb.height * 0.39;
+    const R = Math.min(vb.width, vb.height) * 0.31;
+
+    // 1) 放大中心漸層範圍：不改色，只讓原本色光延展到接近符文圈。
+    svg.querySelectorAll('radialGradient').forEach(g => {
+      const id = (g.getAttribute('id') || '').toLowerCase();
+      if(id === 'gem' || id === 'facet' || id.includes('gem') || id.includes('facet')){
+        g.setAttribute('cx', '50%');
+        g.setAttribute('cy', '50%');
+        g.setAttribute('r', '86%');
+      }
+    });
+
+    // 2) 主要色盤圓與花瓣展開區保持同心，並放大避免中間與外圈斷層。
+    svg.querySelectorAll('circle').forEach(c => {
+      const fill = c.getAttribute('fill') || '';
+      const stroke = c.getAttribute('stroke') || '';
+      const r = parseFloat(c.getAttribute('r') || '0');
+
+      if(fill.includes('url(#gem)')){
+        c.setAttribute('cx', cx);
+        c.setAttribute('cy', cy);
+        c.setAttribute('r', (R * 1.17).toFixed(2));
+      }
+
+      if(fill.includes('url(#facet)')){
+        c.setAttribute('cx', cx);
+        c.setAttribute('cy', cy);
+        c.setAttribute('r', (R * 1.13).toFixed(2));
+      }
+
+      // 4) 同心圓最後一圈對齊花瓣展開區域：只調中大型內圈，不動外部符文金環。
+      if(stroke === '#d4aa3a' && r > R * .72 && r < R * 1.05){
+        c.setAttribute('cx', cx);
+        c.setAttribute('cy', cy);
+      }
+    });
+
+    // 建立一層淡白線條加強層，壓在金線下／符文下，不動原本線條。
+    if(!svg.querySelector('#v39WhiteLineBoost')){
+      const goldGeometry = [];
+      svg.querySelectorAll('g').forEach(g => {
+        const textCount = g.querySelectorAll('text').length;
+        const circleCount = g.querySelectorAll('circle').length;
+        const ellipseCount = g.querySelectorAll('ellipse').length;
+        const hasGoldStroke = (g.getAttribute('stroke') || '').includes('#d7a72d') ||
+          [...g.querySelectorAll('circle,ellipse')].some(el => ((el.getAttribute('stroke') || '').includes('#d7a72d') || (el.getAttribute('stroke') || '').includes('#d4aa3a')));
+        if((circleCount + ellipseCount) > 8 && textCount === 0 && hasGoldStroke){
+          goldGeometry.push(g);
+        }
+      });
+
+      if(goldGeometry.length){
+        const boost = document.createElementNS('http://www.w3.org/2000/svg','g');
+        boost.setAttribute('id','v39WhiteLineBoost');
+        boost.setAttribute('fill','none');
+        boost.setAttribute('stroke','#ffffff');
+        boost.setAttribute('stroke-width','3.1');
+        boost.setAttribute('stroke-linecap','round');
+        boost.setAttribute('stroke-linejoin','round');
+        boost.setAttribute('opacity','.42');
+        boost.setAttribute('filter','url(#whiteGlow)');
+
+        goldGeometry.forEach(g => {
+          g.querySelectorAll('circle,ellipse').forEach(el => {
+            const copy = el.cloneNode(false);
+            copy.removeAttribute('fill');
+            copy.setAttribute('fill','none');
+            copy.setAttribute('stroke','#ffffff');
+            copy.setAttribute('stroke-width','3.1');
+            copy.setAttribute('opacity','.34');
+            boost.appendChild(copy);
+          });
+        });
+
+        // 放在主圖層後面一點，之後再把原本符文圈移到最上層。
+        svg.appendChild(boost);
+      }
+    }
+
+    // 3) 符文圈移到最上層：找出含有大量 text 的群組，最後 append 到 svg 最後。
+    const runeGroups = [];
+    svg.querySelectorAll('g').forEach(g => {
+      const texts = g.querySelectorAll('text');
+      if(texts.length >= 8){
+        runeGroups.push(g);
+      }
+    });
+
+    runeGroups.forEach(g => {
+      g.setAttribute('opacity','1');
+      g.querySelectorAll('text').forEach(t => {
+        t.setAttribute('fill','#ffffff');
+        t.setAttribute('opacity','1');
+        t.setAttribute('filter','url(#whiteGlow)');
+      });
+      svg.appendChild(g);
+    });
+
+    // 若白線 boost 被 append 到最後，重新把符文群組壓到最上層。
+    runeGroups.forEach(g => svg.appendChild(g));
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v39RenderPatched){
+    window.__v39RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(refineResultLayersV39);
+      setTimeout(refineResultLayersV39, 80);
+      setTimeout(refineResultLayersV39, 200);
+    };
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target && (e.target.id === 'generateBtn' || e.target.id === 'regen')){
+      setTimeout(refineResultLayersV39, 120);
+      setTimeout(refineResultLayersV39, 260);
+    }
+  });
+})();
+</script>
+
+
+<script id="v41TargetedFixJS">
+(function(){
+  function moveOriginalRuneRingToTopV41(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    // Do not clone anything. Move only the original group that contains the rune texts.
+    const runeGroups = [];
+    svg.querySelectorAll('g').forEach(g => {
+      const texts = g.querySelectorAll('text');
+      if(texts.length >= 8){
+        runeGroups.push(g);
+      }
+    });
+
+    runeGroups.forEach(g => {
+      g.setAttribute('opacity', '1');
+      g.querySelectorAll('text').forEach(t => {
+        t.setAttribute('opacity','1');
+        t.setAttribute('fill','#ffffff');
+        t.setAttribute('filter','url(#whiteGlow)');
+      });
+      svg.appendChild(g);
+    });
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v41RenderPatched){
+    window.__v41RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(moveOriginalRuneRingToTopV41);
+      setTimeout(moveOriginalRuneRingToTopV41, 80);
+      setTimeout(moveOriginalRuneRingToTopV41, 180);
+    };
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target && (e.target.id === 'generateBtn' || e.target.id === 'regen')){
+      setTimeout(moveOriginalRuneRingToTopV41, 120);
+      setTimeout(moveOriginalRuneRingToTopV41, 240);
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('select, input, button').forEach(el => {
+      el.style.pointerEvents = 'auto';
+      el.style.position = 'relative';
+      el.style.zIndex = '10';
+    });
+  });
+})();
+</script>
+
+
 </body>
 </html>

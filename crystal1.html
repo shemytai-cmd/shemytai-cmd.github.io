@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>水晶幸運幾何 · Shemy Sparkling Frequency v55</title>
+  <title>水晶幸運幾何 · Shemy Sparkling Frequency v73</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
@@ -174,6 +174,671 @@
   }
 </style>
 
+
+<style id="v63BodyTextTwoColorsKeepRunesWhite">
+  :root{
+    --v63-gold:#a96f1d;
+    --v63-brown:#8f6b4c;
+  }
+
+  /* UI / inner text unified into two tones only */
+  body,
+  .lead,
+  .formIntro,
+  label,
+  input,
+  select,
+  .sigilSub,
+  .messageBox,
+  .messageBox p,
+  .meta small,
+  .pill span,
+  .modal p {
+    color:var(--v63-brown) !important;
+  }
+
+  h1,
+  h2,
+  .kicker,
+  .brand,
+  .brand small,
+  .sigilTitle,
+  .meta b,
+  .btn,
+  .btn small,
+  a.back,
+  .studio,
+  .studio small,
+  .messageBox b,
+  .card h2:before,
+  .close {
+    color:var(--v63-gold) !important;
+  }
+
+  input::placeholder{
+    color:var(--v63-brown) !important;
+    opacity:.72;
+  }
+
+  #size[aria-hidden="true"]{
+    display:none !important;
+  }
+</style>
+
+
+<style id="v66FrontendColorAndHover">
+  :root{
+    --ui-gold:#a96f1d;
+    --ui-brown:#8f6b4c;
+  }
+
+  /* All interface copy uses only two colors: gold + warm brown.
+     Rune glyphs inside generated SVG remain white via JS below. */
+  body,
+  .lead,
+  .formIntro,
+  label,
+  input,
+  select,
+  .sigilSub,
+  .messageBox,
+  .messageBox p,
+  .meta small,
+  .pill span,
+  .modal p {
+    color:var(--ui-brown) !important;
+  }
+
+  h1,
+  h2,
+  .kicker,
+  .brand,
+  .brand small,
+  .sigilTitle,
+  .meta b,
+  .btn,
+  .btn small,
+  a.back,
+  .studio,
+  .studio small,
+  .messageBox b,
+  .card h2:before,
+  .close {
+    color:var(--ui-gold) !important;
+  }
+
+  input::placeholder{
+    color:var(--ui-brown) !important;
+    opacity:.72;
+  }
+
+  /* Wish Runes buttons: restore premium pink-gold hover like main buttons. */
+  .pill span{
+    transition:.28s ease;
+  }
+
+  .pill:hover span,
+  .pill input:focus + span {
+    background:
+      linear-gradient(135deg,
+        rgba(255,246,219,.92) 0%,
+        rgba(255,226,239,.86) 45%,
+        rgba(232,214,255,.82) 100%) !important;
+    color:var(--ui-gold) !important;
+    border-color:rgba(183,138,34,.56) !important;
+    box-shadow:
+      0 0 0 1px rgba(244,216,138,.42),
+      0 0 22px rgba(244,190,220,.24),
+      0 10px 24px rgba(183,138,34,.08) !important;
+    transform:translateY(-1px);
+  }
+
+  .pill input:checked + span {
+    background:
+      linear-gradient(135deg,
+        rgba(255,250,236,.92) 0%,
+        rgba(255,232,244,.86) 52%,
+        rgba(240,225,255,.76) 100%) !important;
+    color:var(--ui-gold) !important;
+    border-color:rgba(183,138,34,.62) !important;
+    box-shadow:
+      0 0 0 1px rgba(244,216,138,.24),
+      0 0 22px rgba(244,216,138,.22) !important;
+  }
+</style>
+
+
+<style id="v67LuxuryGrayTypography">
+  :root{
+    --ui-gold:#a96f1d;
+    --ui-gray:#646872;
+  }
+
+  /* 前台／後台介面文字：金色 + 高級灰 */
+  body,
+  .lead,
+  .formIntro,
+  label,
+  input,
+  select,
+  .sigilSub,
+  .messageBox,
+  .messageBox p,
+  .meta small,
+  .pill span,
+  .modal p {
+    color:var(--ui-gray) !important;
+  }
+
+  h1,
+  h2,
+  .kicker,
+  .brand,
+  .brand small,
+  .sigilTitle,
+  .meta b,
+  .btn,
+  .btn small,
+  a.back,
+  .studio,
+  .studio small,
+  .messageBox b,
+  .card h2:before,
+  .close {
+    color:var(--ui-gold) !important;
+  }
+
+  input::placeholder{
+    color:var(--ui-gray) !important;
+    opacity:.72;
+  }
+
+  /* 文字斷行控制：避免桌機亂斷 */
+  h1,
+  .sigilTitle,
+  .kicker,
+  .brand,
+  .brand small,
+  .studio,
+  .studio small,
+  .portal,
+  .smallTitle,
+  .card h2,
+  .meta small,
+  .meta b {
+    white-space:nowrap;
+    word-break:keep-all;
+  }
+
+  .lead,
+  .formIntro,
+  .sigilSub,
+  .messageBox,
+  .messageBox p {
+    word-break:keep-all;
+    overflow-wrap:normal;
+    text-wrap:pretty;
+  }
+
+  .pill span,
+  label,
+  select,
+  input {
+    word-break:keep-all;
+  }
+
+  @media(max-width:820px){
+    h1,
+    .sigilTitle {
+      white-space:normal;
+      word-break:keep-all;
+    }
+
+    .lead,
+    .formIntro,
+    .sigilSub,
+    .messageBox,
+    .messageBox p {
+      overflow-wrap:anywhere;
+    }
+  }
+</style>
+
+
+<style id="v68ForceLuxuryGray">
+  :root{
+    --ui-gold:#a96f1d;
+    --ui-gray:#646872;
+  }
+
+  /* Force all non-gold interface text to luxury gray */
+  body,
+  p,
+  span,
+  small,
+  label,
+  input,
+  select,
+  option,
+  textarea,
+  .lead,
+  .formIntro,
+  .sigilSub,
+  .messageBox,
+  .meta,
+  .pill span,
+  .card,
+  .panel,
+  .portal,
+  .sub,
+  .caption {
+    color:var(--ui-gray) !important;
+  }
+
+  h1,h2,h3,
+  .brand,
+  .kicker,
+  .sigilTitle,
+  .btn,
+  .gold,
+  .studio,
+  .messageBox b,
+  .card h2:before {
+    color:var(--ui-gold) !important;
+  }
+
+  /* Remove old brown inline colors */
+  [style*="#8f6b4c"],
+  [style*="#8F6B4C"],
+  [style*="rgb(143,107,76)"]{
+    color:var(--ui-gray) !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder{
+    color:var(--ui-gray) !important;
+    opacity:.72;
+  }
+</style>
+
+
+<style id="v69ResultPageGoldText">
+  /* v69: 生成頁面名字與結果區文字統一為生命之花金色 */
+  #resultName,
+  #tagline,
+  #lifeNo,
+  #zodiacOut,
+  #mbtiOut,
+  .resultNameBlock,
+  .resultNameBlock *,
+  .resultHead,
+  .resultHead *,
+  .meta b,
+  .studio,
+  .studio small {
+    color:#a96f1d !important;
+  }
+
+  .meta small,
+  .messageBox,
+  .messageBox p {
+    color:#646872 !important;
+  }
+
+  .messageBox b {
+    color:#a96f1d !important;
+  }
+</style>
+
+
+<style id="v70UnifiedFontsAndResultGold">
+  :root{
+    --ui-gold:#a96f1d;
+    --ui-gray:#646872;
+    --font-en:'Cormorant Garamond', serif;
+    --font-zh:'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  }
+
+  /* 中文與一般介面：細黑體 */
+  body,
+  p,
+  span,
+  small,
+  label,
+  input,
+  select,
+  option,
+  textarea,
+  button,
+  .lead,
+  .formIntro,
+  .sigilSub,
+  .messageBox,
+  .messageBox p,
+  .meta small,
+  .pill span,
+  .modal p,
+  .btn,
+  .btn small {
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+    color:var(--ui-gray) !important;
+  }
+
+  /* 英文標題與英文字：跟 YOUR LUCKY GEOMETRY 同字型 */
+  h1,
+  h2,
+  h3,
+  .brand,
+  .brand small,
+  .kicker,
+  .sigilTitle,
+  #resultName,
+  #lifeNo,
+  #zodiacOut,
+  #mbtiOut,
+  .meta b,
+  .studio,
+  .studio small {
+    font-family:var(--font-en) !important;
+    font-weight:500 !important;
+    color:var(--ui-gold) !important;
+  }
+
+  /* 生成頁名字、標題、數值全部金色 */
+  #result,
+  #result .sigilTitle,
+  #resultName,
+  #tagline,
+  #lifeNo,
+  #zodiacOut,
+  #mbtiOut,
+  .resultHead *,
+  .resultNameBlock,
+  .resultNameBlock *,
+  .meta b,
+  .studio,
+  .studio small {
+    color:var(--ui-gold) !important;
+  }
+
+  /* 生成頁內文仍用高級灰；重點字金色 */
+  #result .meta small,
+  #result .messageBox,
+  #result .messageBox p {
+    color:var(--ui-gray) !important;
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+  }
+
+  #result .messageBox b {
+    color:var(--ui-gold) !important;
+  }
+
+  /* 按鈕文字保持金色，但字體用細黑體，避免混雜 */
+  .btn,
+  a.btn,
+  button,
+  .close {
+    color:var(--ui-gold) !important;
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder{
+    color:var(--ui-gray) !important;
+    opacity:.72;
+    font-family:var(--font-zh) !important;
+  }
+</style>
+
+
+<style id="v71EnglishSansPortalFont">
+  :root{
+    --ui-gold:#a96f1d;
+    --ui-gray:#646872;
+    --font-en:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Avenir Next","Montserrat",Arial,sans-serif;
+    --font-zh:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  }
+
+  /* 英文：改回參考圖那種乾淨、寬字距、現代無襯線 */
+  h1,
+  h2,
+  h3,
+  .brand,
+  .brand small,
+  .kicker,
+  .sigilTitle,
+  #resultName,
+  #lifeNo,
+  #zodiacOut,
+  #mbtiOut,
+  .meta b,
+  .studio,
+  .studio small {
+    font-family:var(--font-en) !important;
+    font-weight:400 !important;
+    letter-spacing:.22em !important;
+    color:var(--ui-gold) !important;
+  }
+
+  h1,
+  .sigilTitle {
+    letter-spacing:.16em !important;
+    line-height:1.18 !important;
+  }
+
+  .kicker,
+  .brand small,
+  .studio small {
+    letter-spacing:.35em !important;
+  }
+
+  /* 中文：細黑體 */
+  body,
+  p,
+  span,
+  small,
+  label,
+  input,
+  select,
+  option,
+  textarea,
+  button,
+  .lead,
+  .formIntro,
+  .sigilSub,
+  .messageBox,
+  .messageBox p,
+  .meta small,
+  .pill span,
+  .modal p,
+  .btn,
+  .btn small {
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+    color:var(--ui-gray) !important;
+  }
+
+  .btn,
+  a.btn,
+  button,
+  .messageBox b,
+  .card h2:before,
+  .close {
+    color:var(--ui-gold) !important;
+  }
+</style>
+
+
+<style id="v72BackendFullFontColorOverride">
+  :root{
+    --ui-gold:#a96f1d;
+    --ui-gray:#646872;
+    --font-en:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Avenir Next","Montserrat",Arial,sans-serif;
+    --font-zh:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  }
+
+  /* 後台／生成區全部介面文字：金色＋高級灰，不再棕色 */
+  #result,
+  #result *,
+  .result,
+  .result *,
+  .artStage,
+  .artStage *,
+  .resultNameBlock,
+  .resultNameBlock *,
+  .resultHead,
+  .resultHead *,
+  .meta,
+  .meta *,
+  .messageBox,
+  .messageBox *,
+  .studio,
+  .studio *,
+  #tagline {
+    color:var(--ui-gray) !important;
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+  }
+
+  #resultName,
+  #lifeNo,
+  #zodiacOut,
+  #mbtiOut,
+  .sigilTitle,
+  .resultHead h1,
+  .resultHead h2,
+  .meta b,
+  .studio,
+  .studio small {
+    color:var(--ui-gold) !important;
+    font-family:var(--font-en) !important;
+    font-weight:400 !important;
+    letter-spacing:.18em !important;
+  }
+
+  #tagline,
+  .messageBox b {
+    color:var(--ui-gold) !important;
+  }
+
+  /* 後台表單與按鍵也同步 */
+  input,
+  select,
+  textarea,
+  label,
+  option,
+  .pill span {
+    color:var(--ui-gray) !important;
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+  }
+
+  button,
+  .btn,
+  a.btn,
+  .close {
+    color:var(--ui-gold) !important;
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+  }
+</style>
+
+
+<style id="v73UnifiedQuietTypographySystem">
+  :root{
+    --ui-gold:#a96f1d;
+    --ui-gray:#646872;
+    --font-en:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Avenir Next","Montserrat",Arial,sans-serif;
+    --font-zh:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  }
+
+  /* 全站字體系統：中文細黑體、英文現代無襯線，不使用粗體與裝飾字 */
+  body,
+  p,
+  span,
+  small,
+  label,
+  input,
+  select,
+  option,
+  textarea,
+  button,
+  .lead,
+  .formIntro,
+  .sigilSub,
+  .messageBox,
+  .messageBox p,
+  .meta small,
+  .pill span,
+  .modal p,
+  .btn,
+  .btn small {
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+    color:var(--ui-gray) !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  .brand,
+  .brand small,
+  .kicker,
+  .sigilTitle,
+  #resultName,
+  #lifeNo,
+  #zodiacOut,
+  #mbtiOut,
+  .meta b,
+  .studio,
+  .studio small {
+    font-family:var(--font-en) !important;
+    font-weight:300 !important;
+    color:var(--ui-gold) !important;
+    letter-spacing:.18em !important;
+  }
+
+  h1,
+  .sigilTitle {
+    font-weight:300 !important;
+    letter-spacing:.14em !important;
+    line-height:1.18 !important;
+  }
+
+  .kicker,
+  .brand small,
+  .studio small {
+    font-weight:300 !important;
+    letter-spacing:.32em !important;
+  }
+
+  .btn,
+  a.btn,
+  button,
+  .messageBox b,
+  .card h2:before,
+  .close {
+    color:var(--ui-gold) !important;
+    font-weight:300 !important;
+  }
+
+  strong,
+  b {
+    font-weight:300 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder{
+    color:var(--ui-gray) !important;
+    opacity:.72;
+    font-family:var(--font-zh) !important;
+    font-weight:300 !important;
+  }
+</style>
+
 </head>
 <body>
   <main class="wrap">
@@ -209,7 +874,7 @@
             <circle cx="288.24" cy="420" r="120"/><circle cx="288.24" cy="540" r="120"/><circle cx="288.24" cy="660" r="120"/><circle cx="288.24" cy="780" r="120"/>
             <circle cx="911.76" cy="420" r="120"/><circle cx="911.76" cy="540" r="120"/><circle cx="911.76" cy="660" r="120"/><circle cx="911.76" cy="780" r="120"/>
           </g>
-          <g fill="none" stroke="url(#posterGold)" stroke-width="2.05">
+          <g fill="none" stroke="url(#posterGold)" stroke-width="2.55">
             <circle cx="600" cy="240" r="120"/><circle cx="600" cy="360" r="120"/><circle cx="600" cy="480" r="120"/><circle cx="600" cy="600" r="120"/><circle cx="600" cy="720" r="120"/><circle cx="600" cy="840" r="120"/><circle cx="600" cy="960" r="120"/>
             <circle cx="496.08" cy="300" r="120"/><circle cx="496.08" cy="420" r="120"/><circle cx="496.08" cy="540" r="120"/><circle cx="496.08" cy="660" r="120"/><circle cx="496.08" cy="780" r="120"/><circle cx="496.08" cy="900" r="120"/>
             <circle cx="703.92" cy="300" r="120"/><circle cx="703.92" cy="420" r="120"/><circle cx="703.92" cy="540" r="120"/><circle cx="703.92" cy="660" r="120"/><circle cx="703.92" cy="780" r="120"/><circle cx="703.92" cy="900" r="120"/>
@@ -222,9 +887,46 @@
         </svg>
       </div></div></section>
     <form id="form" class="grid">
-      <div class="formIntro">填寫你的個人頻率，讓生命之花、符文與水晶色光，生成一張專屬於你的幸運幾何。</div>
-      <section class="card"><h2>Identity</h2><label>✦ 你的名字</label><input id="name" placeholder="例如：Snow" value="Snow"><label>✦ 出生年月日</label><input id="birth" type="date" value="1975-01-03"><label>✦ 星座</label><select id="zodiac"><option>CAPRICORN</option><option>ARIES</option><option>TAURUS</option><option>GEMINI</option><option>CANCER</option><option>LEO</option><option>VIRGO</option><option>LIBRA</option><option>SCORPIO</option><option>SAGITTARIUS</option><option>AQUARIUS</option><option>PISCES</option></select><label>✦ MBTI 人格類型</label><select id="mbti"><option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option><option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option><option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option><option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option><option>OTHER</option></select></section>
-      <section class="card"><h2>Crystal</h2><label>✦ 最喜歡的顏色</label><select id="color"><option value="white">白 · White</option><option value="gold">金 · Gold</option><option value="violet">紫 · Violet</option><option value="pink">粉 · Rose</option><option value="blue">藍 · Blue</option><option value="green">綠 · Emerald</option><option value="black">黑 · Obsidian</option></select><label>✦ 喜歡的水晶或寶石</label><select id="crystal"><option>白水晶</option><option>紫水晶</option><option>粉晶</option><option>黃水晶</option><option>月光石</option><option>拉長石</option><option>蛋白石</option><option>鑽石</option><option>祖母綠</option><option>紅寶石</option><option>藍寶石</option></select><select id="size" style="display:none"><option value="portrait" selected>手機桌面（直式）</option></select></section>
+      <div class="formIntro">填寫你的個人頻率，讓生命之花、符文與寶石頻率，生成一張專屬於你的幸運幾何。</div>
+      <section class="card"><h2>Identity</h2><label>✦ 你的名字</label><input id="name" placeholder="例如：Snow" value="Snow"><label>✦ 出生年月日</label><input id="birth" type="date" value="1975-01-03"><label>✦ 星座 · Zodiac</label><select id="zodiac">
+<option value="CAPRICORN">摩羯座 Capricorn</option>
+<option value="ARIES">牡羊座 Aries</option>
+<option value="TAURUS">金牛座 Taurus</option>
+<option value="GEMINI">雙子座 Gemini</option>
+<option value="CANCER">巨蟹座 Cancer</option>
+<option value="LEO">獅子座 Leo</option>
+<option value="VIRGO">處女座 Virgo</option>
+<option value="LIBRA">天秤座 Libra</option>
+<option value="SCORPIO">天蠍座 Scorpio</option>
+<option value="SAGITTARIUS">射手座 Sagittarius</option>
+<option value="AQUARIUS">水瓶座 Aquarius</option>
+<option value="PISCES">雙魚座 Pisces</option>
+</select><label>✦ MBTI 人格類型</label><select id="mbti"><option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option><option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option><option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option><option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option><option>OTHER</option></select></section>
+      <section class="card"><h2>Crystal</h2>
+<label>✦ 選擇寶石頻率 · Choose Your Gemstone</label>
+<select id="crystal">
+  <option value="white" data-label="阿塞阿塞白水晶 Azeztulite">阿塞阿塞白水晶 Azeztulite</option>
+  <option value="gold" data-label="黃水晶 Citrine">黃水晶 Citrine</option>
+  <option value="violet" data-label="紫水晶 Amethyst">紫水晶 Amethyst</option>
+  <option value="pink" data-label="粉晶 Rose Quartz">粉晶 Rose Quartz</option>
+  <option value="blue" data-label="海藍寶 Aquamarine">海藍寶 Aquamarine</option>
+  <option value="green" data-label="綠幽靈 Green Phantom">綠幽靈 Green Phantom</option>
+  <option value="black" data-label="黑曜石 Obsidian">黑曜石 Obsidian</option>
+  <option value="opal" data-label="蛋白石 Opal">蛋白石 Opal</option>
+</select>
+
+<select id="color" style="display:none" aria-hidden="true">
+  <option value="white">阿塞阿塞白水晶 Azeztulite</option>
+  <option value="gold">黃水晶 Citrine</option>
+  <option value="violet">紫水晶 Amethyst</option>
+  <option value="pink">粉晶 Rose Quartz</option>
+  <option value="blue">海藍寶 Aquamarine</option>
+  <option value="green">綠幽靈 Green Phantom</option>
+  <option value="black">黑曜石 Obsidian</option>
+  <option value="opal">蛋白石 Opal</option>
+</select>
+
+<select id="size" style="display:none" aria-hidden="true"><option value="portrait">手機桌面（直式）</option></select></section>
       <section class="card full"><h2>Wish Runes</h2><label>✦ 2026 最想提升的三個願望領域（最多選三項）</label><div class="choices" id="wishes"><label class="pill"><input type="checkbox" value="ᚠ 財富豐盛" checked><span>ᚠ 財富豐盛</span></label><label class="pill"><input type="checkbox" value="ᚢ 健康活力" checked><span>ᚢ 健康活力</span></label><label class="pill"><input type="checkbox" value="ᚦ 突破障礙" checked><span>ᚦ 突破障礙</span></label><label class="pill"><input type="checkbox" value="ᚨ 智慧溝通" ><span>ᚨ 智慧溝通</span></label><label class="pill"><input type="checkbox" value="ᚱ 旅行方向" ><span>ᚱ 旅行方向</span></label><label class="pill"><input type="checkbox" value="ᚲ 創造洞察" ><span>ᚲ 創造洞察</span></label><label class="pill"><input type="checkbox" value="ᚷ 關係平衡" ><span>ᚷ 關係平衡</span></label><label class="pill"><input type="checkbox" value="ᚹ 喜悅和諧" ><span>ᚹ 喜悅和諧</span></label><label class="pill"><input type="checkbox" value="ᚺ 轉化突破" ><span>ᚺ 轉化突破</span></label><label class="pill"><input type="checkbox" value="ᚾ 意志克服" ><span>ᚾ 意志克服</span></label><label class="pill"><input type="checkbox" value="ᛁ 靜心反省" ><span>ᛁ 靜心反省</span></label><label class="pill"><input type="checkbox" value="ᛃ 豐收循環" ><span>ᛃ 豐收循環</span></label><label class="pill"><input type="checkbox" value="ᛇ 韌性重生" ><span>ᛇ 韌性重生</span></label><label class="pill"><input type="checkbox" value="ᛈ 命運潛力" ><span>ᛈ 命運潛力</span></label><label class="pill"><input type="checkbox" value="ᛉ 保護連結" ><span>ᛉ 保護連結</span></label><label class="pill"><input type="checkbox" value="ᛊ 事業勝利" ><span>ᛊ 事業勝利</span></label><label class="pill"><input type="checkbox" value="ᛏ 正義榮譽" ><span>ᛏ 正義榮譽</span></label><label class="pill"><input type="checkbox" value="ᛒ 家庭新生" ><span>ᛒ 家庭新生</span></label><label class="pill"><input type="checkbox" value="ᛖ 合作信任" ><span>ᛖ 合作信任</span></label><label class="pill"><input type="checkbox" value="ᛗ 人際自我" ><span>ᛗ 人際自我</span></label><label class="pill"><input type="checkbox" value="ᛚ 直覺情感" ><span>ᛚ 直覺情感</span></label><label class="pill"><input type="checkbox" value="ᛝ 內在圓滿" ><span>ᛝ 內在圓滿</span></label><label class="pill"><input type="checkbox" value="ᛟ 根基穩定" ><span>ᛟ 根基穩定</span></label><label class="pill"><input type="checkbox" value="ᛞ 全新開始" ><span>ᛞ 全新開始</span></label></div><div class="btnrow"><button class="btn" id="generateBtn" type="button">✦ 生成你的宇宙印記 ✦</button><a class="btn ghost homeLink" href="https://shemytai-cmd.github.io/Shemy-brand/">回品牌首頁<br><small>HOME</small></a></div></section>
     </form>
     <section id="result" class="resultShell">
@@ -262,7 +964,7 @@
     if(!wishBox.querySelector('input')){runes.forEach((r,i)=>{const lab=document.createElement('label'); lab.className='pill'; lab.innerHTML=`<input type="checkbox" value="${r}" ${i<3?'checked':''}><span>${r}</span>`; wishBox.appendChild(lab)});}
     wishBox.addEventListener('change',e=>{const c=[...wishBox.querySelectorAll('input:checked')]; if(c.length>3){e.target.checked=false; alert('最多選擇三項願望領域')}});
     function lifeNumber(date){const s=(date||'1975-01-03').replace(/\D/g,''); let n=[...s].reduce((a,b)=>a+ +b,0); while(n>9 && ![11,22,33].includes(n)) n=[...String(n)].reduce((a,b)=>a+ +b,0); return n;}
-    function palette(key){return {white:['#ffffff','#f5eefc','#fff0c4','#d9aa38'], gold:['#fff7da','#f7d97f','#b88718','#fffaf0'], violet:['#fff','#e9d7ff','#b89cff','#f2d37b'], pink:['#fff','#ffe1ec','#f8b5cf','#f5d37f'], blue:['#fff','#dbeaff','#95c8ff','#f2d37b'], green:['#fff','#def7e9','#9bd9b3','#f2d37b'], black:['#fff','#ded9e6','#7a7482','#d9aa38']}[key]||['#fff','#f5eefc','#fff0c4','#d9aa38'];}
+    function palette(key){return {white:['#ffffff','#f5eefc','#fff0c4','#d9aa38'], gold:['#fff7da','#f7d97f','#b88718','#fffaf0'], violet:['#fff','#e9d7ff','#b89cff','#f2d37b'], pink:['#fff','#ffe1ec','#f8b5cf','#f5d37f'], blue:['#fff','#dbeaff','#95c8ff','#f2d37b'], green:['#fff','#def7e9','#9bd9b3','#f2d37b'], black:['#fff','#ded9e6','#7a7482','#d9aa38'], opal:['#fffdf8','#ffd6ee','#d8f5f2','#e8d6ff']}[key]||['#fff','#f5eefc','#fff0c4','#d9aa38'];}
     function svgMarkup(){
       const name=document.getElementById('name').value||'Snow', color=document.getElementById('color').value, p=palette(color); const chosen=[...wishBox.querySelectorAll('input:checked')].map(x=>x.value.split(' ')[0]);
       const W=1080,H=document.getElementById('size').value==='landscape'?720:1620, cx=W/2, cy=H*.39, R=Math.min(W,H)*.31;
@@ -703,6 +1405,962 @@
 })();
 </script>
 
+
+
+<script id="v57BackendCoreReplace">
+(function(){
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  const gradients = {
+    white: [
+      ['0%','#FFFFFF','.96'],
+      ['12%','#FFF6D8','.72'],
+      ['24%','#FFE3F1','.62'],
+      ['38%','#E7D7FF','.58'],
+      ['52%','#D7F5FF','.52'],
+      ['66%','#DDF9ED','.44'],
+      ['82%','#FFF0B8','.34'],
+      ['100%','#FFFFFF','0']
+    ],
+
+    gold: [
+      ['0%','#FFF2A8','.96'],
+      ['18%','#FFE88F','.82'],
+      ['34%','#FFF7C9','.68'],
+      ['52%','#FFD7E6','.48'],
+      ['70%','#E9D5FF','.36'],
+      ['86%','#FFF3C4','.26'],
+      ['100%','#FFFFFF','0']
+    ],
+
+    violet: [
+      ['0%','#B78CFF','.96'],
+      ['16%','#D5B6FF','.88'],
+      ['32%','#F2D6FF','.74'],
+      ['48%','#FFE9A8','.58'],
+      ['66%','#FFD1E5','.48'],
+      ['84%','#C9B1FF','.34'],
+      ['100%','#FFFFFF','0']
+    ],
+
+    pink: [
+      ['0%','#FFB8D6','.96'],
+      ['18%','#FFD6E7','.84'],
+      ['34%','#FFECA8','.66'],
+      ['52%','#E2C2FF','.50'],
+      ['70%','#FFCFE6','.44'],
+      ['88%','#FFF0F6','.28'],
+      ['100%','#FFFFFF','0']
+    ],
+
+    blue: [
+      ['0%','#8FD0FF','.96'],
+      ['18%','#C7E8FF','.84'],
+      ['36%','#E8F6FF','.62'],
+      ['52%','#FFE8A8','.48'],
+      ['68%','#FFD4E8','.36'],
+      ['84%','#D8C9FF','.30'],
+      ['100%','#FFFFFF','0']
+    ],
+
+    green: [
+      ['0%','#A4E9B8','.94'],
+      ['18%','#D6F7DE','.80'],
+      ['36%','#F1FFE8','.60'],
+      ['52%','#FFE7A6','.48'],
+      ['70%','#D7B8FF','.34'],
+      ['88%','#EAFCEF','.30'],
+      ['100%','#FFFFFF','0']
+    ],
+
+    black: [
+      ['0%','#7F7898','.90'],
+      ['18%','#B8AFD6','.74'],
+      ['36%','#E5DFFF','.56'],
+      ['54%','#FFE4A0','.42'],
+      ['72%','#FFD0E5','.30'],
+      ['88%','#AFA6CC','.26'],
+      ['100%','#FFFFFF','0']
+    ],
+
+    opal: [
+      ['0%','#FFFFFF','.98'],
+      ['12%','#FFF0B8','.68'],
+      ['26%','#FFD3EE','.66'],
+      ['40%','#D7C2FF','.64'],
+      ['54%','#BFEAFF','.56'],
+      ['68%','#CFF7E9','.50'],
+      ['82%','#FFE8A6','.38'],
+      ['100%','#FFFFFF','0']
+    ]
+  };
+
+  function getSelectedColor(){
+    const crystal = document.getElementById('crystal');
+    const hiddenColor = document.getElementById('color');
+    const key = crystal ? (crystal.value || 'violet') : (hiddenColor ? hiddenColor.value : 'violet');
+    if(hiddenColor) hiddenColor.value = key;
+    return key;
+  }
+
+  function makeGradient(defs, colorKey){
+    const old = defs.querySelector('#v57BackendGlow');
+    if(old) old.remove();
+
+    const grad = document.createElementNS(SVG_NS,'radialGradient');
+    grad.setAttribute('id','v57BackendGlow');
+    grad.setAttribute('cx','50%');
+    grad.setAttribute('cy','50%');
+    grad.setAttribute('r','72%');
+
+    const stops = gradients[colorKey] || gradients.violet;
+    grad.innerHTML = stops.map(([offset,color,opacity]) =>
+      `<stop offset="${offset}" stop-color="${color}" stop-opacity="${opacity}"/>`
+    ).join('');
+
+    defs.appendChild(grad);
+  }
+  function replaceBackendCoreV57(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    const vb = svg.viewBox && svg.viewBox.baseVal;
+    if(!vb || !vb.width || !vb.height) return;
+
+    const cx = vb.width / 2;
+    const cy = vb.height * 0.39;
+    const R = Math.min(vb.width, vb.height) * 0.31;
+    const ringR = R * 1.19;
+
+    // Remove previous v57 core.
+    const oldCore = svg.querySelector('#v57FoLCore');
+    if(oldCore) oldCore.remove();
+
+    let defs = svg.querySelector('defs');
+    if(!defs){
+      defs = document.createElementNS(SVG_NS,'defs');
+      svg.insertBefore(defs, svg.firstChild);
+    }
+    makeGradient(defs, getSelectedColor());
+
+    // Hide only the old center geometry/color disks, not background stars and not rune ring.
+    svg.querySelectorAll('circle,ellipse').forEach(el => {
+      if(el.closest('#v57FoLCore')) return;
+
+      const fill = el.getAttribute('fill') || '';
+      const stroke = el.getAttribute('stroke') || '';
+      const opacity = parseFloat(el.getAttribute('opacity') || '1');
+      const r = parseFloat(el.getAttribute('r') || '0');
+      const rx = parseFloat(el.getAttribute('rx') || '0');
+
+      const isRuneGoldRing =
+        stroke.includes('url(#ringGold)') ||
+        (r > R*1.08 && r < R*1.28 && stroke);
+
+      const isOldCoreDisk =
+        fill.includes('url(#gem)') ||
+        fill.includes('url(#facet)');
+
+      const isOldCenterGoldLine =
+        !isRuneGoldRing &&
+        (
+          stroke.includes('#d7a72d') ||
+          stroke.includes('#d4aa3a') ||
+          stroke.includes('#d7aa36') ||
+          (stroke === '#ffffff' && opacity <= .35 && (r > R*.12 || rx > R*.12))
+        );
+
+      if(isOldCoreDisk || isOldCenterGoldLine){
+        el.setAttribute('display','none');
+      }
+    });
+
+    // Build the v55-style center core as its own layer.
+    const core = document.createElementNS(SVG_NS,'g');
+    core.setAttribute('id','v57FoLCore');
+
+    const glow = document.createElementNS(SVG_NS,'circle');
+    glow.setAttribute('cx', cx.toFixed(2));
+    glow.setAttribute('cy', cy.toFixed(2));
+    glow.setAttribute('r', (ringR * .98).toFixed(2));
+    glow.setAttribute('fill','url(#v57BackendGlow)');
+    glow.setAttribute('opacity','1');
+    core.appendChild(glow);
+
+    const fillGroup = document.createElementNS(SVG_NS,'g');
+    fillGroup.setAttribute('fill','rgba(255,255,255,.30)');
+
+    const strokeGroup = document.createElementNS(SVG_NS,'g');
+    strokeGroup.setAttribute('fill','none');
+    strokeGroup.setAttribute('stroke','url(#ringGold)');
+    strokeGroup.setAttribute('stroke-width','2.55');
+
+    // Same circle system as v55, scaled to fit inside the rune ring.
+    const smallR = ringR * .227;
+    const positions = [];
+
+    for(let y=-3; y<=3; y++) positions.push([0,y]);
+    [-1,1].forEach(x => [-2.5,-1.5,-.5,.5,1.5,2.5].forEach(y => positions.push([x,y])));
+    [-2,2].forEach(x => [-2,-1,0,1,2].forEach(y => positions.push([x,y])));
+    [-3,3].forEach(x => [-1.5,-.5,.5,1.5].forEach(y => positions.push([x,y])));
+
+    positions.forEach(([gx,gy]) => {
+      const px = cx + gx * smallR * .866;
+      const py = cy + gy * smallR;
+      const cFill = document.createElementNS(SVG_NS,'circle');
+      cFill.setAttribute('cx', px.toFixed(2));
+      cFill.setAttribute('cy', py.toFixed(2));
+      cFill.setAttribute('r', smallR.toFixed(2));
+      fillGroup.appendChild(cFill);
+
+      const cStroke = document.createElementNS(SVG_NS,'circle');
+      cStroke.setAttribute('cx', px.toFixed(2));
+      cStroke.setAttribute('cy', py.toFixed(2));
+      cStroke.setAttribute('r', smallR.toFixed(2));
+      strokeGroup.appendChild(cStroke);
+    });
+
+    core.appendChild(fillGroup);
+    core.appendChild(strokeGroup);
+
+    // Insert core before rune ring group if possible.
+    const runeGroup = Array.from(svg.querySelectorAll('g')).find(g => g.querySelectorAll('text').length >= 8);
+    if(runeGroup && runeGroup.parentNode === svg){
+      svg.insertBefore(core, runeGroup);
+    }else{
+      svg.appendChild(core);
+    }
+
+    // Move original rune ring/text group to very top. No cloning.
+    svg.querySelectorAll('g').forEach(g => {
+      if(g.querySelectorAll('text').length >= 8){
+        g.setAttribute('opacity','1');
+        g.querySelectorAll('text').forEach(t => {
+          t.setAttribute('opacity','1');
+          t.setAttribute('fill','#ffffff');
+          t.setAttribute('filter','url(#whiteGlow)');
+        });
+        svg.appendChild(g);
+      }
+    });
+
+    // v58: final top-lock for rune ring/text. Move original rune group to top again after all core layers.
+    svg.querySelectorAll('g').forEach(g => {
+      if(g.querySelectorAll('text').length >= 8){
+        g.setAttribute('opacity','1');
+        g.querySelectorAll('text').forEach(t => {
+          t.setAttribute('opacity','1');
+          t.setAttribute('fill','#ffffff');
+          t.setAttribute('filter','url(#whiteGlow)');
+        });
+        svg.appendChild(g);
+      }
+    });
+
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v57BackendCorePatched){
+    window.__v57BackendCorePatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(replaceBackendCoreV57);
+      setTimeout(replaceBackendCoreV57, 100);
+      setTimeout(replaceBackendCoreV57, 260);
+    };
+  }
+
+  document.addEventListener('change', function(e){
+    if(e.target && e.target.id === 'color'){
+      setTimeout(replaceBackendCoreV57, 80);
+    }
+  });
+})();
+</script>
+
+
+<script id="v61GemstoneFrontendSync">
+(function(){
+  const gemLabels = {
+    white:'阿塞阿塞白水晶 Azeztulite',
+    gold:'黃水晶 Citrine',
+    violet:'紫水晶 Amethyst',
+    pink:'粉晶 Rose Quartz',
+    blue:'海藍寶 Aquamarine',
+    green:'綠幽靈 Green Phantom',
+    black:'黑曜石 Obsidian',
+    opal:'蛋白石 Opal'
+  };
+
+  function syncGem(){
+    const crystal = document.getElementById('crystal');
+    const color = document.getElementById('color');
+    if(!crystal || !color) return;
+    color.value = crystal.value;
+  }
+
+  document.addEventListener('DOMContentLoaded', syncGem);
+  document.addEventListener('change', function(e){
+    if(e.target && e.target.id === 'crystal') syncGem();
+  });
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v61GemRenderPatched){
+    window.__v61GemRenderPatched = true;
+    window.renderResult = function(){
+      syncGem();
+      previousRender.apply(this, arguments);
+      const crystal = document.getElementById('crystal');
+      const key = crystal ? crystal.value : 'violet';
+      const label = gemLabels[key] || crystal?.options[crystal.selectedIndex]?.text || '寶石頻率';
+      const tagline = document.getElementById('tagline');
+      if(tagline){
+        const parts = tagline.textContent.split(' · ');
+        tagline.textContent = [label, ...parts.slice(1)].join(' · ');
+      }
+    };
+  }
+})();
+</script>
+
+
+<script id="v63BackendWhiteLineCleanupKeepRuneWhite">
+(function(){
+  function cleanWhiteLineButKeepRuneWhiteV63(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    const vb = svg.viewBox && svg.viewBox.baseVal;
+    if(!vb || !vb.width || !vb.height) return;
+
+    const R = Math.min(vb.width, vb.height) * 0.31;
+    const runeR = R * 1.19;
+
+    // Remove only extra white circular line near the rune ring.
+    // Do not touch rune text color.
+    svg.querySelectorAll('circle').forEach(c => {
+      const stroke = (c.getAttribute('stroke') || '').trim().toLowerCase();
+      const r = parseFloat(c.getAttribute('r') || '0');
+
+      const isWhiteStroke =
+        stroke === '#ffffff' ||
+        stroke === '#fff' ||
+        stroke === '#fff7d8' ||
+        stroke.includes('255,255,255');
+
+      const nearRuneRing =
+        Math.abs(r - runeR) < R * 0.18 ||
+        Math.abs(r - R * 1.095) < R * 0.08;
+
+      if(isWhiteStroke && nearRuneRing){
+        c.remove();
+      }
+    });
+
+    // Rune glyphs remain white and on top.
+    svg.querySelectorAll('g').forEach(g => {
+      if(g.querySelectorAll('text').length >= 8){
+        g.querySelectorAll('text').forEach(t => {
+          t.setAttribute('fill','#ffffff');
+          t.setAttribute('opacity','1');
+          t.setAttribute('filter','url(#whiteGlow)');
+        });
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v63RenderPatched){
+    window.__v63RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(cleanWhiteLineButKeepRuneWhiteV63);
+      setTimeout(cleanWhiteLineButKeepRuneWhiteV63, 100);
+      setTimeout(cleanWhiteLineButKeepRuneWhiteV63, 260);
+    };
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target && (e.target.id === 'generateBtn' || e.target.id === 'regen')){
+      setTimeout(cleanWhiteLineButKeepRuneWhiteV63, 120);
+      setTimeout(cleanWhiteLineButKeepRuneWhiteV63, 280);
+    }
+  });
+})();
+</script>
+
+
+<script id="v64bRestoreRuneRing">
+(function(){
+  function restoreRuneRingV64b(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    // Force rune groups to top and visible again.
+    svg.querySelectorAll('g').forEach(g => {
+      const texts = g.querySelectorAll('text');
+      if(texts.length >= 8){
+        g.setAttribute('display','inline');
+        g.setAttribute('opacity','1');
+
+        texts.forEach(t => {
+          t.setAttribute('display','inline');
+          t.setAttribute('opacity','1');
+          t.setAttribute('fill','#ffffff');
+          t.setAttribute('filter','url(#whiteGlow)');
+        });
+
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v64bRunePatched){
+    window.__v64bRunePatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(restoreRuneRingV64b);
+      setTimeout(restoreRuneRingV64b,120);
+      setTimeout(restoreRuneRingV64b,260);
+    };
+  }
+})();
+</script>
+
+
+<script id="v66GeneratedTextColorLimit">
+(function(){
+  function limitGeneratedTextColorsV66(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    svg.querySelectorAll('text').forEach(t => {
+      const txt = (t.textContent || '').trim();
+
+      // Rune glyphs are short single-symbol texts; keep them white.
+      if(txt.length <= 2){
+        t.setAttribute('fill','#ffffff');
+        t.setAttribute('opacity','1');
+        t.setAttribute('filter','url(#whiteGlow)');
+        return;
+      }
+
+      // All other generated SVG text uses gold only.
+      t.setAttribute('fill','#a96f1d');
+      t.setAttribute('opacity','1');
+      t.removeAttribute('filter');
+    });
+
+    // Ensure rune group remains on top.
+    svg.querySelectorAll('g').forEach(g => {
+      if(g.querySelectorAll('text').length >= 8){
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v66RenderPatched){
+    window.__v66RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(limitGeneratedTextColorsV66);
+      setTimeout(limitGeneratedTextColorsV66, 120);
+      setTimeout(limitGeneratedTextColorsV66, 280);
+    };
+  }
+})();
+</script>
+
+
+<script id="v67GeneratedGoldTextKeepWhiteRunes">
+(function(){
+  function applyGeneratedTextColorsV67(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    svg.querySelectorAll('text').forEach(t => {
+      const txt = (t.textContent || '').trim();
+
+      // 符文保持白色。
+      if(txt.length <= 2){
+        t.setAttribute('fill','#ffffff');
+        t.setAttribute('opacity','1');
+        t.setAttribute('filter','url(#whiteGlow)');
+        return;
+      }
+
+      // 生成圖內名字、說明、工作室等文字全部跟生命之花金色一致。
+      t.setAttribute('fill','#a96f1d');
+      t.setAttribute('opacity','1');
+      t.removeAttribute('filter');
+    });
+
+    // 符文群組保持最上層。
+    svg.querySelectorAll('g').forEach(g => {
+      if(g.querySelectorAll('text').length >= 8){
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v67RenderPatched){
+    window.__v67RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(applyGeneratedTextColorsV67);
+      setTimeout(applyGeneratedTextColorsV67, 120);
+      setTimeout(applyGeneratedTextColorsV67, 280);
+    };
+  }
+})();
+</script>
+
+
+<script id="v69ForceGeneratedSvgGoldText">
+(function(){
+  function forceResultGoldV69(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    svg.querySelectorAll('text').forEach(t => {
+      const txt = (t.textContent || '').trim();
+
+      // 單一符文保持白色。
+      if(txt.length <= 2){
+        t.setAttribute('fill','#ffffff');
+        t.setAttribute('opacity','1');
+        t.setAttribute('filter','url(#whiteGlow)');
+        return;
+      }
+
+      // 生成圖裡的名字、中文說明、工作室文字全部改成金色。
+      t.setAttribute('fill','#a96f1d');
+      t.setAttribute('opacity','1');
+      t.removeAttribute('filter');
+    });
+
+    // 符文群組保持最上層。
+    svg.querySelectorAll('g').forEach(g => {
+      if(g.querySelectorAll('text').length >= 8){
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  function forceHtmlResultGoldV69(){
+    ['resultName','tagline','lifeNo','zodiacOut','mbtiOut'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.style.setProperty('color','#a96f1d','important');
+    });
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v69RenderPatched){
+    window.__v69RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(() => {
+        forceResultGoldV69();
+        forceHtmlResultGoldV69();
+      });
+      setTimeout(forceResultGoldV69,120);
+      setTimeout(forceHtmlResultGoldV69,120);
+      setTimeout(forceResultGoldV69,320);
+      setTimeout(forceHtmlResultGoldV69,320);
+    };
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target && (e.target.id === 'generateBtn' || e.target.id === 'regen')){
+      setTimeout(forceResultGoldV69,160);
+      setTimeout(forceHtmlResultGoldV69,160);
+      setTimeout(forceResultGoldV69,360);
+      setTimeout(forceHtmlResultGoldV69,360);
+    }
+  });
+})();
+</script>
+
+
+<script id="v70SvgFontAndGoldFix">
+(function(){
+  const EN_FONT = "Cormorant Garamond, serif";
+  const ZH_FONT = "Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif";
+  const GOLD = "#a96f1d";
+  const GRAY = "#646872";
+
+  function isRuneText(txt){
+    // 單一或兩個字元的符文／符號，保留白色
+    return txt.length <= 2;
+  }
+
+  function isMostlyEnglish(txt){
+    return /^[\sA-Za-z0-9.,'’&|·:;()\\-]+$/.test(txt);
+  }
+
+  function fixSvgTextV70(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    svg.querySelectorAll('text').forEach(t => {
+      const txt = (t.textContent || '').trim();
+
+      if(isRuneText(txt)){
+        t.setAttribute('fill','#ffffff');
+        t.setAttribute('opacity','1');
+        t.setAttribute('filter','url(#whiteGlow)');
+        t.setAttribute('font-family', EN_FONT);
+        return;
+      }
+
+      // 生成圖中名字、英文、中文說明全部金色，不再棕色
+      t.setAttribute('fill', GOLD);
+      t.setAttribute('opacity','1');
+      t.removeAttribute('filter');
+
+      // 英文跟 YOUR LUCKY GEOMETRY 同字型；中文細黑體
+      if(isMostlyEnglish(txt)){
+        t.setAttribute('font-family', EN_FONT);
+        t.setAttribute('font-weight','500');
+      }else{
+        t.setAttribute('font-family', ZH_FONT);
+        t.setAttribute('font-weight','300');
+      }
+    });
+
+    // 符文群組保持最上層
+    svg.querySelectorAll('g').forEach(g => {
+      if(g.querySelectorAll('text').length >= 8){
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  function fixHtmlResultTextV70(){
+    const goldIds = ['resultName','tagline','lifeNo','zodiacOut','mbtiOut'];
+    goldIds.forEach(id => {
+      const el = document.getElementById(id);
+      if(el){
+        el.style.setProperty('color', GOLD, 'important');
+        if(id === 'resultName' || id === 'lifeNo' || id === 'zodiacOut' || id === 'mbtiOut'){
+          el.style.setProperty('font-family', EN_FONT, 'important');
+        }else{
+          el.style.setProperty('font-family', ZH_FONT, 'important');
+        }
+      }
+    });
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v70RenderPatched){
+    window.__v70RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(() => {
+        fixSvgTextV70();
+        fixHtmlResultTextV70();
+      });
+      setTimeout(fixSvgTextV70, 120);
+      setTimeout(fixHtmlResultTextV70, 120);
+      setTimeout(fixSvgTextV70, 320);
+      setTimeout(fixHtmlResultTextV70, 320);
+      setTimeout(fixSvgTextV70, 700);
+      setTimeout(fixHtmlResultTextV70, 700);
+    };
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target && (e.target.id === 'generateBtn' || e.target.id === 'regen')){
+      setTimeout(fixSvgTextV70, 180);
+      setTimeout(fixHtmlResultTextV70, 180);
+      setTimeout(fixSvgTextV70, 420);
+      setTimeout(fixHtmlResultTextV70, 420);
+    }
+  });
+})();
+</script>
+
+
+<script id="v71SvgEnglishSansFontFix">
+(function(){
+  const EN_FONT = "-apple-system, BlinkMacSystemFont, Helvetica Neue, Avenir Next, Montserrat, Arial, sans-serif";
+  const ZH_FONT = "Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif";
+  const GOLD = "#a96f1d";
+
+  function isRuneText(txt){
+    return txt.length <= 2;
+  }
+
+  function isMostlyEnglish(txt){
+    return /^[\sA-Za-z0-9.,'’&|·:;()\\-]+$/.test(txt);
+  }
+
+  function fixSvgFontsV71(){
+    const svg = document.getElementById('sigilSvg');
+    if(!svg) return;
+
+    svg.querySelectorAll('text').forEach(t => {
+      const txt = (t.textContent || '').trim();
+
+      if(isRuneText(txt)){
+        t.setAttribute('fill','#ffffff');
+        t.setAttribute('opacity','1');
+        t.setAttribute('filter','url(#whiteGlow)');
+        t.setAttribute('font-family', EN_FONT);
+        return;
+      }
+
+      t.setAttribute('fill', GOLD);
+      t.setAttribute('opacity','1');
+      t.removeAttribute('filter');
+
+      if(isMostlyEnglish(txt)){
+        t.setAttribute('font-family', EN_FONT);
+        t.setAttribute('font-weight','400');
+        t.setAttribute('letter-spacing','6');
+      }else{
+        t.setAttribute('font-family', ZH_FONT);
+        t.setAttribute('font-weight','300');
+        t.setAttribute('letter-spacing','2.5');
+      }
+    });
+
+    svg.querySelectorAll('g').forEach(g => {
+      if(g.querySelectorAll('text').length >= 8){
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === 'function' && !window.__v71RenderPatched){
+    window.__v71RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(fixSvgFontsV71);
+      setTimeout(fixSvgFontsV71,120);
+      setTimeout(fixSvgFontsV71,320);
+    };
+  }
+})();
+</script>
+
+
+<script id="v72BackendSvgFinalFontColorFix">
+(function(){
+  const GOLD = "#a96f1d";
+  const GRAY = "#646872";
+  const WHITE = "#ffffff";
+  const EN_FONT = "-apple-system, BlinkMacSystemFont, Helvetica Neue, Avenir Next, Montserrat, Arial, sans-serif";
+  const ZH_FONT = "Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif";
+
+  function isRuneText(txt){
+    return txt.length <= 2;
+  }
+
+  function isEnglishText(txt){
+    return /^[\sA-Za-z0-9.,'’&|·:;()\\-]+$/.test(txt);
+  }
+
+  function fixBackendSvgV72(){
+    const svg = document.getElementById("sigilSvg");
+    if(!svg) return;
+
+    svg.querySelectorAll("text").forEach(t => {
+      const txt = (t.textContent || "").trim();
+
+      if(isRuneText(txt)){
+        t.setAttribute("fill", WHITE);
+        t.setAttribute("opacity", "1");
+        t.setAttribute("filter", "url(#whiteGlow)");
+        t.setAttribute("font-family", EN_FONT);
+        t.setAttribute("font-weight", "400");
+        return;
+      }
+
+      t.setAttribute("fill", GOLD);
+      t.setAttribute("opacity", "1");
+      t.removeAttribute("filter");
+
+      if(isEnglishText(txt)){
+        t.setAttribute("font-family", EN_FONT);
+        t.setAttribute("font-weight", "400");
+        t.setAttribute("letter-spacing", "6");
+      }else{
+        t.setAttribute("font-family", ZH_FONT);
+        t.setAttribute("font-weight", "300");
+        t.setAttribute("letter-spacing", "2.5");
+      }
+    });
+
+    /* 符文群組永遠最後，保留白色 */
+    svg.querySelectorAll("g").forEach(g => {
+      if(g.querySelectorAll("text").length >= 8){
+        g.querySelectorAll("text").forEach(t => {
+          t.setAttribute("fill", WHITE);
+          t.setAttribute("opacity", "1");
+          t.setAttribute("filter", "url(#whiteGlow)");
+        });
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  function fixBackendHtmlV72(){
+    const goldIds = ["resultName","lifeNo","zodiacOut","mbtiOut","tagline"];
+    goldIds.forEach(id => {
+      const el = document.getElementById(id);
+      if(el){
+        el.style.setProperty("color", GOLD, "important");
+        el.style.setProperty("font-family", id === "tagline" ? ZH_FONT : EN_FONT, "important");
+        el.style.setProperty("font-weight", id === "tagline" ? "300" : "400", "important");
+      }
+    });
+
+    document.querySelectorAll("#result .messageBox, #result .messageBox p, #result .meta small").forEach(el => {
+      el.style.setProperty("color", GRAY, "important");
+      el.style.setProperty("font-family", ZH_FONT, "important");
+      el.style.setProperty("font-weight", "300", "important");
+    });
+
+    document.querySelectorAll("#result .messageBox b, #result .meta b, #result .studio, #result .studio small").forEach(el => {
+      el.style.setProperty("color", GOLD, "important");
+    });
+  }
+
+  function runV72Fix(){
+    fixBackendSvgV72();
+    fixBackendHtmlV72();
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === "function" && !window.__v72RenderPatched){
+    window.__v72RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(runV72Fix);
+      setTimeout(runV72Fix, 120);
+      setTimeout(runV72Fix, 320);
+      setTimeout(runV72Fix, 800);
+    };
+  }
+
+  document.addEventListener("click", function(e){
+    if(e.target && (e.target.id === "generateBtn" || e.target.id === "regen")){
+      setTimeout(runV72Fix, 160);
+      setTimeout(runV72Fix, 420);
+      setTimeout(runV72Fix, 900);
+    }
+  });
+})();
+</script>
+
+
+<script id="v73SvgQuietTypographyFix">
+(function(){
+  const GOLD = "#a96f1d";
+  const GRAY = "#646872";
+  const WHITE = "#ffffff";
+  const EN_FONT = "-apple-system, BlinkMacSystemFont, Helvetica Neue, Avenir Next, Montserrat, Arial, sans-serif";
+  const ZH_FONT = "Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif";
+
+  function isRuneText(txt){
+    return txt.length <= 2;
+  }
+
+  function isEnglishText(txt){
+    return /^[\sA-Za-z0-9.,'’&|·:;()\\-]+$/.test(txt);
+  }
+
+  function applyQuietSvgTypography(){
+    const svg = document.getElementById("sigilSvg");
+    if(!svg) return;
+
+    svg.querySelectorAll("text").forEach(t => {
+      const txt = (t.textContent || "").trim();
+
+      if(isRuneText(txt)){
+        t.setAttribute("fill", WHITE);
+        t.setAttribute("opacity", "1");
+        t.setAttribute("filter", "url(#whiteGlow)");
+        t.setAttribute("font-family", EN_FONT);
+        t.setAttribute("font-weight", "300");
+        return;
+      }
+
+      t.setAttribute("fill", GOLD);
+      t.setAttribute("opacity", "1");
+      t.removeAttribute("filter");
+
+      if(isEnglishText(txt)){
+        t.setAttribute("font-family", EN_FONT);
+        t.setAttribute("font-weight", "300");
+        t.setAttribute("letter-spacing", "6");
+      }else{
+        t.setAttribute("font-family", ZH_FONT);
+        t.setAttribute("font-weight", "300");
+        t.setAttribute("letter-spacing", "2.5");
+      }
+    });
+
+    svg.querySelectorAll("g").forEach(g => {
+      if(g.querySelectorAll("text").length >= 8){
+        g.querySelectorAll("text").forEach(t => {
+          t.setAttribute("fill", WHITE);
+          t.setAttribute("opacity", "1");
+          t.setAttribute("filter", "url(#whiteGlow)");
+          t.setAttribute("font-weight", "300");
+        });
+        svg.appendChild(g);
+      }
+    });
+  }
+
+  function applyQuietHtmlTypography(){
+    const goldIds = ["resultName","lifeNo","zodiacOut","mbtiOut","tagline"];
+    goldIds.forEach(id => {
+      const el = document.getElementById(id);
+      if(el){
+        el.style.setProperty("color", GOLD, "important");
+        el.style.setProperty("font-weight", "300", "important");
+        el.style.setProperty("font-family", id === "tagline" ? ZH_FONT : EN_FONT, "important");
+      }
+    });
+
+    document.querySelectorAll("#result .messageBox, #result .messageBox p, #result .meta small").forEach(el => {
+      el.style.setProperty("color", GRAY, "important");
+      el.style.setProperty("font-family", ZH_FONT, "important");
+      el.style.setProperty("font-weight", "300", "important");
+    });
+
+    document.querySelectorAll("#result .messageBox b, #result .meta b, #result .studio, #result .studio small").forEach(el => {
+      el.style.setProperty("color", GOLD, "important");
+      el.style.setProperty("font-weight", "300", "important");
+    });
+  }
+
+  function runV73(){
+    applyQuietSvgTypography();
+    applyQuietHtmlTypography();
+  }
+
+  const previousRender = window.renderResult;
+  if(typeof previousRender === "function" && !window.__v73RenderPatched){
+    window.__v73RenderPatched = true;
+    window.renderResult = function(){
+      previousRender.apply(this, arguments);
+      requestAnimationFrame(runV73);
+      setTimeout(runV73, 120);
+      setTimeout(runV73, 320);
+      setTimeout(runV73, 800);
+    };
+  }
+})();
+</script>
 
 </body>
 </html>

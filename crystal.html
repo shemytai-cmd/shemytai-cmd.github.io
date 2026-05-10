@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>水晶幸運幾何 · Shemy Sparkling Frequency v73</title>
+  <title>YOUR LUCKY GEOMETRY 你的專屬幸運幾何</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
@@ -975,22 +975,23 @@
       const name=document.getElementById('name').value||'Snow', color=document.getElementById('color').value, p=palette(color); const chosen=[...wishBox.querySelectorAll('input:checked')].map(x=>x.value.split(' ')[0]);
       const W=1080,H=document.getElementById('size').value==='landscape'?720:1620, cx=W/2, cy=H*.39, R=Math.min(W,H)*.31;
       const mood={
-        white:{bg1:'#dceefc',bg2:'#d8e8f8',bg3:'#fff0e0',bg4:'#c8e8d0',gemA:'#a8c8e8',gemB:'#9ad8b0',gemC:'#ffc890',gemD:'#ffc0d8'},
+        white:{bg1:'#dceefc',bg2:'#e0d8f8',bg3:'#fff0e0',bg4:'#b8dcc4',gemA:'#a8c8e8',gemB:'#9ad0b0',gemC:'#ffc890',gemD:'#c8b0e8'},
         gold:{bg1:'#fff4c8',bg2:'#ffd0b0',bg3:'#fff8e8',bg4:'#fff0e0',gemA:'#fff09a',gemB:'#ffc890',gemC:'#fff0d8',gemD:'#ffd0d8'},
         violet:{bg1:'#fffaff',bg2:'#ead8ff',bg3:'#fff0d6',bg4:'#f4f1ff',gemA:'#ffffff',gemB:'#ead9ff',gemC:'#b696ff',gemD:'#fff1be'},
         pink:{bg1:'#fff0e8',bg2:'#ffe0e8',bg3:'#fff5d8',bg4:'#e8f4ff',gemA:'#ffe8d8',gemB:'#ffb8c8',gemC:'#ffd0a8',gemD:'#ffe8b8'},
         blue:{bg1:'#e8f4ff',bg2:'#dbeaff',bg3:'#f0fff5',bg4:'#fff8e0',gemA:'#dbeaff',gemB:'#a8c8e8',gemC:'#d8f0e0',gemD:'#fff0c8'},
         green:{bg1:'#f0f8ec',bg2:'#def0e0',bg3:'#fffaf0',bg4:'#e8faee',gemA:'#e8f5dc',gemB:'#a8d8b0',gemC:'#fff8e0',gemD:'#dde8d0'},
-        opal:{bg1:'#dee8f8',bg2:'#fde0e8',bg3:'#ffe8d0',bg4:'#d8eed8',gemA:'#ffe0e8',gemB:'#ffd0a8',gemC:'#c8e8d0',gemD:'#b8d8f0'}
+        opal:{bg1:'#fff0d8',bg2:'#fde0e8',bg3:'#fdf4eb',bg4:'#ffe0c8',gemA:'#ffe0e8',gemB:'#fcf2e8',gemC:'#ffd0a8',gemD:'#d8e8d0'}
       }[color] || {bg1:'#fffdfb',bg2:'#f8f2ff',bg3:'#fff4d8',bg4:'#edf4ff',gemA:p[0],gemB:p[1],gemC:p[2],gemD:p[3]};
       let defs=`<defs>
-        <radialGradient id="bg" cx="50%" cy="36%" r="110%">
+        <radialGradient id="bg" cx="50%" cy="36%" r="125%">
           <stop offset="0" stop-color="#ffffff"/>
-          <stop offset=".15" stop-color="${mood.bg1}"/>
-          <stop offset=".35" stop-color="${mood.bg2}"/>
-          <stop offset=".55" stop-color="${mood.bg3}"/>
-          <stop offset=".72" stop-color="${mood.bg4}"/>
-          <stop offset=".88" stop-color="${mood.bg2}"/>
+          <stop offset=".14" stop-color="${mood.bg1}"/>
+          <stop offset=".32" stop-color="${mood.bg2}"/>
+          <stop offset=".50" stop-color="${mood.bg3}"/>
+          <stop offset=".66" stop-color="${mood.bg4}"/>
+          <stop offset=".80" stop-color="${mood.gemC}"/>
+          <stop offset=".92" stop-color="${mood.gemB}"/>
           <stop offset="1" stop-color="${mood.gemB}"/>
         </radialGradient>
         <radialGradient id="gem" cx="50%" cy="46%" r="62%">
@@ -1147,7 +1148,7 @@
         ctx.fillStyle='#fffaf4'; ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.drawImage(img,0,0,canvas.width,canvas.height);
         URL.revokeObjectURL(url);
-        const fileName='shemy-lucky-sigil.png';
+        const fileName='YOUR LUCKY GEOMETRY 你的專屬幸運幾何.png';
         canvas.toBlob(async(blob)=>{
           if(!blob){ alert('下載暫時沒有啟動，請長按生成圖截圖保存。'); return; }
           const file=new File([blob], fileName, {type:'image/png'});

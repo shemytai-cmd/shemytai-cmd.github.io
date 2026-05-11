@@ -974,7 +974,7 @@
 
     function svgMarkup(){
       const name=document.getElementById('name').value||'Snow', color=document.getElementById('color').value, p=palette(color); const chosen=[...wishBox.querySelectorAll('input:checked')].map(x=>x.value.split(' ')[0]);
-      const W=1080,H=document.getElementById('size').value==='landscape'?720:1620, cx=W/2, cy=H*.39, R=Math.min(W,H)*.31;
+      const W=1080, H=2340, cx=W/2, cy=920, R=Math.min(W,1620)*.31;
       const mood={
         white:{bg1:'#dceefc',bg2:'#e0d8f8',bg3:'#fff0e0',bg4:'#b8dcc4',gemA:'#a8c8e8',gemB:'#9ad0b0',gemC:'#ffc890',gemD:'#c8b0e8'},
         gold:{bg1:'#fff4c8',bg2:'#ffd0b0',bg3:'#fff8e8',bg4:'#fff0e0',gemA:'#fff09a',gemB:'#ffc890',gemC:'#fff0d8',gemD:'#ffd0d8'},
@@ -985,7 +985,7 @@
         opal:{bg1:'#eef2f8',bg2:'#f5ecee',bg3:'#fdf3e0',bg4:'#dde2ee',gemA:'#f0e0c4',gemB:'#d8e0f0',gemC:'#f0e0e8',gemD:'#e0eee5'}
       }[color] || {bg1:'#fffdfb',bg2:'#f8f2ff',bg3:'#fff4d8',bg4:'#edf4ff',gemA:p[0],gemB:p[1],gemC:p[2],gemD:p[3]};
       let defs=`<defs>
-        <radialGradient id="bg" cx="50%" cy="36%" r="125%">
+        <radialGradient id="bg" cx="50%" cy="40%" r="125%">
           <stop offset="0" stop-color="#ffffff"/>
           <stop offset=".14" stop-color="${mood.bg1}"/>
           <stop offset=".32" stop-color="${mood.bg2}"/>
@@ -1078,7 +1078,7 @@
         let a=i*2*Math.PI/130+Math.PI/90, x=cx+Math.cos(a)*R*(.38+(i%11)*.18), y=cy+Math.sin(a)*R*(.38+(i%11)*.18);
         starbursts+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="${i%7===0?24:13}" opacity="${i%7===0?.72:.34}" filter="url(#whiteGlow)">✦<animate attributeName="opacity" values=".12;.9;.12" dur="${2.4+i%5}s" begin="${(i%13)*.11}s" repeatCount="indefinite"/></text>`;
       }
-      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${starbursts}<g>${circles}${whitePanels}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="${H*.735}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="${H*.766}" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬幸運幾何</text><text x="${cx}" y="${H*.925}" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="${H*.947}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
+      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${starbursts}<g>${circles}${whitePanels}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="1500" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="1545" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬幸運幾何</text><text x="${cx}" y="1720" text-anchor="middle" font-family="Noto Sans TC" font-size="22" letter-spacing="9" fill="#a88758">幸運幾何陪伴你迎接每個美好</text><text x="${cx}" y="1768" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" letter-spacing="6" fill="#b08b52" font-style="italic">Geometry of luck, every beautiful day.</text><text x="${cx}" y="2240" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="2278" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
     }
 
     function renderResult(){
@@ -1198,7 +1198,7 @@
     if(!vb || !vb.width || !vb.height) return;
 
     const cx = vb.width / 2;
-    const cy = vb.height * 0.39;
+    const cy = 920;
 
     svg.querySelectorAll('radialGradient').forEach(g => {
       const id = g.getAttribute('id') || '';

@@ -844,7 +844,7 @@
 <body>
   <main class="wrap">
     <div class="topbar"><a class="back" href="https://shemytai-cmd.github.io/Shemy-brand/">← 返回品牌首頁</a><a class="brand brandlink" href="https://shemytai-cmd.github.io/Shemy-brand/" aria-label="前往 Shemy 品牌首頁">SHEMY<small>SPARKLING FREQUENCY</small></a><span></span></div>
-    <section class="hero"><div class="kicker">Lumina Bloom · Crystal Geometry Portal</div><h1>Your Lucky Geometry</h1><p class="lead">讓幾何成為光的容器，<br>讓每一張圖都有命定氛圍的呼吸感。<br>輸入你的頻率，生成專屬幸運幾何。</p>
+    <section class="hero"><div class="kicker">Lumina Bloom</div><h1>Your Lucky Geometry</h1><p class="lead">讓幾何成為光的容器，<br>讓每一張圖都有命定氛圍的呼吸感。<br>輸入你的頻率，生成專屬幸運幾何。</p>
             <div class="posterFlower" aria-hidden="true">
         <svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -976,9 +976,9 @@
       const name=document.getElementById('name').value||'Snow', color=document.getElementById('color').value, p=palette(color); const chosen=[...wishBox.querySelectorAll('input:checked')].map(x=>x.value.split(' ')[0]);
       const W=1080, H=2340, cx=W/2, cy=920, R=Math.min(W,1620)*.31;
       const mood={
-        white:{bg1:'#dceefc',bg2:'#e0d8f8',bg3:'#fff0e0',bg4:'#b8dcc4',gemA:'#a8c8e8',gemB:'#9ad0b0',gemC:'#ffc890',gemD:'#c8b0e8'},
+        white:{bg1:'#f8f5fc',bg2:'#dccff0',bg3:'#d0e8f8',bg4:'#c8e8d0',gemA:'#e8dcf8',gemB:'#fff0e0',gemC:'#f8d8b8',gemD:'#fff5d8'},
         gold:{bg1:'#fff4c8',bg2:'#ffd0b0',bg3:'#fff8e8',bg4:'#fff0e0',gemA:'#fff09a',gemB:'#ffc890',gemC:'#fff0d8',gemD:'#ffd0d8'},
-        violet:{bg1:'#fffaff',bg2:'#ead8ff',bg3:'#fff0d6',bg4:'#f4f1ff',gemA:'#ffffff',gemB:'#ead9ff',gemC:'#b696ff',gemD:'#fff1be'},
+        violet:{bg1:'#fffaff',bg2:'#ead8ff',bg3:'#fff0d6',bg4:'#f4f1ff',gemA:'#f5edff',gemB:'#e0d0ff',gemC:'#c8b0ec',gemD:'#fff1c8'},
         pink:{bg1:'#fff0e8',bg2:'#ffe0e8',bg3:'#fff5d8',bg4:'#e8f4ff',gemA:'#ffe8d8',gemB:'#ffb8c8',gemC:'#ffd0a8',gemD:'#ffe8b8'},
         blue:{bg1:'#e8f4ff',bg2:'#dbeaff',bg3:'#f0fff5',bg4:'#fff8e0',gemA:'#dbeaff',gemB:'#a8c8e8',gemC:'#d8f0e0',gemD:'#fff0c8'},
         green:{bg1:'#f0f8ec',bg2:'#def0e0',bg3:'#fffaf0',bg4:'#e8faee',gemA:'#e8f5dc',gemB:'#a8d8b0',gemC:'#fff8e0',gemD:'#dde8d0'},
@@ -1018,12 +1018,13 @@
         <filter id="whiteGlow" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="0" stdDeviation="3.2" flood-color="#ffffff" flood-opacity=".95"/><feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#ffffff" flood-opacity=".35"/></filter>
         <filter id="softBlur"><feGaussianBlur stdDeviation="8"/></filter>
         <radialGradient id="flowerBase" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="${mood.gemA}" stop-opacity=".90"/>
-          <stop offset="20%" stop-color="${mood.gemB}" stop-opacity=".85"/>
-          <stop offset="40%" stop-color="${mood.gemC}" stop-opacity=".80"/>
-          <stop offset="62%" stop-color="${mood.gemD}" stop-opacity=".68"/>
-          <stop offset="82%" stop-color="${mood.bg2}" stop-opacity=".48"/>
-          <stop offset="100%" stop-color="${mood.bg3}" stop-opacity="0"/>
+          <stop offset="0%" stop-color="${mood.gemA}" stop-opacity=".88"/>
+          <stop offset="16%" stop-color="${mood.gemB}" stop-opacity=".85"/>
+          <stop offset="32%" stop-color="${mood.gemC}" stop-opacity=".82"/>
+          <stop offset="50%" stop-color="${mood.gemD}" stop-opacity=".75"/>
+          <stop offset="68%" stop-color="${mood.bg4}" stop-opacity=".62"/>
+          <stop offset="86%" stop-color="${mood.bg3}" stop-opacity=".45"/>
+          <stop offset="100%" stop-color="${mood.bg2}" stop-opacity="0"/>
         </radialGradient>
       </defs>`;
       let bg=`<rect width="100%" height="100%" fill="url(#bg)"/>

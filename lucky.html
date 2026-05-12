@@ -1142,7 +1142,7 @@
         ctx.fillStyle='#fffaf4'; ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.drawImage(img,0,0,canvas.width,canvas.height);
         URL.revokeObjectURL(url);
-        const fileName='YOUR LUCKY GEOMETRY 你的專屬幸運幾何.png';
+        const fileName='Your Lucky Geometry.png';
         canvas.toBlob(async(blob)=>{
           if(!blob){ alert('下載暫時沒有啟動，請長按生成圖截圖保存。'); return; }
           const file=new File([blob], fileName, {type:'image/png'});

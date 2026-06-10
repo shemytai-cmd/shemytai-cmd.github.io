@@ -163,7 +163,7 @@ body.has-result #result{display:block;}
 
   <section id="result"><div class="resultShell">
     <div class="sigilTitle">Lumina Profile</div>
-    <div class="sigilSub" id="resSub">你的線條與光，已經顯影。</div>
+    <div class="sigilSub" id="resSub">你的光形比例已生成</div>
     <div class="cardStage"><canvas id="card" width="800" height="1180"></canvas></div>
     <div class="dlrow btnrow"><button class="btn" onclick="downloadCard()">下載我的光形圖卡</button></div>
     <div class="messageBox" id="msg"></div>
@@ -192,10 +192,10 @@ function val(id){return parseFloat(document.getElementById(id).value);}
 function picked(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:null;}
 
 var FOCUS={
- upper:'你的身形比例重點在<b>上段（頭頂—胸線）</b>。這是你最出色的一段，把色彩重點與裝飾搭配集中在這裡，讓視線自然停留在頸肩之間，整體比例更顯輕盈。',
- mid:'你的身形比例重點在<b>中段（胸線—臀線）</b>。腰腹是你的優勢線條，將色彩重點與裝飾搭配放在這一段，強調腰線、提起比例，身形自然舒展挺拔。',
- thigh:'你的身形比例重點在<b>大腿段（臀線—膝）</b>。這段線條流暢有力，把色彩重點與裝飾搭配落在下半身，讓這段優勢更鮮明俐落。',
- calf:'你的身形比例重點在<b>小腿段（膝—腳踝）</b>。這是你最值得展現的一段，將色彩重點與裝飾搭配引導到這裡，優雅一路延伸到底。'
+ upper:'你的身形比例焦點在於<b>上段</b>。在穿搭上，只要將色彩重點與設計細節集中在頸肩之間，視線自然上移，比例輕盈挺拔。',
+ mid:'你的身形比例焦點在於<b>中段</b>。在穿搭上，只要強調腰線、將色彩重點收在身體中段，比例立刻向上提起，俐落舒展。',
+ thigh:'你的身形比例焦點在於<b>大腿段</b>。在穿搭上，只要將色彩重點與結構性設計落在下半身，就能展現俐落的黃金比例。',
+ calf:'你的身形比例焦點在於<b>小腿段</b>。在穿搭上，只要讓膝下保持輕盈、將色彩重點引導到下緣，優雅比例一路延伸到底。'
 };
 // ===== 色庫:四組色票(完整) =====
 var PALETTE={
@@ -213,7 +213,7 @@ var STYLEMAP={
    light:['#e5e8bb','#eeb5aa','#d6e3b7'],
    dim:['#b8d7df','#b2d5d5','#bad8ba'],
    blondeDot:'#f3deb4', silverDot:'#a6bddc', vividDots:['#eeb7cc','#a6cde6','#aad4b8'],
-   tone:{text:'你屬於<b>粉嫩甜心</b>的色光。粉、杏、嫩黃、霧藍……像馬卡龍般柔甜，輕盈而有光暈。',light:'你的光，粉嫩而甜美'}},
+   tone:{text:'你的命定色是「高明度、低飽和的清透色系」。如杏色、粉櫻、嫩黃與霧藍。這些顏色在視覺上具有「折射光線」的效果，能為肌膚注入輕盈的淨白感，柔和卻非常有存在感。',light:'你的光，粉嫩而甜美'}},
  // 清新脫俗 = 冷白皮(7色全光譜:黃綠→薄荷→青綠→天藍→霧藍→丁香紫→粉紫)
  coolfair:{lib:'coolfair',
    pool:['#ecfeb4','#f2ffe3','#c5fcdc','#bee7d7','#b2ccc1','#bedde2','#deeced','#bde2fc','#b2d0ea','#d5e7f5','#e3f1fe','#ccc2e4','#d4bfea','#ebd0fb','#e6c6de','#f1dfeb'],
@@ -222,7 +222,7 @@ var STYLEMAP={
    light:['#f2ffe3','#e3f1fe','#fcf2fd'],
    dim:['#b2ccc1','#b2d0ea','#ccc2e4'],
    blondeDot:'#fcf8f5', silverDot:'#d5e7f5', vividDots:['#e6c6de','#bde2fc','#c5fcdc'],
-   tone:{text:'你屬於<b>清新脫俗</b>的色光。嫩黃綠、薄荷、天藍、丁香紫……像晨霧裡的水彩，澄澈而通透。',light:'你的光，清新而脫俗'}},
+   tone:{text:'你的命定色是「高明度的清透冷色系」。如嫩綠、薄荷、天藍與丁香紫。這些顏色能放大肌膚的白皙透明感，自帶降溫的乾淨氣質，明亮、澄澈、不費力。',light:'你的光，清新而脫俗'}},
  // 溫暖知性 = 大地(7色:蜜桃粉→陶土→杏→金黃→奶油米→橄欖黃綠→灰綠,明亮不沉)
  earth:{lib:'earth',
    pool:['#e8bbb6','#e3d0c2','#f5e8d5','#dbb793','#e7be86','#cdbca0','#e5d9bf','#cfcc97','#c3bda3','#cdc9be','#dce1db'],
@@ -231,7 +231,7 @@ var STYLEMAP={
    light:['#f5e8d5','#e3d0c2','#e5d9bf'],
    dim:['#cdbca0','#cdc9be','#c3bda3'],
    blondeDot:'#e7be86', silverDot:'#cdc9be', vividDots:['#e8bbb6','#e7be86','#cfcc97'],
-   tone:{text:'你屬於<b>溫暖知性</b>的色光。蜜桃、陶土、杏黃、橄欖、灰綠……像午後的暖土與草木，溫厚而從容。',light:'你的光，溫暖而知性'}},
+   tone:{text:'你的命定色是「溫潤柔和的大地色系」。如蜜桃、杏黃、燕麥與橄欖綠。這些顏色與肌膚同屬暖調，上身零違和，能直接襯出好氣色，溫柔之中帶著沉穩的可信賴感。',light:'你的光，溫暖而知性'}},
  // 優雅內斂 = 莫蘭迪(7色全色相:霧藍→藍紫→丁香→藕粉→暖白粉→卡其黃→灰綠,取色卡中較亮的)
  morandi:{lib:'morandi',
    pool:['#e1ced0','#e1d6da','#d6c7d9','#b0b3c6','#bdc9d7','#bbc9d9','#dacbae','#e7e1d6','#cdc8ab','#bfbfa9'],
@@ -240,7 +240,7 @@ var STYLEMAP={
    light:['#e1e5e4','#e7e1d6','#d9d6d6'],
    dim:['#99a5bf','#bbc9d9','#bfbfa9'],
    blondeDot:'#dacbae', silverDot:'#bdc9d7', vividDots:['#d6c7d9','#bbc9d9','#cdc8ab'],
-   tone:{text:'你屬於<b>優雅內斂</b>的色光。霧藍、藕紫、灰綠、卡其……像霧後的天光，沉靜而有質感。',light:'你的光，優雅而內斂'}}
+   tone:{text:'你的命定色是「低飽和的灰調色系」。如霧藍、藕粉、灰紫與燕麥卡其。這些顏色自帶柔焦效果，能收斂視覺雜訊、襯出安靜的高級感，低調卻過目難忘。',light:'你的光，優雅而內斂'}}
 };
 var STATE={};
 
@@ -289,14 +289,11 @@ function pickColors(seed){
 }
 
 function styleLine(style,yang,mature,slim){
- var s;
- if(style==='macaron') s='以<b>粉嫩甜美</b>的方式呈現你的色光——輕盈柔甜的色調、細緻的質地，明亮而討喜。';
- else if(style==='coolfair') s='以<b>清新通透</b>的方式呈現你的色光——澄澈的冷調、乾淨的線條，脫俗而有靈氣。';
- else if(style==='earth') s='以<b>溫潤知性</b>的方式呈現你的色光——大地般沉穩的質地，溫厚而有底蘊。';
- else if(style==='morandi') s='以<b>優雅內斂</b>的方式呈現你的色光——灰調的細緻層次、沉靜的氣質，從容而有質感。';
- else s='以<b>從容平衡</b>的方式呈現你的色光——簡約與柔和兼具，依心情自由切換。';
- if(slim) s+=' 讓同色系的質感層次向上延伸，俐落的直線條使整體更顯修長；亮色點綴於小處，乾淨而從容。';
- return s;
+ if(style==='macaron') return '讓甜美與高級感兼具的關鍵，在於「輕盈色調與細緻工藝」的結合。透過結構俐落、材質細緻的單品，將粉嫩色穿出明亮、知性且討喜的當代風格。';
+ if(style==='coolfair') return '清新感的關鍵，在於「乾淨色塊與俐落剪裁」的搭配。減少多餘裝飾、保留留白，讓清透色以簡潔的輪廓登場，澄澈、輕盈、有靈氣。';
+ if(style==='earth') return '溫暖知性的關鍵，在於「同色系層次與溫潤材質」的堆疊。以深淺不一的大地色互相搭配，加上有手感的織理，自然散發從容與底蘊。';
+ if(style==='morandi') return '優雅內斂的關鍵，在於「灰調統一與精緻細節」的拿捏。全身控制在相近的灰調裡，把巧思留給剪裁與細節，安靜之中自有分量。';
+ return '以從容平衡的方式呈現你的色光，簡約與柔和兼具。';
 }
 
 function rng(seed){return function(){seed=(seed*9301+49297)%233280;return seed/233280;};}
@@ -393,7 +390,7 @@ function drawCard(){
  x.fillStyle='#8a7256'; x.font='300 23px "Noto Sans TC", sans-serif'; x.fillText(STATE.phrase, W/2, 1014);
  x.fillStyle='rgba(138,114,86,.85)'; x.font='400 16px "Cormorant Garamond", serif'; x.fillText('Personal Silhouette of Light', W/2, 1044);
  x.fillStyle='rgba(169,111,29,.85)'; x.font='300 15px "Noto Sans TC", sans-serif'; x.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1096);
- x.fillStyle='rgba(138,114,86,.8)'; x.font='400 15px "Cormorant Garamond", serif'; x.fillText('Lumina Profile', W/2, 1120);
+ x.fillStyle='rgba(138,114,86,.8)'; x.font='400 15px "Cormorant Garamond", serif'; x.fillText('Sparkling Design Studio', W/2, 1120);
 }
 
 function generate(){
@@ -428,12 +425,12 @@ function generate(){
  if(hcurl==='straight')yang++; if(hcurl==='curly')yang--;
 
  STATE={colors:pc.colors,anchorFlags:pc.anchorFlags,veinIdx:pc.veinIdx,sex:sex,name:name,phrase:'專屬身形光影',seed:seed};
- document.getElementById('resSub').textContent=name+'，你的線條與光，已經顯影。';
+ document.getElementById('resSub').textContent=name+'，你的光形比例已生成';
  var html='';
  html+='<p><span class="mk">Your Proportion</span>'+FOCUS[focus]+'</p>';
  html+='<p><span class="mk">Your Colors</span>'+pc.text+'</p>';
  html+='<p><span class="mk">For You</span>'+styleLine(pc.style,yang,mature,slim)+'</p>';
- html+='<p><span class="mk">·</span>'+name+'，以上是你的光形側寫。身形與色彩只是起點——想要更完整的穿搭與選品，讓我為你親自規劃。</p>';
+ html+='<p><span class="mk">·</span>'+name+'，以上是你的光形比例。身形密碼與色彩氛圍，解析您合適的穿著風格。透過科技纖維能讓您穿出個人品味與健康的質感生活。想了解更多請讓我協助您規劃專屬的衣著選品。</p>';
  document.getElementById('msg').innerHTML=html;
  document.body.classList.add('has-result');
  window.scrollTo({top:0,behavior:'smooth'});

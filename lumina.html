@@ -227,7 +227,7 @@ var STYLEMAP={
    blondeDot:'#e7be86', silverDot:'#cdc9be', vividDots:['#e8bbb6','#e7be86','#cfcc97'],
    tone:{text:'你的命定色是「溫潤柔和的大地色系」。如蜜桃、杏黃、燕麥與橄欖綠。這些顏色與肌膚同屬暖調，上身零違和，能直接襯出好氣色，溫柔之中帶著沉穩的可信賴感。',light:'你的光，溫暖而知性'}},
  // 優雅內斂 = 莫蘭迪(粉色沙灘系:乾燥玫瑰→櫻粉→粉紫→薰衣草→藍紫→灰藍→灰綠)
- morandi:{lib:'morandi',
+ morandi:{lib:'morandi',useAll:true,
    pool:['#e2c6c2','#f8e2e5','#e7d0e0','#cdc7d5','#c5bedd','#b3b4d0','#c2c4d0','#c5d2c9','#d0c9ca'],
    pink:'#e2c6c2',
    base:['#e2c6c2','#e7d0e0','#c5bedd','#b3b4d0','#c2c4d0','#c5d2c9','#f8e2e5'],
@@ -253,21 +253,25 @@ function pickColors(seed){
  var lib=S.pool?S.pool.slice():PALETTE[S.lib].slice().filter(function(h){return hexHsv(h)[1]>0.04;});
  lib.sort(function(a,b){return hexHsv(a)[0]-hexHsv(b)[0];});
 
- // 分7個色相桶,每桶用種子抽1色 → 色相覆蓋完整,但每個人抽到的具體色不同
- var chosen=[],B=7;
- for(var bi=0;bi<B;bi++){
-   var s0=Math.floor(bi*lib.length/B), s1=Math.floor((bi+1)*lib.length/B);
-   if(s1<=s0)s1=s0+1;
-   chosen.push(lib[s0+Math.floor(rnd()*(s1-s0))]);
+ var chosen;
+ if(S.useAll){
+   // 色票色數不多:全數使用,不抽選(個人差異保留在色環旋轉/強調色/星河波形)
+   chosen=lib.slice();
+ }else{
+   // 分7個色相桶,每桶用種子抽1色 → 色相覆蓋完整,但每個人抽到的具體色不同
+   chosen=[];var B=7;
+   for(var bi=0;bi<B;bi++){
+     var s0=Math.floor(bi*lib.length/B), s1=Math.floor((bi+1)*lib.length/B);
+     if(s1<=s0)s1=s0+1;
+     chosen.push(lib[s0+Math.floor(rnd()*(s1-s0))]);
+   }
+   // 膚色微調:白皙/自然→加票內明亮色;小麥/深棕→加票內柔色(種子挑哪一個)
+   var extra=(skin==='fair'||skin==='natural')?S.light:S.dim;
+   chosen.push(extra[Math.floor(rnd()*extra.length)]);
+   // 粉色保證:抽選結果裡若沒有粉調(色相300~360或0~15),強制補入該風格的粉
+   var hasPink=chosen.some(function(c){var hh=hexHsv(c)[0];return hh>=300||hh<=15;});
+   if(!hasPink&&S.pink)chosen.push(S.pink);
  }
-
- // 膚色微調:白皙/自然→加票內明亮色;小麥/深棕→加票內柔色(種子挑哪一個)
- var extra=(skin==='fair'||skin==='natural')?S.light:S.dim;
- chosen.push(extra[Math.floor(rnd()*extra.length)]);
-
- // 粉色保證:抽選結果裡若沒有粉調(色相300~360或0~15),強制補入該風格的粉
- var hasPink=chosen.some(function(c){var hh=hexHsv(c)[0];return hh>=300||hh<=15;});
- if(!hasPink&&S.pink)chosen.push(S.pink);
 
  // 去重、依色相排序成色環
  chosen=chosen.filter(function(v,i){return chosen.indexOf(v)===i;});

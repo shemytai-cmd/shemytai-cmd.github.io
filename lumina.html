@@ -89,13 +89,13 @@ body.has-result #result{display:block;}
   </header>
 
   <section id="form"><div class="grid">
-    <p class="formIntro">靜下來，照實填寫，<br>讓光為你描出最適合的線條。</p>
+    <p class="formIntro">填寫資料<br>生成你專屬的光形比例</p>
 
     <div class="card full">
       <h2>✦ 關於你 <span class="enlabel">About</span></h2>
       <p class="h2sub">讓這份側寫，真正屬於你</p>
       <div class="two">
-        <div><label>你的名字</label><input id="name" type="text" placeholder="例：Snow"></div>
+        <div><label>你的名字</label><input id="name" type="text" placeholder="例：Sparkling"></div>
         <div><label>出生年份</label><input id="byear" type="number" inputmode="numeric" placeholder="例：1985"></div>
       </div>
       <div class="q"><p>生理性別（決定人形圖）</p>
@@ -132,23 +132,16 @@ body.has-result #result{display:block;}
           <label class="pill"><input type="radio" name="skin" value="wheat"><span>小麥</span></label>
           <label class="pill"><input type="radio" name="skin" value="deep"><span>深棕</span></label>
         </div></div>
-      <div class="q"><p>你喜歡的色系？</p>
-        <div class="choices">
-          <label class="pill"><input type="radio" name="palette" value="pink"><span>柔粉系</span></label>
-          <label class="pill"><input type="radio" name="palette" value="cool"><span>清透冷系</span></label>
-          <label class="pill"><input type="radio" name="palette" value="earth"><span>溫暖大地</span></label>
-          <label class="pill"><input type="radio" name="palette" value="vivid"><span>繽紛個性</span></label>
-        </div></div>
     </div>
 
     <div class="card">
       <h2>✦ 風格 <span class="enlabel">Style</span></h2>
-      <p class="h2sub">你偏好的整體調性</p>
+      <p class="h2sub">選擇喜歡的風格，顯現你的色系</p>
       <div class="q"><div class="choices">
-        <label class="pill styopt"><input type="radio" name="style" value="ink"><span>俐落中性</span></label>
-        <label class="pill styopt"><input type="radio" name="style" value="rose"><span>柔和優雅</span></label>
-        <label class="pill styopt"><input type="radio" name="style" value="earth"><span>溫暖自然</span></label>
-        <label class="pill styopt"><input type="radio" name="style" value="auto"><span>都喜歡</span></label>
+        <label class="pill styopt"><input type="radio" name="style" value="macaron"><span>粉嫩甜心</span></label>
+        <label class="pill styopt"><input type="radio" name="style" value="coolfair"><span>清新脫俗</span></label>
+        <label class="pill styopt"><input type="radio" name="style" value="earth"><span>溫暖知性</span></label>
+        <label class="pill styopt"><input type="radio" name="style" value="morandi"><span>優雅內斂</span></label>
       </div></div>
       <div class="q"><p>髮型長度</p><div class="choices">
         <label class="pill"><input type="radio" name="hlen" value="short"><span>短髮</span></label>
@@ -159,14 +152,6 @@ body.has-result #result{display:block;}
         <label class="pill"><input type="radio" name="hcurl" value="straight"><span>直髮</span></label>
         <label class="pill"><input type="radio" name="hcurl" value="wave"><span>微捲</span></label>
         <label class="pill"><input type="radio" name="hcurl" value="curly"><span>捲髮</span></label>
-      </div></div>
-      <div class="q"><p>髮色</p><div class="choices">
-        <label class="pill"><input type="radio" name="hair" value="black"><span>墨黑</span></label>
-        <label class="pill"><input type="radio" name="hair" value="darkbrown"><span>深褐</span></label>
-        <label class="pill"><input type="radio" name="hair" value="lightbrown"><span>淺咖</span></label>
-        <label class="pill"><input type="radio" name="hair" value="blonde"><span>箔金</span></label>
-        <label class="pill"><input type="radio" name="hair" value="silver"><span>銀灰</span></label>
-        <label class="pill"><input type="radio" name="hair" value="colorful"><span>繽紛</span></label>
       </div></div>
     </div>
 
@@ -212,21 +197,43 @@ var FOCUS={
  thigh:'你的線條，從這裡向下<b>延伸</b>。把重點放在下半身——俐落流暢的比例，步伐帶著自在的舒展。',
  calf:'你的線條，在<b>向下延伸</b>時最動人。讓重點落在下半身、讓腳踝透氣——輕盈的長度，把優雅延伸到底。'
 };
-// ===== 色庫:四組色票 =====
+// ===== 色庫:四組色票(完整) =====
 var PALETTE={
  macaron:['#f3deb4','#f2d2ae','#efbba5','#eeb5aa','#eeb7b4','#eeb7cc','#eab9ce','#dab2cd','#c4accc','#aea6cd','#a8aed2','#a6bddc','#a6cde6','#b8d7df','#b2d5d5','#aad4b8','#bad8ba','#d6e3b7','#e5e8bb'],
  coolfair:['#fcf8f5','#fcf2fd','#c5fcdc','#deeced','#e4f1fe','#ebf0fc','#f1dfeb','#bee7d7','#bedde2','#d6e8f5','#e6c6de','#b2ccc1','#b2d0ea','#bee2fc'],
  morandi:['#7e97ad','#99a5bf','#dacbae','#c7b8a1','#a3b7a0','#bdc9d7','#adb1b4','#b0b3c6','#d6c7d9','#e1e5e4','#e1d6da','#868d9d','#cdc8ab','#bbc9d9','#e7e1d6','#d4d5d0','#e1ced0','#bfbfa9','#ada08c','#d9d6d6'],
  earth:['#dbb793','#cdbca0','#ba9060','#a09383','#cdc9be','#e8bbb6','#b79a92','#e5cfc2','#bbb6b0','#e7be86','#bfa276','#f5e8d5','#d59977','#e5d9bf','#cfcc97','#b7a887','#c3bda3','#9b9d9c']
 };
-// 髮色點綴錨色(天生特徵,只當點綴不主導色系)
-var HAIRDOT={black:'#7e97ad',darkbrown:'#a09383',lightbrown:'#cdbca0',blonde:'#f3deb4',silver:'#bdc9d7',colorful:'#eeb7cc'};
-// 四色系文案(由「喜歡的色系」決定)
-var TONE={
- pink:{text:'你屬於<b>柔粉透亮的色光</b>。灰粉、藕、丁香紫……像晨光裡的花瓣，溫柔而有光暈。',light:'你的光，柔粉而透亮'},
- cool:{text:'你屬於<b>清透安靜的冷色光</b>。粉藍、薄荷、丁香紫……像晨霧裡的水彩，澄澈而有靈氣。',light:'你的光，清透而安靜'},
- earth:{text:'你屬於<b>溫潤柔和的大地色光</b>。暖棕、卡其、米、蜜桃……像午後的暖土，溫厚而從容。',light:'你的光，溫潤而柔和'},
- vivid:{text:'你屬於<b>繽紛而有個性的光</b>。粉、紫、金黃交織……像極光綻放，明亮而獨一無二。',light:'你的光，繽紛而閃耀'}
+// ===== 風格 → 色票:每個風格鎖定一個色票(膚色在票內微調) =====
+var STYLEMAP={
+ // 粉嫩甜心 = 馬卡龍(全部取色票中最粉嫩明亮的色,無深色)
+ macaron:{lib:'macaron',
+   base:['#eeb7cc','#eab9ce','#f3deb4','#f2d2ae','#a6cde6','#aad4b8'],
+   light:['#e5e8bb','#eeb5aa','#d6e3b7'],
+   dim:['#b8d7df','#b2d5d5','#bad8ba'],
+   blondeDot:'#f3deb4', silverDot:'#a6bddc', vividDots:['#eeb7cc','#a6cde6','#aad4b8'],
+   tone:{text:'你屬於<b>粉嫩甜心</b>的色光。粉、杏、嫩黃、霧藍……像馬卡龍般柔甜，輕盈而有光暈。',light:'你的光，粉嫩而甜美'}},
+ // 清新脫俗 = 冷白皮
+ coolfair:{lib:'coolfair',
+   base:['#bedde2','#bee2fc','#d6e8f5','#e6c6de','#bee7d7','#c5fcdc'],
+   light:['#fcf8f5','#e4f1fe','#fcf2fd'],
+   dim:['#b2ccc1','#b2d0ea','#f1dfeb'],
+   blondeDot:'#fcf8f5', silverDot:'#d6e8f5', vividDots:['#e6c6de','#bee2fc','#c5fcdc'],
+   tone:{text:'你屬於<b>清新脫俗</b>的色光。粉藍、薄荷、霧白、丁香……像晨霧裡的水彩，澄澈而通透。',light:'你的光，清新而脫俗'}},
+ // 溫暖知性 = 大地
+ earth:{lib:'earth',
+   base:['#dbb793','#e5cfc2','#cdbca0','#e8bbb6','#cfcc97','#e5d9bf'],
+   light:['#f5e8d5','#e5d9bf','#e5cfc2'],
+   dim:['#a09383','#b7a887','#c3bda3'],
+   blondeDot:'#e7be86', silverDot:'#cdc9be', vividDots:['#e8bbb6','#dbb793','#cfcc97'],
+   tone:{text:'你屬於<b>溫暖知性</b>的色光。暖棕、卡其、米、蜜桃……像午後的暖土，溫厚而從容。',light:'你的光，溫暖而知性'}},
+ // 優雅內斂 = 莫蘭迪
+ morandi:{lib:'morandi',
+   base:['#bdc9d7','#d6c7d9','#e1ced0','#cdc8ab','#bbc9d9','#dacbae'],
+   light:['#e1e5e4','#e7e1d6','#d9d6d6'],
+   dim:['#7e97ad','#868d9d','#ada08c'],
+   blondeDot:'#dacbae', silverDot:'#bdc9d7', vividDots:['#d6c7d9','#bbc9d9','#cdc8ab'],
+   tone:{text:'你屬於<b>優雅內斂</b>的色光。灰藍、藕紫、灰綠、卡其……像霧後的天光，沉靜而有質感。',light:'你的光，優雅而內斂'}}
 };
 var STATE={};
 
@@ -235,123 +242,42 @@ function hsvToRgb(h,s,v){var c=v*s,x=c*(1-Math.abs((h/60)%2-1)),m=v-c,r,g,b;if(h
 function hexHsv(h){var c=hexToRgb(h);return rgbToHsv(c[0],c[1],c[2]);}
 function hueDist(a,b){var d=Math.abs(a-b);return Math.min(d,360-d);}
 
-// 雙軸計分:性別不參與(鐵則)
-function score(){
- var skin=picked('skin'),style=picked('style'),hair=picked('hair'),palette=picked('palette');
- var bright=0;
- // 膚色只微調明亮度(不再決定冷暖,色系由 palette 主導)
- ({fair:function(){bright+=2;},natural:function(){bright+=1;},wheat:function(){bright-=1;},deep:function(){bright-=2;}}[skin]||function(){})();
- // 髮色只微調明亮 + 繽紛旗標(天生特徵,不主導色系)
- var vivid=(palette==='vivid');
- ({black:function(){bright-=1;},darkbrown:function(){bright-=0.5;},lightbrown:function(){bright+=0.5;},blonde:function(){bright+=1;},silver:function(){bright+=0.5;},colorful:function(){bright+=1;vivid=true;}}[hair]||function(){})();
- return {bright:bright,vivid:vivid,skin:skin,style:style,hair:hair,palette:palette};
-}
-
-// palette 主導色庫 + 髮色點綴 + maximin 和諧補色 → 7~8 色,每人獨有且必為多色
+// 風格直接鎖定色票:取6基礎色,膚色在「同色票內」微調組合(絕不跑出色票)
 function pickColors(){
- var sc=score();
- var palette=sc.palette||'pink';
- // 「喜歡的色系」直接決定主色庫
- var lib,toneKey;
- if(palette==='cool'){lib='coolfair';toneKey='cool';}
- else if(palette==='earth'){lib='earth';toneKey='earth';}
- else if(palette==='vivid'){lib='macaron';toneKey='vivid';}
- else {lib='morandi';toneKey='pink';} // 柔粉系 = 莫蘭迪粉為主
+ var skin=picked('skin'),style=picked('style');
+ var S=STYLEMAP[style]||STYLEMAP.macaron;
 
- // 第一層:錨色
- var anchors=[];
- // 髮色點綴錨色(天生特徵,只當點綴)
- var hairHex=sc.hair&&HAIRDOT[sc.hair];
- if(hairHex)anchors.push(hairHex);
- // 色系專屬強制錨色
- if(palette==='pink'){anchors.push('#e1d6da');anchors.push('#d6c7d9');anchors.push('#e1ced0');}
- else if(palette==='cool'){anchors.push('#bedde2');anchors.push('#b2d0ea');anchors.push('#e6c6de');}
- else if(palette==='earth'){anchors.push('#dbb793');anchors.push('#e5cfc2');anchors.push('#cfcc97');}
- else if(palette==='vivid'){anchors.push('#eeb7cc');anchors.push('#dab2cd');anchors.push('#aea6cd');anchors.push('#a8aed2');}
- anchors=anchors.filter(function(v,i){return anchors.indexOf(v)===i;});
- var hairIdx=hairHex?anchors.indexOf(hairHex):-1; // 髮色點綴,canvas 縮小其色團
+ // 基礎:該風格色票的精選 6 色
+ var chosen=S.base.slice();
 
- // 第二層:從主色庫補滿到 8 色 —— 類比色聚攏(±60°),絕不取對立補色
- var pool=PALETTE[lib].slice();
- if(palette==='pink')pool=pool.concat(['#eeb7cc','#eab9ce','#dab2cd','#e6c6de','#e1d6da','#d6c7d9']);
- if(palette==='cool')pool=pool.concat(PALETTE.coolfair).concat(['#a6cde6','#b8d7df','#aea6cd']);
- if(palette==='vivid')pool=pool.concat(['#eeb7cc','#eab9ce','#dab2cd','#c4accc','#aea6cd','#a8aed2','#a6bddc','#e6c6de','#d6c7d9']);
- pool=pool.filter(function(v,i){return pool.indexOf(v)===i;});
-
- // 主色相 = 錨色(非髮點綴)的平均色相 → 類比色窗口的圓心
- function circMeanHue(list){
-  var sx=0,sy=0;list.forEach(function(h){var a=hexHsv(h)[0]*Math.PI/180;sx+=Math.cos(a);sy+=Math.sin(a);});
-  var m=Math.atan2(sy,sx)*180/Math.PI;return (m+360)%360;
+ // 膚色微調:白皙→加票內明亮色(更透亮);深膚→加票內較柔色。都在票內,且皆為淺色不變深。
+ if(skin==='fair'||skin==='natural'){
+   chosen.push(S.light[0]);
+ }else{
+   chosen.push(S.dim[0]);
  }
- var coreAnchors=anchors.filter(function(h,i){return i!==hairIdx;}); // 排除髮點綴,以色系錨色定主調
- var mainHue=circMeanHue(coreAnchors.length?coreAnchors:anchors);
- // 類比窗口:柔粉/冷/大地 = ±60°;繽紛 = ±100°(粉→紫→金為連續暖段,仍類比不衝突)
- var WIN=(palette==='vivid')?75:60;
 
- // 只保留落在 mainHue ±WIN 內的候選(髮點綴例外,天生色已強制保留)
- var cand=pool.filter(function(h){return hueDist(hexHsv(h)[0],mainHue)<=WIN;});
- // 在窗口內,依「與已選色的最小色相距離」挑最能均勻填補的(但都在窗口內 → 必和諧)
- var chosen=anchors.slice();
- while(chosen.length<8 && cand.length){
-  var best=null,bs=-1;
-  for(var i=0;i<cand.length;i++){
-   if(chosen.indexOf(cand[i])>=0)continue;
-   var ph=hexHsv(cand[i])[0],minD=999;
-   for(var j=0;j<chosen.length;j++)minD=Math.min(minD,hueDist(ph,hexHsv(chosen[j])[0]));
-   // 偏好和已選色相距 12~40° 的(夠近才和諧,又不完全重複),用接近此理想值評分
-   var sgood=-Math.abs(minD-22);
-   if(sgood>bs){bs=sgood;best=cand[i];}
-  }
-  if(best===null)break; chosen.push(best);
- }
- // 窗口內不夠 8 色時,放寬到全 pool 最近色相補滿(仍優先近主調)
- while(chosen.length<8){
-  var best2=null,bd=999;
-  for(var k=0;k<pool.length;k++){
-   if(chosen.indexOf(pool[k])>=0)continue;
-   var d=hueDist(hexHsv(pool[k])[0],mainHue);
-   if(d<bd){bd=d;best2=pool[k];}
-  }
-  if(best2===null)break; chosen.push(best2);
- }
- // 依色相排序 → canvas 上相鄰色團色相相近,形成暈染漸層(像曼陀羅)
- // 依色相排序 → canvas 上相鄰色團色相相近,形成暈染漸層(像曼陀羅)
+ // 去重後,依色相排序成暈染漸層(像曼陀羅);補滿到至少7色(從色票補最近的)
+ chosen=chosen.filter(function(v,i){return chosen.indexOf(v)===i;});
+ var lib=PALETTE[S.lib];
+ var ti=0;
+ while(chosen.length<7 && ti<lib.length){if(chosen.indexOf(lib[ti])<0)chosen.push(lib[ti]);ti++;}
  chosen.sort(function(a,b){return hexHsv(a)[0]-hexHsv(b)[0];});
- // 排序後重新定位髮點綴索引(canvas 用來縮小其色團)
- var hairIdx2=hairHex?chosen.indexOf(hairHex):-1;
- // 錨色集合(排序後位置已散,用 hex 判斷成員身分,給較高不透明度)
- var anchorSet=anchors.slice();
 
- // 飽和/明度處理:大地+莫蘭迪減 50% 濃度(提明度、降飽和,做出灰階通透感)
- var lighten=(lib==='earth'||lib==='morandi');
- var boost=Math.min(0.5,0.20+Math.max(0,sc.bright)*0.04);
- var colors=chosen.map(function(h){
-   var hv=hexHsv(h),ns,nv;
-   if(lighten){
-     // 減 50% 濃度:飽和砍半、明度往上提,變柔灰透亮
-     ns=hv[1]*0.5;
-     nv=Math.min(1,hv[2]*0.5+0.5);
-   }else{
-     ns=Math.min(1,hv[1]*(1+boost)+0.07);
-     nv=Math.max(0.55,hv[2]*0.96);
-   }
-   var rgb=hsvToRgb(hv[0],ns,nv);
-   return '#'+rgb.map(function(x){return('0'+x.toString(16)).slice(-2);}).join('');
- });
- // 標記哪些是錨色(排序後),canvas 據此給不透明度
- var anchorFlags=chosen.map(function(h){return anchorSet.indexOf(h)>=0;});
- return {colors:colors,anchorFlags:anchorFlags,veinIdx:hairIdx2,quadrant:toneKey,text:TONE[toneKey].text,light:TONE[toneKey].light,style:sc.style,vivid:sc.vivid};
+ // 標記基礎6色為「主色」給高不透明度
+ var anchorFlags=chosen.map(function(h){return S.base.indexOf(h)>=0;});
+
+ return {colors:chosen,anchorFlags:anchorFlags,veinIdx:-1,
+         text:S.tone.text,light:S.tone.light,style:style};
 }
 
 function styleLine(style,yang,mature,slim){
  var s;
- if(mature) s='以<b>沉靜而優雅</b>的方式呈現你的色光——俐落的線條、細緻而有重量的質地，從容大方，自成風格。';
- else if(style==='ink') s='以<b>俐落乾淨</b>的方式呈現你的色光——簡約的線條、細緻的織理，從容而有態度。';
- else if(style==='rose') s='以<b>柔美流動</b>的方式呈現你的色光——層次的垂墜、柔軟的質地，溫潤而自在。';
- else if(style==='earth') s='以<b>溫潤自然</b>的方式呈現你的色光——大地般沉穩的質地，自在而有底蘊。';
- else s = yang>0 ? '以<b>俐落乾淨</b>的方式呈現你的色光——簡約的線條、細緻的織理，從容而有態度。'
-        : yang<0 ? '以<b>柔美流動</b>的方式呈現你的色光——層次的垂墜、柔軟的質地，溫潤而自在。'
-        : '以<b>從容平衡</b>的方式呈現你的色光——簡約與柔和兼具，依心情自由切換。';
+ if(style==='macaron') s='以<b>粉嫩甜美</b>的方式呈現你的色光——輕盈柔甜的色調、細緻的質地，明亮而討喜。';
+ else if(style==='coolfair') s='以<b>清新通透</b>的方式呈現你的色光——澄澈的冷調、乾淨的線條，脫俗而有靈氣。';
+ else if(style==='earth') s='以<b>溫潤知性</b>的方式呈現你的色光——大地般沉穩的質地，溫厚而有底蘊。';
+ else if(style==='morandi') s='以<b>優雅內斂</b>的方式呈現你的色光——灰調的細緻層次、沉靜的氣質，從容而有質感。';
+ else s='以<b>從容平衡</b>的方式呈現你的色光——簡約與柔和兼具，依心情自由切換。';
  if(slim) s+=' 讓同色系的質感層次向上延伸，俐落的直線條使整體更顯修長；亮色點綴於小處，乾淨而從容。';
  return s;
 }
@@ -360,25 +286,13 @@ function rng(seed){return function(){seed=(seed*9301+49297)%233280;return seed/2
 
 function hexToRgb(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
 function sparkle(x,sx,sy,s,op){
+ // 純白單色剪影四角星芒:無光暈、無半透明層
  x.save(); x.translate(sx,sy);
- // soft tiny glow
- var g=x.createRadialGradient(0,0,0,0,0,s*1.5);
- g.addColorStop(0,'rgba(255,253,245,'+(op*0.5)+')'); g.addColorStop(1,'rgba(255,253,245,0)');
- x.fillStyle=g; x.beginPath(); x.arc(0,0,s*1.5,0,7); x.fill();
  var w=Math.max(0.8,s*0.055);
- // faint diagonal secondary rays for a crisp four-point sparkle
- x.save(); x.rotate(0.7854); var dw=Math.max(0.6,s*0.04), dl=s*0.5;
- x.fillStyle='rgba(255,255,255,'+(op*0.45)+')';
- x.beginPath(); x.moveTo(0,-dl); x.lineTo(dw,0); x.lineTo(0,dl); x.lineTo(-dw,0); x.closePath(); x.fill();
- x.beginPath(); x.moveTo(-dl,0); x.lineTo(0,dw); x.lineTo(dl,0); x.lineTo(0,-dw); x.closePath(); x.fill();
- x.restore();
- x.fillStyle='rgba(255,255,255,'+op+')';
+ x.fillStyle='#ffffff';
  x.beginPath(); x.moveTo(0,-s); x.lineTo(w,0); x.lineTo(0,s); x.lineTo(-w,0); x.closePath(); x.fill();
  x.beginPath(); x.moveTo(-s,0); x.lineTo(0,w); x.lineTo(s,0); x.lineTo(0,-w); x.closePath(); x.fill();
- var ds=s*0.42;
- x.fillStyle='rgba(255,252,240,'+(op*0.5)+')';
- x.beginPath(); x.arc(0,0,Math.max(1.2,s*0.16),0,7); x.fill();
- x.fillStyle='rgba(255,255,255,'+op+')'; x.beginPath(); x.arc(0,0,Math.max(1,s*0.13),0,7); x.fill();
+ x.beginPath(); x.arc(0,0,Math.max(1,s*0.13),0,7); x.fill();
  x.restore();
 }
 function drawCard(){
@@ -386,18 +300,16 @@ function drawCard(){
  var cols=(STATE.colors&&STATE.colors.length)?STATE.colors:['#cdb494','#dcc6a9','#c8bba6','#d6c3ab','#c2ad95','#bbb6b0','#c3bda3','#9b9d9c'];
  var CX=W/2, CY=H*0.45;
  x.clearRect(0,0,W,H);
- // cream base
- x.fillStyle='#fdfaf5'; x.fillRect(0,0,W,H);
- // central multi-color aurora bloom — 8 方位,每個色一團,強制錨色放最大團(最顯眼)
- // 位置依序:四角大團→上下左右→中心,讓多色鋪滿整個極光圈
- var spots=[[-205,-160,340],[215,-140,340],[-235,150,330],[245,180,330],[0,-250,300],[-25,260,300],[-270,20,290],[265,30,290]];
- var n=Math.min(cols.length,spots.length);
+ // pure white base
+ x.fillStyle='#ffffff'; x.fillRect(0,0,W,H);
+ // 色環式極光:顏色已按色相排序,沿圓環依序擺放(像色盤一樣相鄰必為漸變色,絕不出現對立色相鄰)
+ var n=cols.length;
+ var ringR=200;            // 色團中心距畫面中心的距離
+ var blobR=265;            // 每團半徑(相鄰團重疊,交界是近似色->混出來乾淨)
  x.save();
  for(var i=0;i<n;i++){
-   var sp=spots[i],bx=CX+sp[0],by=CY+sp[1],r=sp[2],rgb=hexToRgb(cols[i]);
-   // 血管色團縮小(冷暖底,當點綴不當主塊)
-   if(i===STATE.veinIdx)r=r*0.5;
-   // 錨色(選到的顏色)給更高不透明度,確保明確現身
+   var ang=-Math.PI/2 + (i/n)*Math.PI*2;  // 從正上方開始,順時針依色相序繞一圈
+   var bx=CX+Math.cos(ang)*ringR, by=CY+Math.sin(ang)*ringR*1.18, r=blobR, rgb=hexToRgb(cols[i]);
    var isAnchor=(STATE.anchorFlags&&STATE.anchorFlags[i]);
    var al=isAnchor?0.78:0.6;
    var g=x.createRadialGradient(bx,by,0,bx,by,r);
@@ -406,43 +318,47 @@ function drawCard(){
    g.addColorStop(1,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+',0)');
    x.fillStyle=g; x.beginPath(); x.arc(bx,by,r,0,7); x.fill();
  }
- // 疊一層柔光 multiply 讓交界處的色彩更濃郁(對抗過淡),只在中央區
+ // 疊一層柔光 multiply 讓交界處的色彩更濃郁(同位置同色,只加深自己不混髒)
  x.globalCompositeOperation='multiply';
  for(var i2=0;i2<n;i2++){
-   var sp2=spots[i2],bx2=CX+sp2[0],by2=CY+sp2[1],rgb2=hexToRgb(cols[i2]);
-   var r2=sp2[2]*0.8; if(i2===STATE.veinIdx)r2=r2*0.5;
+   var ang2=-Math.PI/2 + (i2/n)*Math.PI*2;
+   var bx2=CX+Math.cos(ang2)*ringR, by2=CY+Math.sin(ang2)*ringR*1.18, rgb2=hexToRgb(cols[i2]);
+   var r2=blobR*0.75;
    var g2=x.createRadialGradient(bx2,by2,0,bx2,by2,r2);
-   g2.addColorStop(0,'rgba('+rgb2[0]+','+rgb2[1]+','+rgb2[2]+',0.22)');
+   g2.addColorStop(0,'rgba('+rgb2[0]+','+rgb2[1]+','+rgb2[2]+',0.20)');
    g2.addColorStop(1,'rgba('+rgb2[0]+','+rgb2[1]+','+rgb2[2]+',0)');
    x.fillStyle=g2; x.beginPath(); x.arc(bx2,by2,r2,0,7); x.fill();
  }
  x.restore();
- // circular fade back to cream (only at the outer edge, give colour room to breathe)
- var fg=x.createRadialGradient(CX,CY,W*0.52,CX,CY,W*0.82);
- fg.addColorStop(0,'rgba(253,250,245,0)'); fg.addColorStop(1,'rgba(253,250,245,1)');
+ // circular fade back to pure white — 提早收掉,邊緣保留大量空氣感
+ var fg=x.createRadialGradient(CX,CY,W*0.40,CX,CY,W*0.64);
+ fg.addColorStop(0,'rgba(255,255,255,0)'); fg.addColorStop(1,'rgba(255,255,255,1)');
  x.fillStyle=fg; x.fillRect(0,0,W,H);
  // soft white core glow (gentle halo, no longer washing out the colour)
  var wc=x.createRadialGradient(CX,CY,0,CX,CY,130);
  wc.addColorStop(0,'rgba(255,255,255,.22)'); wc.addColorStop(1,'rgba(255,255,255,0)');
  x.fillStyle=wc; x.beginPath(); x.arc(CX,CY,130,0,7); x.fill();
- // mandala-style white sparkles within the bloom
+ // 純白剪影星芒,散布在色暈內(避開人型)
  var rand=rng(STATE.seed||7), placed=[], tries=0, sizes=[8,11,14,18];
- while(placed.length<22 && tries<400){
+ var figW=115, figTop=CY-285, figBot=CY+380; // 人型避讓區
+ function onFigure(px,py){return Math.abs(px-CX)<figW && py>figTop && py<figBot;}
+ while(placed.length<20 && tries<500){
    tries++;
-   var ang=rand()*6.2832, rad=rand()*W*0.46;
+   var ang=rand()*6.2832, rad=rand()*W*0.38;
    var sx=CX+Math.cos(ang)*rad, sy=CY+Math.sin(ang)*rad*1.15;
-   if(sy<60||sy>H-160) continue;
-   if(Math.abs(sx-CX)<55 && sy>120 && sy<760) continue;
+   if(sy<80||sy>H-200) continue;
+   if(onFigure(sx,sy)) continue;
    var ok=true; for(var p=0;p<placed.length;p++){var dx=sx-placed[p][0],dy=sy-placed[p][1]; if(dx*dx+dy*dy<58*58){ok=false;break;}}
    if(!ok) continue;
    placed.push([sx,sy]);
-   sparkle(x,sx,sy,sizes[Math.floor(rand()*sizes.length)],0.55+rand()*0.42);
+   sparkle(x,sx,sy,sizes[Math.floor(rand()*sizes.length)],1);
  }
- // star dust
- for(var d2=0;d2<40;d2++){
-   var a2=rand()*6.2832, r2=rand()*W*0.48, dx2=CX+Math.cos(a2)*r2, dy2=CY+Math.sin(a2)*r2*1.15;
-   if(dy2<50||dy2>H-130) continue;
-   x.fillStyle='rgba(255,255,255,'+(0.35+rand()*0.35)+')'; x.beginPath(); x.arc(dx2,dy2,1,0,7); x.fill();
+ // 許多白色小圓點亂數散布在星芒附近(純白實心,避開人型)
+ for(var d2=0;d2<90;d2++){
+   var a2=rand()*6.2832, r2=rand()*W*0.40, dx2=CX+Math.cos(a2)*r2, dy2=CY+Math.sin(a2)*r2*1.15;
+   if(dy2<70||dy2>H-190) continue;
+   if(onFigure(dx2,dy2)) continue;
+   x.fillStyle='#ffffff'; x.beginPath(); x.arc(dx2,dy2,1.2+rand()*2.2,0,7); x.fill();
  }
  // figure white + soft shadow
  var img=(STATE.sex==='male')?IMG_M:IMG_F;
@@ -455,10 +371,10 @@ function drawCard(){
  x.textAlign='center';
  x.fillStyle='#a96f1d'; x.font='600 27px "Cormorant Garamond", serif';
  x.fillText('L U M I N A   P R O F I L E', W/2, 102);
- x.fillStyle='#a96f1d'; x.font='500 38px "Noto Sans TC", sans-serif'; x.fillText(STATE.name, W/2, 916);
- x.fillStyle='#8a7256'; x.font='300 23px "Noto Sans TC", sans-serif'; x.fillText(STATE.phrase, W/2, 970);
- x.fillStyle='rgba(169,111,29,.85)'; x.font='300 15px "Noto Sans TC", sans-serif'; x.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1056);
- x.fillStyle='rgba(138,114,86,.8)'; x.font='400 15px "Cormorant Garamond", serif'; x.fillText('Lumina Profile', W/2, 1084);
+ x.fillStyle='#a96f1d'; x.font='500 38px "Noto Sans TC", sans-serif'; x.fillText(STATE.name, W/2, 968);
+ x.fillStyle='#8a7256'; x.font='300 23px "Noto Sans TC", sans-serif'; x.fillText(STATE.phrase, W/2, 1018);
+ x.fillStyle='rgba(169,111,29,.85)'; x.font='300 15px "Noto Sans TC", sans-serif'; x.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1092);
+ x.fillStyle='rgba(138,114,86,.8)'; x.font='400 15px "Cormorant Garamond", serif'; x.fillText('Lumina Profile', W/2, 1118);
 }
 
 function generate(){
@@ -466,8 +382,8 @@ function generate(){
  var byear=val('byear');
  var h=val('height'),w=val('weight'),u=val('s_upper'),m=val('s_mid'),th=val('s_thigh'),ca=val('s_calf');
  var sex=picked('sex');
- var skin=picked('skin'),style=picked('style'),palette=picked('palette');
- var hlen=picked('hlen'),hcurl=picked('hcurl'),hair=picked('hair');
+ var skin=picked('skin'),style=picked('style');
+ var hlen=picked('hlen'),hcurl=picked('hcurl');
  var err=document.getElementById('err');
  var nowY=new Date().getFullYear();
  if(!name){err.textContent='先讓我知道怎麼稱呼你。';return;}
@@ -475,10 +391,8 @@ function generate(){
  if(!sex){err.textContent='請選擇生理性別（決定人形圖）。';return;}
  if([h,w,u,m,th,ca].some(function(v){return isNaN(v)||v<=0;})){err.textContent='請完整填入身高、體重與四段數字。';return;}
  if(!skin){err.textContent='請選擇你的膚色。';return;}
- if(!palette){err.textContent='選一個你喜歡的色系吧。';return;}
- if(!style){err.textContent='選一個你偏好的風格吧。';return;}
+ if(!style){err.textContent='選一個你喜歡的風格吧。';return;}
  if(!hlen||!hcurl){err.textContent='髮型長度與捲度還沒選喔。';return;}
- if(!hair){err.textContent='髮色還沒選喔。';return;}
  err.textContent='';
 
  var age=nowY-byear;

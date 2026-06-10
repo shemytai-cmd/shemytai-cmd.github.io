@@ -357,30 +357,31 @@ function drawCard(){
  var wc=x.createRadialGradient(CX,CY,0,CX,CY,130);
  wc.addColorStop(0,'rgba(255,255,255,.22)'); wc.addColorStop(1,'rgba(255,255,255,0)');
  x.fillStyle=wc; x.beginPath(); x.arc(CX,CY,130,0,7); x.fill();
- // 星河帶:大小不一的星芒與圓點聚攏成流動的帶狀(中軸密、邊緣疏、兩端收窄)
+ // 星河帶:寬幅流動的帶狀星河,中心曲線大幅上下擺動(S形),大小星芒與圓點散布其中
  // 垂直位置 = 身形比例焦點段的中心(依人形實際身體範圍 283~878 校正)
  var rand=rng(STATE.seed||7);
  var segY={upper:360,mid:508,thigh:656,calf:800};
  var cy0=segY[STATE.focus]||508;
- var ax0=64,ax1=W-64;
- function bandY(t){ // 帶中心曲線:緩起伏+斜度,柔和流動
-   return cy0 + 24*Math.sin(Math.PI*(t*1.06+0.04)) - 30*(t-0.5);
+ var ax0=50,ax1=W-50;
+ var wph=rand()*1.4-0.7; // 個人化波形相位,每人流向略不同
+ function bandY(t){ // 大幅S形:整條帶上下擺動 ±55,再疊一層小波紋
+   return cy0 + 55*Math.sin(6.0*t-1.1+wph) + 16*Math.sin(2.3*t+0.5-wph);
  }
  function gauss(){return (rand()+rand()+rand()-1.5)/1.5;} // -1~1 鐘形分布
- // 帶內圓點:密集、大小不一、越靠中軸越密;紡錘狀(中段寬、兩端窄)
- for(var di=0;di<230;di++){
+ // 帶內圓點:密集、大小不一、越靠中軸越密;帶寬中段最寬(半寬38~68,約190px全寬)
+ for(var di=0;di<430;di++){
    var t=rand();
-   var spread=16+16*Math.sin(Math.PI*t);
-   var px=ax0+(ax1-ax0)*t+(rand()-0.5)*8;
+   var spread=38+30*Math.sin(Math.PI*t);
+   var px=ax0+(ax1-ax0)*t+(rand()-0.5)*10;
    var py=bandY(t)+gauss()*spread;
-   var rr=0.7+Math.pow(rand(),1.6)*2.1;
+   var rr=0.6+Math.pow(rand(),1.7)*2.3;
    x.fillStyle='#ffffff'; x.beginPath(); x.arc(px,py,rr,0,7); x.fill();
  }
- // 帶內星芒:大大小小(4~17),沿帶散布
- for(var bi=0;bi<16;bi++){
-   var tb=0.04+rand()*0.92;
-   var sb=4+Math.pow(rand(),1.3)*13;
-   sparkle(x,ax0+(ax1-ax0)*tb+(rand()-0.5)*10,bandY(tb)+gauss()*(14+12*Math.sin(Math.PI*tb)),sb,1);
+ // 帶內星芒:大大小小(4~18),沿帶散布
+ for(var bi=0;bi<24;bi++){
+   var tb=0.03+rand()*0.94;
+   var sb=4+Math.pow(rand(),1.3)*14;
+   sparkle(x,ax0+(ax1-ax0)*tb+(rand()-0.5)*12,bandY(tb)+gauss()*(30+24*Math.sin(Math.PI*tb)),sb,1);
  }
  // 環境星芒+圓點:外圍亂數散布(避開人型與星河帶)
  var figW=115, figTop=262, figBot=902;
@@ -391,13 +392,14 @@ function drawCard(){
    var aa=rand()*6.2832, ar=W*0.16+rand()*W*0.26;
    var axp=CX+Math.cos(aa)*ar, ayp=CY+Math.sin(aa)*ar*1.18;
    if(ayp<90||ayp>H-220||onFigure(axp,ayp))continue;
-   if(Math.abs(ayp-cy0)<75)continue;
+   if(Math.abs(ayp-cy0)<135)continue;
    sparkle(x,axp,ayp,5+rand()*9,1); amb++;
  }
  for(var d2=0;d2<34;d2++){
    var a2=rand()*6.2832, r2=W*0.12+rand()*W*0.30;
    var dx2=CX+Math.cos(a2)*r2, dy2=CY+Math.sin(a2)*r2*1.18;
    if(dy2<80||dy2>H-200||onFigure(dx2,dy2))continue;
+   if(Math.abs(dy2-cy0)<125)continue;
    x.fillStyle='#ffffff'; x.beginPath(); x.arc(dx2,dy2,0.9+rand()*1.8,0,7); x.fill();
  }
  // figure white + soft shadow

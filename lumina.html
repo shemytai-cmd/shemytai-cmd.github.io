@@ -147,16 +147,6 @@ body.has-result #result{display:block;}
         <label class="pill styopt"><input type="radio" name="style" value="earth"><span>溫暖知性</span></label>
         <label class="pill styopt"><input type="radio" name="style" value="morandi"><span>優雅內斂</span></label>
       </div></div>
-      <div class="q"><p>髮型長度</p><div class="choices">
-        <label class="pill"><input type="radio" name="hlen" value="short"><span>短髮</span></label>
-        <label class="pill"><input type="radio" name="hlen" value="mid"><span>中長髮</span></label>
-        <label class="pill"><input type="radio" name="hlen" value="long"><span>長髮</span></label>
-      </div></div>
-      <div class="q"><p>捲度</p><div class="choices">
-        <label class="pill"><input type="radio" name="hcurl" value="straight"><span>直髮</span></label>
-        <label class="pill"><input type="radio" name="hcurl" value="wave"><span>微捲</span></label>
-        <label class="pill"><input type="radio" name="hcurl" value="curly"><span>捲髮</span></label>
-      </div></div>
     </div>
 
     <div class="full">
@@ -205,7 +195,7 @@ var FOCUS={
 var PALETTE={
  macaron:['#f3deb4','#f2d2ae','#efbba5','#eeb5aa','#eeb7b4','#eeb7cc','#eab9ce','#dab2cd','#c4accc','#aea6cd','#a8aed2','#a6bddc','#a6cde6','#b8d7df','#b2d5d5','#aad4b8','#bad8ba','#d6e3b7','#e5e8bb'],
  coolfair:['#fcf8f5','#fcf2fd','#c5fcdc','#deeced','#e3f1fe','#ebd0fb','#f2ffe3','#f1dfeb','#bee7d7','#bedde2','#d5e7f5','#d4bfea','#ecfeb4','#e6c6de','#b2ccc1','#b2d0ea','#bde2fc','#ccc2e4'],
- morandi:['#7e97ad','#99a5bf','#dacbae','#c7b8a1','#a3b7a0','#bdc9d7','#adb1b4','#b0b3c6','#d6c7d9','#e1e5e4','#e1d6da','#868d9d','#cdc8ab','#bbc9d9','#e7e1d6','#d4d5d0','#e1ced0','#bfbfa9','#ada08c','#d9d6d6'],
+ morandi:['#e2e1df','#d0c9ca','#e2c6c2','#b3b4d0','#c2c4d0','#e7d0e0','#f8e2e5','#fbf8ef','#cdc7d5','#c5bedd','#c5d2c9'],
  earth:['#dbb793','#cdbca0','#ba9060','#a09383','#cdc9be','#e8bbb6','#b79a92','#e3d0c2','#bbb6b0','#e7be86','#bfa276','#f5e8d5','#d59977','#e5d9bf','#cfcc97','#b7a887','#c3bda3','#dce1db']
 };
 // ===== 風格 → 色票:每個風格鎖定一個色票(膚色在票內微調) =====
@@ -236,15 +226,15 @@ var STYLEMAP={
    dim:['#cdbca0','#cdc9be','#c3bda3'],
    blondeDot:'#e7be86', silverDot:'#cdc9be', vividDots:['#e8bbb6','#e7be86','#cfcc97'],
    tone:{text:'你的命定色是「溫潤柔和的大地色系」。如蜜桃、杏黃、燕麥與橄欖綠。這些顏色與肌膚同屬暖調，上身零違和，能直接襯出好氣色，溫柔之中帶著沉穩的可信賴感。',light:'你的光，溫暖而知性'}},
- // 優雅內斂 = 莫蘭迪(7色全色相:霧藍→藍紫→丁香→藕粉→暖白粉→卡其黃→灰綠,取色卡中較亮的)
+ // 優雅內斂 = 莫蘭迪(粉色沙灘系:乾燥玫瑰→櫻粉→粉紫→薰衣草→藍紫→灰藍→灰綠)
  morandi:{lib:'morandi',
-   pool:['#e1ced0','#e1d6da','#d6c7d9','#b0b3c6','#bdc9d7','#bbc9d9','#dacbae','#e7e1d6','#cdc8ab','#bfbfa9'],
-   pink:'#e1ced0',
-   base:['#bdc9d7','#b0b3c6','#d6c7d9','#e1ced0','#e1d6da','#dacbae','#a3b7a0'],
-   light:['#e1e5e4','#e7e1d6','#d9d6d6'],
-   dim:['#99a5bf','#bbc9d9','#bfbfa9'],
-   blondeDot:'#dacbae', silverDot:'#bdc9d7', vividDots:['#d6c7d9','#bbc9d9','#cdc8ab'],
-   tone:{text:'你的命定色是「低飽和的灰調色系」。如霧藍、藕粉、灰紫與燕麥卡其。這些顏色自帶柔焦效果，能收斂視覺雜訊、襯出安靜的高級感，低調卻過目難忘。',light:'你的光，優雅而內斂'}}
+   pool:['#e2c6c2','#f8e2e5','#e7d0e0','#cdc7d5','#c5bedd','#b3b4d0','#c2c4d0','#c5d2c9','#d0c9ca'],
+   pink:'#e2c6c2',
+   base:['#e2c6c2','#e7d0e0','#c5bedd','#b3b4d0','#c2c4d0','#c5d2c9','#f8e2e5'],
+   light:['#f8e2e5','#fbf8ef','#e2e1df'],
+   dim:['#d0c9ca','#c2c4d0','#c5d2c9'],
+   blondeDot:'#fbf8ef', silverDot:'#c2c4d0', vividDots:['#e2c6c2','#c5bedd','#c5d2c9'],
+   tone:{text:'你的命定色是「低飽和的灰調色系」。如乾燥玫瑰、灰藕、薰衣草與灰綠。這些顏色自帶柔焦效果，能收斂視覺雜訊、襯出安靜的高級感，低調卻過目難忘。',light:'你的光，優雅而內斂'}}
 };
 var STATE={};
 
@@ -292,7 +282,7 @@ function pickColors(seed){
          text:S.tone.text,light:S.tone.light,style:style};
 }
 
-function styleLine(style,yang,mature,slim){
+function styleLine(style){
  if(style==='macaron') return '讓甜美與高級感兼具的關鍵，在於「輕盈色調與細緻工藝」的結合。透過結構俐落、材質細緻的單品，將粉嫩色穿出明亮、知性且討喜的當代風格。';
  if(style==='coolfair') return '清新感的關鍵，在於「乾淨色塊與俐落剪裁」的搭配。減少多餘裝飾、保留留白，讓清透色以簡潔的輪廓登場，澄澈、輕盈、有靈氣。';
  if(style==='earth') return '溫暖知性的關鍵，在於「同色系層次與溫潤材質」的堆疊。以深淺不一的大地色互相搭配，加上有手感的織理，自然散發從容與底蘊。';
@@ -357,32 +347,43 @@ function drawCard(){
  var wc=x.createRadialGradient(CX,CY,0,CX,CY,130);
  wc.addColorStop(0,'rgba(255,255,255,.22)'); wc.addColorStop(1,'rgba(255,255,255,0)');
  x.fillStyle=wc; x.beginPath(); x.arc(CX,CY,130,0,7); x.fill();
- // 星河帶:寬幅流動的帶狀星河,中心曲線大幅上下擺動(S形),大小星芒與圓點散布其中
- // 垂直位置 = 身形比例焦點段的中心(依人形實際身體範圍 283~878 校正)
+ // 星河帶:由寬至窄的彗星式流動(覆蓋整個焦點段),星芒與星塵分離各自清晰
  var rand=rng(STATE.seed||7);
  var segY={upper:360,mid:508,thigh:656,calf:800};
  var cy0=segY[STATE.focus]||508;
- var ax0=50,ax1=W-50;
- var wph=rand()*1.4-0.7; // 個人化波形相位,每人流向略不同
- function bandY(t){ // 大幅S形:整條帶上下擺動 ±55,再疊一層小波紋
-   return cy0 + 55*Math.sin(6.0*t-1.1+wph) + 16*Math.sin(2.3*t+0.5-wph);
+ var ax0=46,ax1=W-46;
+ var wph=rand()*1.2-0.6;     // 個人化波形相位
+ var flip=rand()<0.5;        // 寬端方向隨人(左寬或右寬)
+ function bandY(t){return cy0 + 46*Math.sin(6.283*t+wph) + 12*Math.sin(13*t-wph);} // 完整一週期=必為S形(一峰一谷)
+ function bandHalf(t){var u=flip?1-t:t; return 28+62*(1-u);} // 半寬:寬端90→窄端28
+ function gauss(){return (rand()+rand()+rand()-1.5)/1.5;}
+ // 先定星芒位置:彼此保持距離,不互黏
+ var stars=[];
+ function placeStar(size,minD,tr){
+   while(tr-->0){
+     var ts=0.03+rand()*0.94;
+     var sx2=ax0+(ax1-ax0)*ts;
+     var sy2=bandY(ts)+gauss()*bandHalf(ts)*0.8;
+     var ok=true;
+     for(var q=0;q<stars.length;q++){var ddx=sx2-stars[q][0],ddy=sy2-stars[q][1];if(ddx*ddx+ddy*ddy<minD*minD){ok=false;break;}}
+     if(ok){stars.push([sx2,sy2,size]);return;}
+   }
  }
- function gauss(){return (rand()+rand()+rand()-1.5)/1.5;} // -1~1 鐘形分布
- // 帶內圓點:密集、大小不一、越靠中軸越密;帶寬中段最寬(半寬38~68,約190px全寬)
- for(var di=0;di<430;di++){
-   var t=rand();
-   var spread=38+30*Math.sin(Math.PI*t);
-   var px=ax0+(ax1-ax0)*t+(rand()-0.5)*10;
-   var py=bandY(t)+gauss()*spread;
-   var rr=0.6+Math.pow(rand(),1.7)*2.3;
+ for(var hi=0;hi<5;hi++)placeStar(15+rand()*8,95,60);                 // 5顆凸顯主星(15~23)
+ for(var ni=0;ni<19;ni++)placeStar(4+Math.pow(rand(),1.2)*9,48,40);   // 一般星芒(4~13)
+ // 星塵圓點:避開星芒周圍,保持星芒清晰
+ for(var di=0;di<520;di++){
+   var t2=rand();
+   var px=ax0+(ax1-ax0)*t2+(rand()-0.5)*10;
+   var py=bandY(t2)+gauss()*bandHalf(t2);
+   var near=false;
+   for(var q2=0;q2<stars.length;q2++){var dx3=px-stars[q2][0],dy3=py-stars[q2][1],rq=stars[q2][2]*1.15+5;if(dx3*dx3+dy3*dy3<rq*rq){near=true;break;}}
+   if(near)continue;
+   var rr=0.6+Math.pow(rand(),1.7)*2.2;
    x.fillStyle='#ffffff'; x.beginPath(); x.arc(px,py,rr,0,7); x.fill();
  }
- // 帶內星芒:大大小小(4~18),沿帶散布
- for(var bi=0;bi<24;bi++){
-   var tb=0.03+rand()*0.94;
-   var sb=4+Math.pow(rand(),1.3)*14;
-   sparkle(x,ax0+(ax1-ax0)*tb+(rand()-0.5)*12,bandY(tb)+gauss()*(30+24*Math.sin(Math.PI*tb)),sb,1);
- }
+ // 星芒最後畫在星塵之上,獨立清晰
+ for(var si2=0;si2<stars.length;si2++)sparkle(x,stars[si2][0],stars[si2][1],stars[si2][2],1);
  // 環境星芒+圓點:外圍亂數散布(避開人型與星河帶)
  var figW=115, figTop=262, figBot=902;
  function onFigure(px,py){return Math.abs(px-CX)<figW && py>figTop && py<figBot;}
@@ -392,14 +393,14 @@ function drawCard(){
    var aa=rand()*6.2832, ar=W*0.16+rand()*W*0.26;
    var axp=CX+Math.cos(aa)*ar, ayp=CY+Math.sin(aa)*ar*1.18;
    if(ayp<90||ayp>H-220||onFigure(axp,ayp))continue;
-   if(Math.abs(ayp-cy0)<135)continue;
+   if(Math.abs(ayp-cy0)<160)continue;
    sparkle(x,axp,ayp,5+rand()*9,1); amb++;
  }
  for(var d2=0;d2<34;d2++){
    var a2=rand()*6.2832, r2=W*0.12+rand()*W*0.30;
    var dx2=CX+Math.cos(a2)*r2, dy2=CY+Math.sin(a2)*r2*1.18;
    if(dy2<80||dy2>H-200||onFigure(dx2,dy2))continue;
-   if(Math.abs(dy2-cy0)<125)continue;
+   if(Math.abs(dy2-cy0)<150)continue;
    x.fillStyle='#ffffff'; x.beginPath(); x.arc(dx2,dy2,0.9+rand()*1.8,0,7); x.fill();
  }
  // figure white + soft shadow
@@ -426,7 +427,6 @@ function generate(){
  var h=val('height'),w=val('weight'),u=val('s_upper'),m=val('s_mid'),th=val('s_thigh'),ca=val('s_calf');
  var sex=picked('sex');
  var skin=picked('skin'),style=picked('style');
- var hlen=picked('hlen'),hcurl=picked('hcurl');
  var err=document.getElementById('err');
  var nowY=new Date().getFullYear();
  if(!name){err.textContent='先讓我知道怎麼稱呼你。';return;}
@@ -435,7 +435,6 @@ function generate(){
  if([h,w,u,m,th,ca].some(function(v){return isNaN(v)||v<=0;})){err.textContent='請完整填入身高、體重與四段數字。';return;}
  if(!skin){err.textContent='請選擇你的膚色。';return;}
  if(!style){err.textContent='選一個你喜歡的風格吧。';return;}
- if(!hlen||!hcurl){err.textContent='髮型長度與捲度還沒選喔。';return;}
  err.textContent='';
 
  var age=nowY-byear;
@@ -445,18 +444,13 @@ function generate(){
  var nameSum=0; for(var ni=0;ni<name.length;ni++)nameSum+=name.charCodeAt(ni);
  var seed=Math.floor((u*7+m*13+th*17+ca*19+byear+nameSum*31))%99999;
  var pc=pickColors(seed);
- var mature=age>=55;
- var bmi=w/Math.pow(h/100,2), slim=bmi>=24;
- var yang=0;
- if(hlen==='short')yang++; if(hlen==='long')yang--;
- if(hcurl==='straight')yang++; if(hcurl==='curly')yang--;
 
  STATE={colors:pc.colors,anchorFlags:pc.anchorFlags,veinIdx:pc.veinIdx,sex:sex,name:name,phrase:'專屬身形光影',seed:seed,focus:focus};
  document.getElementById('resSub').textContent=name+'，你的光形比例已生成';
  var html='';
  html+='<p><span class="mk">Your Proportion</span>'+FOCUS[focus]+'</p>';
  html+='<p><span class="mk">Your Colors</span>'+pc.text+'</p>';
- html+='<p><span class="mk">For You</span>'+styleLine(pc.style,yang,mature,slim)+'</p>';
+ html+='<p><span class="mk">For You</span>'+styleLine(pc.style)+'</p>';
  html+='<p><span class="mk">·</span>'+name+'，以上是你的光形比例。身形密碼與色彩氛圍，解析您合適的穿著風格。透過科技纖維能讓您穿出個人品味與健康的質感生活。想了解更多請讓我協助您規劃專屬的衣著選品。</p>';
  document.getElementById('msg').innerHTML=html;
  document.body.classList.add('has-result');

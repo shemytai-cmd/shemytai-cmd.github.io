@@ -324,7 +324,7 @@ function drawCard(){
    var ang=-Math.PI/2 + angOff + (i/n)*Math.PI*2;  // 依色相序繞一圈,起點隨人旋轉
    var bx=CX+Math.cos(ang)*ringR, by=CY+Math.sin(ang)*ringR*1.18, r=blobR, rgb=hexToRgb(cols[i]);
    var isAnchor=(STATE.anchorFlags&&STATE.anchorFlags[i]);
-   var al=isAnchor?0.70:0.62;
+   var al=isAnchor?0.82:0.73;
    var g=x.createRadialGradient(bx,by,0,bx,by,r);
    g.addColorStop(0,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+al+')');
    g.addColorStop(.5,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+(al*0.45)+')');
@@ -338,7 +338,7 @@ function drawCard(){
    var bx2=CX+Math.cos(ang2)*ringR, by2=CY+Math.sin(ang2)*ringR*1.18, rgb2=hexToRgb(cols[i2]);
    var r2=blobR*0.75;
    var g2=x.createRadialGradient(bx2,by2,0,bx2,by2,r2);
-   g2.addColorStop(0,'rgba('+rgb2[0]+','+rgb2[1]+','+rgb2[2]+',0.13)');
+   g2.addColorStop(0,'rgba('+rgb2[0]+','+rgb2[1]+','+rgb2[2]+',0.20)');
    g2.addColorStop(1,'rgba('+rgb2[0]+','+rgb2[1]+','+rgb2[2]+',0)');
    x.fillStyle=g2; x.beginPath(); x.arc(bx2,by2,r2,0,7); x.fill();
  }

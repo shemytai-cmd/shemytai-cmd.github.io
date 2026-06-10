@@ -353,27 +353,36 @@ function drawCard(){
  var wc=x.createRadialGradient(CX,CY,0,CX,CY,130);
  wc.addColorStop(0,'rgba(255,255,255,.22)'); wc.addColorStop(1,'rgba(255,255,255,0)');
  x.fillStyle=wc; x.beginPath(); x.arc(CX,CY,130,0,7); x.fill();
- // 純白剪影星芒,散布在色暈內(避開人型)
- var rand=rng(STATE.seed||7), placed=[], tries=0, sizes=[8,11,14,18];
- var figW=115, figTop=CY-285, figBot=CY+380; // 人型避讓區
- function onFigure(px,py){return Math.abs(px-CX)<figW && py>figTop && py<figBot;}
- while(placed.length<20 && tries<500){
-   tries++;
-   var ang=rand()*6.2832, rad=rand()*W*0.38;
-   var sx=CX+Math.cos(ang)*rad, sy=CY+Math.sin(ang)*rad*1.15;
-   if(sy<80||sy>H-200) continue;
-   if(onFigure(sx,sy)) continue;
-   var ok=true; for(var p=0;p<placed.length;p++){var dx=sx-placed[p][0],dy=sy-placed[p][1]; if(dx*dx+dy*dy<58*58){ok=false;break;}}
-   if(!ok) continue;
-   placed.push([sx,sy]);
-   sparkle(x,sx,sy,sizes[Math.floor(rand()*sizes.length)],1);
- }
- // 許多白色小圓點亂數散布在星芒附近(純白實心,避開人型)
- for(var d2=0;d2<90;d2++){
-   var a2=rand()*6.2832, r2=rand()*W*0.40, dx2=CX+Math.cos(a2)*r2, dy2=CY+Math.sin(a2)*r2*1.15;
-   if(dy2<70||dy2>H-190) continue;
-   if(onFigure(dx2,dy2)) continue;
-   x.fillStyle='#ffffff'; x.beginPath(); x.arc(dx2,dy2,1.2+rand()*2.2,0,7); x.fill();
+ // 星河弧線:星芒+圓點聚攏成三條交錯的弧線(如銀河),橫過人影後方
+ // 垂直位置 = 身形比例焦點段的底部(上段/中段/大腿段/小腿段)
+ var rand=rng(STATE.seed||7);
+ var segY={upper:422,mid:582,thigh:742,calf:850};
+ var cy0=segY[STATE.focus]||582;
+ var arcs=[
+  {amp:-58,ph:0.02,sp:1.00,tilt:26},   // 左高右低的長弧
+  {amp:-32,ph:0.30,sp:1.05,tilt:-8},   // 晚一點到頂,與第一條交叉
+  {amp: 38,ph:-0.06,sp:0.95,tilt:-28}  // 先沉後揚,再交叉
+ ];
+ var ax0=70,ax1=W-70;
+ for(var ai=0;ai<arcs.length;ai++){
+   var A=arcs[ai];
+   // 小圓點沿弧線密集聚攏(帶輕微抖動與自然留隙)
+   var steps=88;
+   for(var si=0;si<=steps;si++){
+     var t=si/steps;
+     if(rand()<0.16) continue;
+     var px=ax0+(ax1-ax0)*t+(rand()-0.5)*5;
+     var py=cy0+A.tilt*(t-0.5)*2+A.amp*Math.sin(Math.PI*(t*A.sp+A.ph))+(rand()-0.5)*5;
+     x.fillStyle='#ffffff'; x.beginPath(); x.arc(px,py,0.9+rand()*1.5,0,7); x.fill();
+   }
+   // 星芒點綴在弧線上
+   var ns=5+Math.floor(rand()*2);
+   for(var sj=0;sj<ns;sj++){
+     var ts=0.08+rand()*0.84;
+     var sx2=ax0+(ax1-ax0)*ts;
+     var sy2=cy0+A.tilt*(ts-0.5)*2+A.amp*Math.sin(Math.PI*(ts*A.sp+A.ph));
+     sparkle(x,sx2,sy2,7+rand()*9,1);
+   }
  }
  // figure white + soft shadow
  var img=(STATE.sex==='male')?IMG_M:IMG_F;
@@ -424,7 +433,7 @@ function generate(){
  if(hlen==='short')yang++; if(hlen==='long')yang--;
  if(hcurl==='straight')yang++; if(hcurl==='curly')yang--;
 
- STATE={colors:pc.colors,anchorFlags:pc.anchorFlags,veinIdx:pc.veinIdx,sex:sex,name:name,phrase:'專屬身形光影',seed:seed};
+ STATE={colors:pc.colors,anchorFlags:pc.anchorFlags,veinIdx:pc.veinIdx,sex:sex,name:name,phrase:'專屬身形光影',seed:seed,focus:focus};
  document.getElementById('resSub').textContent=name+'，你的光形比例已生成';
  var html='';
  html+='<p><span class="mk">Your Proportion</span>'+FOCUS[focus]+'</p>';

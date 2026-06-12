@@ -156,17 +156,19 @@ body.has-result #result{display:block;}
   </div></section>
 
   <section id="result"><div class="resultShell">
+    <div class="btnrow" style="margin:0 0 22px"><button class="btn ghost" onclick="reset()">回到問卷</button></div>
     <div class="sigilTitle">Lumina Profile</div>
     <div class="sigilSub" id="resSub">你的光形比例已生成</div>
-    <div class="cardStage"><canvas id="card" width="800" height="1180"></canvas></div>
+    <div class="cardStage"><canvas id="card" width="800" height="1733"></canvas></div>
     <div class="dlrow btnrow"><button class="btn" onclick="downloadCard()">下載我的光形圖卡</button></div>
     <div class="messageBox" id="msg"></div>
     <div class="btnrow">
-      <a class="btn" href="https://shemytai-cmd.github.io/Shemy-brand/">前往品牌頁</a>
       <button class="btn" onclick="openLine()">加我的 LINE</button>
-      <button class="btn ghost" onclick="reset()">回到問卷</button>
     </div>
-    <div class="studio">閃閃發光設計工作室<small>Shemy Tai Design Studio</small></div>
+    <div class="studio">閃閃發光設計工作室<small>Sparkling Design Studio</small></div>
+    <div class="btnrow" style="margin-top:34px">
+      <a class="btn" href="https://shemytai-cmd.github.io/Shemy-brand/">前往品牌頁</a>
+    </div>
   </div></section>
 
   <div class="pagefoot"><a href="https://shemytai-cmd.github.io/Shemy-brand/">回品牌頁</a></div>
@@ -226,15 +228,15 @@ var STYLEMAP={
    dim:['#cdbca0','#cdc9be','#c3bda3'],
    blondeDot:'#e7be86', silverDot:'#cdc9be', vividDots:['#e8bbb6','#e7be86','#cfcc97'],
    tone:{text:'你的命定色是「溫潤柔和的大地色系」。如蜜桃、杏黃、燕麥與橄欖綠。這些顏色與肌膚同屬暖調，上身零違和，能直接襯出好氣色，溫柔之中帶著沉穩的可信賴感。',light:'你的光，溫暖而知性'}},
- // 優雅內斂 = 莫蘭迪(粉色沙灘系:乾燥玫瑰→櫻粉→粉紫→薰衣草→藍紫→灰藍→灰綠)
+ // 優雅內斂 = 莫蘭迪(粉色沙灘系:蜜桃→乾燥玫瑰→櫻粉→粉紫→薰衣草→藍紫→灰藍→灰綠)
  morandi:{lib:'morandi',useAll:true,
-   pool:['#e2c6c2','#f8e2e5','#e7d0e0','#cdc7d5','#c5bedd','#b3b4d0','#c2c4d0','#c5d2c9','#d0c9ca'],
-   pink:'#e2c6c2',
-   base:['#e2c6c2','#e7d0e0','#c5bedd','#b3b4d0','#c2c4d0','#c5d2c9','#f8e2e5'],
-   light:['#f8e2e5','#fbf8ef','#e2e1df'],
-   dim:['#d0c9ca','#c2c4d0','#c5d2c9'],
-   blondeDot:'#fbf8ef', silverDot:'#c2c4d0', vividDots:['#e2c6c2','#c5bedd','#c5d2c9'],
-   tone:{text:'你的命定色是「低飽和的灰調色系」。如乾燥玫瑰、灰藕、薰衣草與灰綠。這些顏色自帶柔焦效果，能收斂視覺雜訊、襯出安靜的高級感，低調卻過目難忘。',light:'你的光，優雅而內斂'}}
+   pool:['#f4c8b0','#e3b8b4','#f5c6cf','#ddc0dc','#c3b6e0','#adb1d8','#b3c8e2','#c5d6cb'],
+   pink:'#f5c6cf',
+   base:['#f4c8b0','#e3b8b4','#f5c6cf','#c3b6e0','#adb1d8','#b3c8e2','#c5d6cb'],
+   light:['#f8e2e5','#fbf8ef','#f4c8b0'],
+   dim:['#d0c9ca','#adb1d8','#c5d6cb'],
+   blondeDot:'#fbf8ef', silverDot:'#b3c8e2', vividDots:['#f5c6cf','#b3c8e2','#f4c8b0'],
+   tone:{text:'你的命定色是「低飽和的柔霧色系」。如蜜桃、乾燥玫瑰、薰衣草與灰藍。這些顏色自帶柔焦效果，能收斂視覺雜訊、襯出安靜的高級感，低調卻過目難忘。',light:'你的光，優雅而內斂'}}
 };
 var STATE={};
 
@@ -310,7 +312,9 @@ function sparkle(x,sx,sy,s,op){
 function drawCard(){
  var c=document.getElementById('card'),x=c.getContext('2d'),W=c.width,H=c.height;
  var cols=(STATE.colors&&STATE.colors.length)?STATE.colors:['#cdb494','#dcc6a9','#c8bba6','#d6c3ab','#c2ad95','#bbb6b0','#c3bda3','#9b9d9c'];
- var CX=W/2, CY=H*0.45;
+ var CX=W/2, CY=H*0.42;
+ // 人物置中:以畫面光暈中心為基準,垂直置中
+ var figH=700, figY=CY-figH/2;
  x.clearRect(0,0,W,H);
  // pure white base
  x.fillStyle='#ffffff'; x.fillRect(0,0,W,H);
@@ -353,8 +357,8 @@ function drawCard(){
  x.fillStyle=wc; x.beginPath(); x.arc(CX,CY,130,0,7); x.fill();
  // 星河帶:由寬至窄的彗星式流動(覆蓋整個焦點段),星芒與星塵分離各自清晰
  var rand=rng(STATE.seed||7);
- var segY={upper:360,mid:508,thigh:656,calf:800};
- var cy0=segY[STATE.focus]||508;
+ var segY={upper:figY+figH*0.153, mid:figY+figH*0.384, thigh:figY+figH*0.616, calf:figY+figH*0.84};
+ var cy0=segY[STATE.focus]||segY.mid;
  var ax0=46,ax1=W-46;
  var wph=rand()*1.2-0.6;     // 個人化波形相位
  var flip=rand()<0.5;        // 寬端方向隨人(左寬或右寬)
@@ -389,7 +393,7 @@ function drawCard(){
  // 星芒最後畫在星塵之上,獨立清晰
  for(var si2=0;si2<stars.length;si2++)sparkle(x,stars[si2][0],stars[si2][1],stars[si2][2],1);
  // 環境星芒+圓點:外圍亂數散布(避開人型與星河帶)
- var figW=115, figTop=262, figBot=902;
+ var figW=120, figTop=figY, figBot=figY+figH;
  function onFigure(px,py){return Math.abs(px-CX)<figW && py>figTop && py<figBot;}
  var amb=0,tries=0;
  while(amb<9&&tries<300){
@@ -407,22 +411,22 @@ function drawCard(){
    if(Math.abs(dy2-cy0)<150)continue;
    x.fillStyle='#ffffff'; x.beginPath(); x.arc(dx2,dy2,0.9+rand()*1.8,0,7); x.fill();
  }
- // figure white + soft shadow
+ // figure white + soft shadow（置中）
  var img=(STATE.sex==='male')?IMG_M:IMG_F;
- var th=640, sc=th/img.height, fw=img.width*sc, fx=(W-fw)/2, fy=CY-th*0.42;
+ var th=figH, sc=th/img.height, fw=img.width*sc, fx=(W-fw)/2, fy=figY;
  x.save(); x.shadowColor='rgba(120,100,80,.30)'; x.shadowBlur=16; x.shadowOffsetY=8;
  x.drawImage(img,fx,fy,fw,th); x.restore();
  // thin gold frame
  x.strokeStyle='rgba(185,139,45,.5)'; x.lineWidth=1; x.strokeRect(24,24,W-48,H-48);
- // text (gold + brown on cream)
+ // text（全部統一深灰色,移到下方）
  x.textAlign='center';
- x.fillStyle='#a96f1d'; x.font='600 27px "Cormorant Garamond", serif';
- x.fillText('L U M I N A   P R O F I L E', W/2, 102);
- x.fillStyle='#a96f1d'; x.font='500 38px "Noto Sans TC", sans-serif'; x.fillText(STATE.name, W/2, 968);
- x.fillStyle='#8a7256'; x.font='300 23px "Noto Sans TC", sans-serif'; x.fillText(STATE.phrase, W/2, 1014);
- x.fillStyle='rgba(138,114,86,.85)'; x.font='400 16px "Cormorant Garamond", serif'; x.fillText('Personal Silhouette of Light', W/2, 1044);
- x.fillStyle='rgba(169,111,29,.85)'; x.font='300 15px "Noto Sans TC", sans-serif'; x.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1096);
- x.fillStyle='rgba(138,114,86,.8)'; x.font='400 15px "Cormorant Garamond", serif'; x.fillText('Sparkling Design Studio', W/2, 1120);
+ x.fillStyle='#555555'; x.font='600 27px "Cormorant Garamond", serif';
+ x.fillText('L U M I N A   P R O F I L E', W/2, 130);
+ x.fillStyle='#555555'; x.font='500 38px "Noto Sans TC", sans-serif'; x.fillText(STATE.name, W/2, 1440);
+ x.fillStyle='#555555'; x.font='300 23px "Noto Sans TC", sans-serif'; x.fillText(STATE.phrase, W/2, 1492);
+ x.fillStyle='#555555'; x.font='400 16px "Cormorant Garamond", serif'; x.fillText('Personal Silhouette of Light', W/2, 1526);
+ x.fillStyle='#555555'; x.font='300 15px "Noto Sans TC", sans-serif'; x.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1598);
+ x.fillStyle='#555555'; x.font='400 15px "Cormorant Garamond", serif'; x.fillText('Sparkling Design Studio', W/2, 1624);
 }
 
 function generate(){

@@ -300,8 +300,9 @@ function rng(seed){return function(){seed=(seed*9301+49297)%233280;return seed/2
 
 function hexToRgb(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
 function sparkle(x,sx,sy,s,op){
- // 純白單色剪影四角星芒:無光暈、無半透明層
+ // 純白單色剪影四角星芒:無光暈、無半透明層(op=透明度,供動畫閃爍)
  x.save(); x.translate(sx,sy);
+ if(op!=null)x.globalAlpha=Math.max(0,Math.min(1,op));
  var w=Math.max(0.8,s*0.055);
  x.fillStyle='#ffffff';
  x.beginPath(); x.moveTo(0,-s); x.lineTo(w,0); x.lineTo(0,s); x.lineTo(-w,0); x.closePath(); x.fill();
@@ -309,14 +310,18 @@ function sparkle(x,sx,sy,s,op){
  x.beginPath(); x.arc(0,0,Math.max(1,s*0.13),0,7); x.fill();
  x.restore();
 }
+// ===== 動畫:背景/人物固定為底圖,只有星河粒子每幀重畫(極輕量) =====
+var ANIM={raf:null};
 function drawCard(){
- var c=document.getElementById('card'),x=c.getContext('2d'),W=c.width,H=c.height;
+ var c=document.getElementById('card'),W=c.width,H=c.height;
  var cols=(STATE.colors&&STATE.colors.length)?STATE.colors:['#cdb494','#dcc6a9','#c8bba6','#d6c3ab','#c2ad95','#bbb6b0','#c3bda3','#9b9d9c'];
  var CX=W/2, CY=H*0.42;
  // 人物置中:以畫面光暈中心為基準,垂直置中
  var figH=700, figY=CY-figH/2;
- x.clearRect(0,0,W,H);
- // pure white base
+
+ // ---- 底層(離屏):白底+極光+收邊+核心光暈+環境星塵點 ----
+ var bgC=document.createElement('canvas'); bgC.width=W; bgC.height=H;
+ var x=bgC.getContext('2d');
  x.fillStyle='#ffffff'; x.fillRect(0,0,W,H);
  // 色環式極光:顏色已按色相排序,沿圓環依序擺放;起始角度由個人種子旋轉(每人方位不同)
  var n=cols.length;
@@ -355,7 +360,8 @@ function drawCard(){
  var wc=x.createRadialGradient(CX,CY,0,CX,CY,130);
  wc.addColorStop(0,'rgba(255,255,255,.22)'); wc.addColorStop(1,'rgba(255,255,255,0)');
  x.fillStyle=wc; x.beginPath(); x.arc(CX,CY,130,0,7); x.fill();
- // 星河帶:由寬至窄的彗星式流動(覆蓋整個焦點段),星芒與星塵分離各自清晰
+
+ // ---- 星河帶:粒子只「收集」不直接畫,交給動畫迴圈 ----
  var rand=rng(STATE.seed||7);
  var segY={upper:figY+figH*0.153, mid:figY+figH*0.384, thigh:figY+figH*0.616, calf:figY+figH*0.84};
  var cy0=segY[STATE.focus]||segY.mid;
@@ -365,7 +371,7 @@ function drawCard(){
  function bandY(t){return cy0 + 46*Math.sin(6.283*t+wph) + 12*Math.sin(13*t-wph);} // 完整一週期=必為S形(一峰一谷)
  function bandHalf(t){var u=flip?1-t:t; return 28+62*(1-u);} // 半寬:寬端90→窄端28
  function gauss(){return (rand()+rand()+rand()-1.5)/1.5;}
- // 先定星芒位置:彼此保持距離,不互黏
+ // 星芒位置:彼此保持距離,不互黏;每顆附上閃爍相位與速度
  var stars=[];
  function placeStar(size,minD,tr){
    while(tr-->0){
@@ -374,27 +380,29 @@ function drawCard(){
      var sy2=bandY(ts)+gauss()*bandHalf(ts)*0.8;
      var ok=true;
      for(var q=0;q<stars.length;q++){var ddx=sx2-stars[q][0],ddy=sy2-stars[q][1];if(ddx*ddx+ddy*ddy<minD*minD){ok=false;break;}}
-     if(ok){stars.push([sx2,sy2,size]);return;}
+     if(ok){stars.push([sx2,sy2,size,rand()*6.2832,0.7+rand()*0.9]);return;}
    }
  }
  for(var hi=0;hi<5;hi++)placeStar(15+rand()*8,95,60);                 // 5顆凸顯主星(15~23)
  for(var ni=0;ni<19;ni++)placeStar(4+Math.pow(rand(),1.2)*9,48,40);   // 一般星芒(4~13)
- // 星塵圓點:避開星芒周圍,保持星芒清晰
+ // 星塵圓點:記錄帶內參數(t,法向偏移,抖動,半徑,流速),動畫時沿帶流動
+ var dust=[];
  for(var di=0;di<520;di++){
    var t2=rand();
-   var px=ax0+(ax1-ax0)*t2+(rand()-0.5)*10;
-   var py=bandY(t2)+gauss()*bandHalf(t2);
+   var g0=gauss();
+   var jx=(rand()-0.5)*10;
+   var px=ax0+(ax1-ax0)*t2+jx;
+   var py=bandY(t2)+g0*bandHalf(t2);
    var near=false;
    for(var q2=0;q2<stars.length;q2++){var dx3=px-stars[q2][0],dy3=py-stars[q2][1],rq=stars[q2][2]*1.15+5;if(dx3*dx3+dy3*dy3<rq*rq){near=true;break;}}
    if(near)continue;
    var rr=0.6+Math.pow(rand(),1.7)*2.2;
-   x.fillStyle='#ffffff'; x.beginPath(); x.arc(px,py,rr,0,7); x.fill();
+   dust.push([t2,g0,jx,rr,0.012+rand()*0.022]);
  }
- // 星芒最後畫在星塵之上,獨立清晰
- for(var si2=0;si2<stars.length;si2++)sparkle(x,stars[si2][0],stars[si2][1],stars[si2][2],1);
- // 環境星芒+圓點:外圍亂數散布(避開人型與星河帶)
+ // 環境星芒:外圍亂數散布(避開人型與星河帶),動畫時輕微呼吸
  var figW=120, figTop=figY, figBot=figY+figH;
  function onFigure(px,py){return Math.abs(px-CX)<figW && py>figTop && py<figBot;}
+ var ambS=[];
  var amb=0,tries=0;
  while(amb<9&&tries<300){
    tries++;
@@ -402,31 +410,92 @@ function drawCard(){
    var axp=CX+Math.cos(aa)*ar, ayp=CY+Math.sin(aa)*ar*1.18;
    if(ayp<90||ayp>H-220||onFigure(axp,ayp))continue;
    if(Math.abs(ayp-cy0)<160)continue;
-   sparkle(x,axp,ayp,5+rand()*9,1); amb++;
+   ambS.push([axp,ayp,5+rand()*9,rand()*6.2832,0.7+rand()*0.9]); amb++;
  }
+ // 環境圓點(靜態,直接畫進底圖)
  for(var d2=0;d2<34;d2++){
-   var a2=rand()*6.2832, r2=W*0.12+rand()*W*0.30;
-   var dx2=CX+Math.cos(a2)*r2, dy2=CY+Math.sin(a2)*r2*1.18;
+   var a2=rand()*6.2832, r2b=W*0.12+rand()*W*0.30;
+   var dx2=CX+Math.cos(a2)*r2b, dy2=CY+Math.sin(a2)*r2b*1.18;
    if(dy2<80||dy2>H-200||onFigure(dx2,dy2))continue;
    if(Math.abs(dy2-cy0)<150)continue;
    x.fillStyle='#ffffff'; x.beginPath(); x.arc(dx2,dy2,0.9+rand()*1.8,0,7); x.fill();
  }
- // figure white + soft shadow（置中）
+
+ // ---- 前景(離屏):人物+外框+文字 ----
+ var fgC=document.createElement('canvas'); fgC.width=W; fgC.height=H;
+ var f=fgC.getContext('2d');
  var img=(STATE.sex==='male')?IMG_M:IMG_F;
  var th=figH, sc=th/img.height, fw=img.width*sc, fx=(W-fw)/2, fy=figY;
- x.save(); x.shadowColor='rgba(120,100,80,.30)'; x.shadowBlur=16; x.shadowOffsetY=8;
- x.drawImage(img,fx,fy,fw,th); x.restore();
+ f.save(); f.shadowColor='rgba(120,100,80,.30)'; f.shadowBlur=16; f.shadowOffsetY=8;
+ f.drawImage(img,fx,fy,fw,th); f.restore();
  // thin gold frame
- x.strokeStyle='rgba(185,139,45,.5)'; x.lineWidth=1; x.strokeRect(24,24,W-48,H-48);
+ f.strokeStyle='rgba(185,139,45,.5)'; f.lineWidth=1; f.strokeRect(24,24,W-48,H-48);
  // text（全部統一深灰色,移到下方）
- x.textAlign='center';
- x.fillStyle='#555555'; x.font='600 27px "Cormorant Garamond", serif';
- x.fillText('L U M I N A   P R O F I L E', W/2, 130);
- x.fillStyle='#555555'; x.font='500 38px "Noto Sans TC", sans-serif'; x.fillText(STATE.name, W/2, 1440);
- x.fillStyle='#555555'; x.font='300 23px "Noto Sans TC", sans-serif'; x.fillText(STATE.phrase, W/2, 1492);
- x.fillStyle='#555555'; x.font='400 16px "Cormorant Garamond", serif'; x.fillText('Personal Silhouette of Light', W/2, 1526);
- x.fillStyle='#555555'; x.font='300 15px "Noto Sans TC", sans-serif'; x.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1598);
- x.fillStyle='#555555'; x.font='400 15px "Cormorant Garamond", serif'; x.fillText('Sparkling Design Studio', W/2, 1624);
+ f.textAlign='center';
+ f.fillStyle='#555555'; f.font='600 27px "Cormorant Garamond", serif';
+ f.fillText('L U M I N A   P R O F I L E', W/2, 130);
+ f.fillStyle='#555555'; f.font='500 38px "Noto Sans TC", sans-serif'; f.fillText(STATE.name, W/2, 1440);
+ f.fillStyle='#555555'; f.font='300 23px "Noto Sans TC", sans-serif'; f.fillText(STATE.phrase, W/2, 1492);
+ f.fillStyle='#555555'; f.font='400 16px "Cormorant Garamond", serif'; f.fillText('Personal Silhouette of Light', W/2, 1526);
+ f.fillStyle='#555555'; f.font='300 15px "Noto Sans TC", sans-serif'; f.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1598);
+ f.fillStyle='#555555'; f.font='400 15px "Cormorant Garamond", serif'; f.fillText('Sparkling Design Studio', W/2, 1624);
+
+ STATE.anim={bg:bgC,fg:fgC,stars:stars,dust:dust,amb:ambS,ax0:ax0,ax1:ax1,cy0:cy0,wph:wph,flip:flip,start:performance.now()};
+ startAnim();
+}
+
+// 動畫迴圈:左→右掃入 → 星塵沿帶流動 + 星芒定點閃爍
+function startAnim(){
+ if(ANIM.raf)cancelAnimationFrame(ANIM.raf);
+ var c=document.getElementById('card'),ctx=c.getContext('2d');
+ var A=STATE.anim; if(!A)return;
+ var ENTER=2200; // 入場掃描時間(ms)
+ function bY(t){return A.cy0 + 46*Math.sin(6.283*t+A.wph) + 12*Math.sin(13*t-A.wph);}
+ function bH(t){var u=A.flip?1-t:t; return 28+62*(1-u);}
+ var last=null;
+ function frame(now){
+   if(last==null)last=now;
+   var dt=Math.min(50,now-last)/1000; last=now;
+   var p=Math.min(1,(now-A.start)/ENTER);
+   var ease=1-Math.pow(1-p,3); // easeOutCubic
+   ctx.clearRect(0,0,c.width,c.height);
+   ctx.drawImage(A.bg,0,0);
+   // 星塵:掃入後沿帶緩慢流動(循環,兩端柔邊淡出)
+   ctx.fillStyle='#ffffff';
+   for(var i=0;i<A.dust.length;i++){
+     var d=A.dust[i];
+     if(p>=1){d[0]+=d[4]*dt; if(d[0]>1)d[0]-=1;}
+     var t=d[0];
+     var px=A.ax0+(A.ax1-A.ax0)*t+d[2];
+     var py=bY(t)+d[1]*bH(t);
+     var a=Math.max(0,Math.min(1,(ease*1.18-t)/0.16)); // 左→右掃入
+     a*=Math.max(0,Math.min(1,t/0.05,(1-t)/0.05));     // 兩端柔邊
+     if(a<=0.01)continue;
+     ctx.globalAlpha=a;
+     ctx.beginPath(); ctx.arc(px,py,d[3],0,7); ctx.fill();
+   }
+   ctx.globalAlpha=1;
+   // 星芒:掃入後定點閃爍呼吸
+   for(var s=0;s<A.stars.length;s++){
+     var st=A.stars[s];
+     var u=(st[0]-A.ax0)/(A.ax1-A.ax0);
+     var ea=Math.max(0,Math.min(1,(ease*1.18-u)/0.16));
+     if(ea<=0.01)continue;
+     var tw=(p>=1)?(0.62+0.38*Math.sin(now*0.0024*st[4]+st[3])):1;
+     sparkle(ctx,st[0],st[1],st[2],ea*tw);
+   }
+   // 環境星芒:入場尾聲淡入,之後輕微呼吸
+   for(var m=0;m<A.amb.length;m++){
+     var am=A.amb[m];
+     var fa=Math.max(0,Math.min(1,(p-0.6)/0.4));
+     if(fa<=0.01)continue;
+     var tw2=(p>=1)?(0.65+0.35*Math.sin(now*0.0016*am[4]+am[3])):fa;
+     sparkle(ctx,am[0],am[1],am[2],fa*tw2);
+   }
+   ctx.drawImage(A.fg,0,0);
+   ANIM.raf=requestAnimationFrame(frame);
+ }
+ ANIM.raf=requestAnimationFrame(frame);
 }
 
 function generate(){
@@ -465,8 +534,23 @@ function generate(){
  window.scrollTo({top:0,behavior:'smooth'});
  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){drawCard();setTimeout(drawCard,150);});}else{drawCard();}
 }
-function downloadCard(){var c=document.getElementById('card');var a=document.createElement('a');a.download='lumina-profile.png';a.href=c.toDataURL('image/png');a.click();}
-function reset(){document.body.classList.remove('has-result');window.scrollTo({top:0,behavior:'smooth'});}
+function downloadCard(){
+ var A=STATE.anim,c=document.getElementById('card');
+ var out=document.createElement('canvas'); out.width=c.width; out.height=c.height;
+ var o=out.getContext('2d');
+ if(A){
+   o.drawImage(A.bg,0,0);
+   function bY(t){return A.cy0 + 46*Math.sin(6.283*t+A.wph) + 12*Math.sin(13*t-A.wph);}
+   function bH(t){var u=A.flip?1-t:t; return 28+62*(1-u);}
+   o.fillStyle='#ffffff';
+   for(var i=0;i<A.dust.length;i++){var d=A.dust[i];var px=A.ax0+(A.ax1-A.ax0)*d[0]+d[2];var py=bY(d[0])+d[1]*bH(d[0]);o.beginPath();o.arc(px,py,d[3],0,7);o.fill();}
+   for(var s=0;s<A.stars.length;s++)sparkle(o,A.stars[s][0],A.stars[s][1],A.stars[s][2],1);
+   for(var m=0;m<A.amb.length;m++)sparkle(o,A.amb[m][0],A.amb[m][1],A.amb[m][2],1);
+   o.drawImage(A.fg,0,0);
+ }else{o.drawImage(c,0,0);}
+ var a=document.createElement('a');a.download='lumina-profile.png';a.href=out.toDataURL('image/png');a.click();
+}
+function reset(){if(ANIM.raf)cancelAnimationFrame(ANIM.raf);ANIM.raf=null;document.body.classList.remove('has-result');window.scrollTo({top:0,behavior:'smooth'});}
 function openLine(){document.getElementById('lineModal').classList.add('show');}
 function closeLine(){document.getElementById('lineModal').classList.remove('show');}
 document.getElementById('lineModal').addEventListener('click',function(e){if(e.target===this)closeLine();});

@@ -369,7 +369,7 @@ function drawCard(){
  var wph=rand()*1.2-0.6;     // 個人化波形相位
  var flip=rand()<0.5;        // 寬端方向隨人(左寬或右寬)
  function bandY(t){return cy0 + 46*Math.sin(6.283*t+wph) + 12*Math.sin(13*t-wph);} // 完整一週期=必為S形(一峰一谷)
- function bandHalf(t){var u=flip?1-t:t; return 28+62*(1-u);} // 半寬:寬端90→窄端28
+ function bandHalf(t){var u=flip?1-t:t; return 44+96*(1-u);} // 半寬:寬端90→窄端28
  function gauss(){return (rand()+rand()+rand()-1.5)/1.5;}
  // 星芒位置:彼此保持距離,不互黏;每顆附上閃爍相位與速度
  var stars=[];
@@ -380,14 +380,14 @@ function drawCard(){
      var sy2=bandY(ts)+gauss()*bandHalf(ts)*0.8;
      var ok=true;
      for(var q=0;q<stars.length;q++){var ddx=sx2-stars[q][0],ddy=sy2-stars[q][1];if(ddx*ddx+ddy*ddy<minD*minD){ok=false;break;}}
-     if(ok){stars.push([sx2,sy2,size,rand()*6.2832,0.7+rand()*0.9]);return;}
+     if(ok){stars.push([sx2,sy2,size,rand()*6.2832,0.45+rand()*1.35]);return;}
    }
  }
  for(var hi=0;hi<5;hi++)placeStar(15+rand()*8,95,60);                 // 5顆凸顯主星(15~23)
  for(var ni=0;ni<19;ni++)placeStar(4+Math.pow(rand(),1.2)*9,48,40);   // 一般星芒(4~13)
  // 星塵圓點:記錄帶內參數(t,法向偏移,抖動,半徑,流速),動畫時沿帶流動
  var dust=[];
- for(var di=0;di<520;di++){
+ for(var di=0;di<680;di++){
    var t2=rand();
    var g0=gauss();
    var jx=(rand()-0.5)*10;
@@ -396,7 +396,7 @@ function drawCard(){
    var near=false;
    for(var q2=0;q2<stars.length;q2++){var dx3=px-stars[q2][0],dy3=py-stars[q2][1],rq=stars[q2][2]*1.15+5;if(dx3*dx3+dy3*dy3<rq*rq){near=true;break;}}
    if(near)continue;
-   var rr=0.6+Math.pow(rand(),1.7)*2.2;
+   var rr=0.3+Math.pow(rand(),2.3)*2.9;
    dust.push([t2,g0,jx,rr,0.012+rand()*0.022]);
  }
  // 環境星芒:外圍亂數散布(避開人型與星河帶),動畫時輕微呼吸
@@ -451,7 +451,7 @@ function startAnim(){
  var A=STATE.anim; if(!A)return;
  var ENTER=2200; // 入場掃描時間(ms)
  function bY(t){return A.cy0 + 46*Math.sin(6.283*t+A.wph) + 12*Math.sin(13*t-A.wph);}
- function bH(t){var u=A.flip?1-t:t; return 28+62*(1-u);}
+ function bH(t){var u=A.flip?1-t:t; return 44+96*(1-u);}
  var last=null;
  function frame(now){
    if(last==null)last=now;
@@ -481,16 +481,19 @@ function startAnim(){
      var u=(st[0]-A.ax0)/(A.ax1-A.ax0);
      var ea=Math.max(0,Math.min(1,(ease*1.18-u)/0.16));
      if(ea<=0.01)continue;
-     var tw=(p>=1)?(0.62+0.38*Math.sin(now*0.0024*st[4]+st[3])):1;
-     sparkle(ctx,st[0],st[1],st[2],ea*tw);
+     var wv=(p>=1)?(0.5+0.5*Math.sin(now*0.0026*st[4]+st[3])):1;
+     var tw=0.35+0.65*wv;          // 透明度 0.35→1.0
+     var scl=0.66+0.55*wv;         // 大小縮放 0.66→1.21(明顯放大縮小)
+     sparkle(ctx,st[0],st[1],st[2]*scl,ea*tw);
    }
    // 環境星芒:入場尾聲淡入,之後輕微呼吸
    for(var m=0;m<A.amb.length;m++){
      var am=A.amb[m];
      var fa=Math.max(0,Math.min(1,(p-0.6)/0.4));
      if(fa<=0.01)continue;
-     var tw2=(p>=1)?(0.65+0.35*Math.sin(now*0.0016*am[4]+am[3])):fa;
-     sparkle(ctx,am[0],am[1],am[2],fa*tw2);
+     var wv2=(p>=1)?(0.5+0.5*Math.sin(now*0.0017*am[4]+am[3])):1;
+     var tw2=0.45+0.55*wv2;
+     sparkle(ctx,am[0],am[1],am[2]*(0.8+0.32*wv2),fa*tw2);
    }
    ctx.drawImage(A.fg,0,0);
    ANIM.raf=requestAnimationFrame(frame);
@@ -541,14 +544,31 @@ function downloadCard(){
  if(A){
    o.drawImage(A.bg,0,0);
    function bY(t){return A.cy0 + 46*Math.sin(6.283*t+A.wph) + 12*Math.sin(13*t-A.wph);}
-   function bH(t){var u=A.flip?1-t:t; return 28+62*(1-u);}
+   function bH(t){var u=A.flip?1-t:t; return 44+96*(1-u);}
    o.fillStyle='#ffffff';
    for(var i=0;i<A.dust.length;i++){var d=A.dust[i];var px=A.ax0+(A.ax1-A.ax0)*d[0]+d[2];var py=bY(d[0])+d[1]*bH(d[0]);o.beginPath();o.arc(px,py,d[3],0,7);o.fill();}
    for(var s=0;s<A.stars.length;s++)sparkle(o,A.stars[s][0],A.stars[s][1],A.stars[s][2],1);
    for(var m=0;m<A.amb.length;m++)sparkle(o,A.amb[m][0],A.amb[m][1],A.amb[m][2],1);
    o.drawImage(A.fg,0,0);
  }else{o.drawImage(c,0,0);}
- var a=document.createElement('a');a.download='lumina-profile.png';a.href=out.toDataURL('image/png');a.click();
+ // 同步轉成 Blob(維持在使用者點擊手勢內,iOS 才允許分享/下載)
+ var dataURL=out.toDataURL('image/png');
+ var bin=atob(dataURL.split(',')[1]);
+ var arr=new Uint8Array(bin.length);
+ for(var bi=0;bi<bin.length;bi++)arr[bi]=bin.charCodeAt(bi);
+ var blob=new Blob([arr],{type:'image/png'});
+ var file;
+ try{file=new File([blob],'lumina-profile.png',{type:'image/png'});}catch(e){file=null;}
+ if(file&&navigator.canShare&&navigator.canShare({files:[file]})&&navigator.share){
+   // iPhone/iPad:開啟分享面板 → 可「儲存影像」到相簿
+   navigator.share({files:[file]}).catch(function(){dlBlob(blob);});
+ }else{dlBlob(blob);}
+ function dlBlob(b){
+   var url=URL.createObjectURL(b);
+   var a=document.createElement('a'); a.download='lumina-profile.png'; a.href=url;
+   document.body.appendChild(a); a.click(); document.body.removeChild(a);
+   setTimeout(function(){URL.revokeObjectURL(url);},4000);
+ }
 }
 function reset(){if(ANIM.raf)cancelAnimationFrame(ANIM.raf);ANIM.raf=null;document.body.classList.remove('has-result');window.scrollTo({top:0,behavior:'smooth'});}
 function openLine(){document.getElementById('lineModal').classList.add('show');}

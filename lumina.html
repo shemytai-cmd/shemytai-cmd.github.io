@@ -369,8 +369,8 @@ function drawCard(){
  var ax0=46,ax1=W-46;
  var wph=rand()*1.2-0.6;     // 個人化波形相位
  var flip=rand()<0.5;        // 寬端方向隨人(左寬或右寬)
- function bandY(t){return cy0 + 18*Math.sin(6.283*t+wph) + 5*Math.sin(13*t-wph);} // 完整一週期=必為S形(一峰一谷)
- function bandHalf(t){return 28+28*t;} // 半寬:左窄28→右寬56,控制在單一等分內漸寬
+ function bandY(t){return cy0 + 12*Math.sin(6.283*t+wph) + 3*Math.sin(13*t-wph);} // 完整一週期=必為S形(一峰一谷)
+ function bandHalf(t){return 18+46*t;} // 半寬:左窄18→右寬64,左低右高明顯漸寬(仍在單一等分內)
  function gauss(){return (rand()+rand()+rand()-1.5)/1.5;}
  // 星芒位置:彼此保持距離,不互黏;每顆附上閃爍相位與速度
  var stars=[];
@@ -385,8 +385,8 @@ function drawCard(){
      if(ok){stars.push([sx2,sy2,size,rand()*6.2832,0.45+rand()*1.35,(rand()<0.5?-1:1)]);return;}
    }
  }
- for(var hi=0;hi<5;hi++)placeStar(15+rand()*8,95,60);                 // 5顆凸顯主星(15~23)
- for(var ni=0;ni<19;ni++)placeStar(4+Math.pow(rand(),1.2)*9,48,40);   // 一般星芒(4~13)
+ for(var hi=0;hi<5;hi++)placeStar(19+rand()*10,95,60);                 // 5顆凸顯主星(15~23)
+ for(var ni=0;ni<19;ni++)placeStar(6+Math.pow(rand(),1.2)*11,48,40);   // 一般星芒(4~13)
  // 星塵圓點:記錄帶內參數(t,法向偏移,抖動,半徑,流速),動畫時沿帶流動
  var dust=[];
  function spread(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.75);} // 平均散開,中心略密
@@ -440,13 +440,13 @@ function drawCard(){
  f.strokeStyle='rgba(185,139,45,.5)'; f.lineWidth=1; f.strokeRect(24,24,W-48,H-48);
  // text（全部統一深灰色,移到下方）
  f.textAlign='center';
- f.fillStyle='#555555'; f.font='400 27px "Cormorant Garamond", serif';
+ f.fillStyle='#999999'; f.font='400 27px "Cormorant Garamond", serif';
  f.fillText('L U M I N A   P R O F I L E', W/2, 130);
- f.fillStyle='#555555'; f.font='300 32px "Noto Sans TC", sans-serif'; f.fillText(STATE.name, W/2, 1440);
- f.fillStyle='#555555'; f.font='300 23px "Noto Sans TC", sans-serif'; f.fillText(STATE.phrase, W/2, 1492);
- f.fillStyle='#555555'; f.font='400 16px "Cormorant Garamond", serif'; f.fillText('Personal Silhouette of Light', W/2, 1526);
- f.fillStyle='#555555'; f.font='300 15px "Noto Sans TC", sans-serif'; f.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1598);
- f.fillStyle='#555555'; f.font='400 15px "Cormorant Garamond", serif'; f.fillText('Sparkling Design Studio', W/2, 1624);
+ f.fillStyle='#999999'; f.font='300 32px "Noto Sans TC", sans-serif'; f.fillText(STATE.name, W/2, 1440);
+ f.fillStyle='#999999'; f.font='300 23px "Noto Sans TC", sans-serif'; f.fillText(STATE.phrase, W/2, 1492);
+ f.fillStyle='#999999'; f.font='400 16px "Cormorant Garamond", serif'; f.fillText('Personal Silhouette of Light', W/2, 1526);
+ f.fillStyle='#999999'; f.font='300 15px "Noto Sans TC", sans-serif'; f.fillText('閃 閃 發 光 設 計 工 作 室', W/2, 1598);
+ f.fillStyle='#999999'; f.font='400 15px "Cormorant Garamond", serif'; f.fillText('Sparkling Design Studio', W/2, 1624);
 
  STATE.anim={bg:bgC,fg:fgC,stars:stars,dust:dust,amb:ambS,ax0:ax0,ax1:ax1,cy0:cy0,wph:wph,flip:flip,start:performance.now()};
  startAnim();
@@ -458,8 +458,8 @@ function startAnim(){
  var c=document.getElementById('card'),ctx=c.getContext('2d');
  var A=STATE.anim; if(!A)return;
  var ENTER=2200; // 入場掃描時間(ms)
- function bY(t){return A.cy0 + 18*Math.sin(6.283*t+A.wph) + 5*Math.sin(13*t-A.wph);}
- function bH(t){return 28+28*t;}
+ function bY(t){return A.cy0 + 12*Math.sin(6.283*t+A.wph) + 3*Math.sin(13*t-A.wph);}
+ function bH(t){return 18+46*t;}
  var last=null;
  function frame(now){
    if(last==null)last=now;
@@ -489,10 +489,10 @@ function startAnim(){
      var u=(st[0]-A.ax0)/(A.ax1-A.ax0);
      var ea=Math.max(0,Math.min(1,(ease*1.18-u)/0.16));
      if(ea<=0.01)continue;
-     var wv=(p>=1)?(0.5+0.5*Math.sin(now*0.0026*st[4]+st[3])):1;
-     var tw=0.35+0.65*wv;          // 透明度 0.35→1.0
-     var scl=0.66+0.55*wv;         // 大小縮放 0.66→1.21(明顯放大縮小)
-     var rot=(p>=1)?(st[3]+now*0.00042*st[4])*st[5]:0;  // 緩慢旋轉,方向隨星
+     var wv=(p>=1)?(0.5+0.5*Math.sin(now*0.0040*st[4]+st[3])):1;
+     var tw=0.2+0.8*wv;          // 透明度 0.35→1.0
+     var scl=0.5+0.8*wv;         // 大小縮放 0.66→1.21(明顯放大縮小)
+     var rot=(p>=1)?(st[3]+now*0.00075*st[4])*st[5]:0;  // 緩慢旋轉,方向隨星
      sparkle(ctx,st[0],st[1],st[2]*scl,ea*tw,rot);
    }
    // 環境星芒:入場尾聲淡入,之後輕微呼吸
@@ -552,8 +552,8 @@ function downloadCard(){
  var o=out.getContext('2d');
  if(A){
    o.drawImage(A.bg,0,0);
-   function bY(t){return A.cy0 + 18*Math.sin(6.283*t+A.wph) + 5*Math.sin(13*t-A.wph);}
-   function bH(t){return 28+28*t;}
+   function bY(t){return A.cy0 + 12*Math.sin(6.283*t+A.wph) + 3*Math.sin(13*t-A.wph);}
+   function bH(t){return 18+46*t;}
    o.fillStyle='#ffffff';
    for(var i=0;i<A.dust.length;i++){var d=A.dust[i];var px=A.ax0+(A.ax1-A.ax0)*d[0]+d[2];var py=bY(d[0])+d[1]*bH(d[0]);o.beginPath();o.arc(px,py,d[3],0,7);o.fill();}
    for(var s=0;s<A.stars.length;s++)sparkle(o,A.stars[s][0],A.stars[s][1],A.stars[s][2],1);

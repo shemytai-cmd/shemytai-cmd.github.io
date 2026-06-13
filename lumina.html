@@ -370,7 +370,7 @@ function drawCard(){
  var wph=rand()*1.2-0.6;     // 個人化波形相位
  var flip=rand()<0.5;        // 寬端方向隨人(左寬或右寬)
  function bandY(t){return cy0 + 46*Math.sin(6.283*t+wph) + 12*Math.sin(13*t-wph);} // 完整一週期=必為S形(一峰一谷)
- function bandHalf(t){var u=flip?1-t:t; return 62+72*(1-u);} // 半寬:寬端90→窄端28
+ function bandHalf(t){return 64+186*t;} // 半寬:左窄64→右寬250(由左向右漸寬)
  function gauss(){return (rand()+rand()+rand()-1.5)/1.5;}
  // 星芒位置:彼此保持距離,不互黏;每顆附上閃爍相位與速度
  var stars=[];
@@ -429,9 +429,13 @@ function drawCard(){
  var f=fgC.getContext('2d');
  var img=(STATE.sex==='male')?IMG_M:IMG_F;
  var th=figH, sc=th/img.height, fw=img.width*sc, fx=(W-fw)/2, fy=figY;
- f.save(); f.shadowColor='rgba(0,0,0,.08)'; f.shadowBlur=12; f.shadowOffsetY=5;
- f.globalAlpha=0.86;  // 人形調淡
- f.drawImage(img,fx,fy,fw,th); f.restore();
+ f.save();
+ var wfC=document.createElement('canvas'); wfC.width=W; wfC.height=H;
+ var wf=wfC.getContext('2d');
+ wf.drawImage(img,fx,fy,fw,th);
+ wf.globalCompositeOperation='source-in';
+ wf.fillStyle='#ffffff'; wf.fillRect(0,0,W,H);
+ f.drawImage(wfC,0,0); f.restore();
  // thin gold frame
  f.strokeStyle='rgba(185,139,45,.5)'; f.lineWidth=1; f.strokeRect(24,24,W-48,H-48);
  // text（全部統一深灰色,移到下方）
@@ -455,7 +459,7 @@ function startAnim(){
  var A=STATE.anim; if(!A)return;
  var ENTER=2200; // 入場掃描時間(ms)
  function bY(t){return A.cy0 + 46*Math.sin(6.283*t+A.wph) + 12*Math.sin(13*t-A.wph);}
- function bH(t){var u=A.flip?1-t:t; return 62+72*(1-u);}
+ function bH(t){return 64+186*t;}
  var last=null;
  function frame(now){
    if(last==null)last=now;
@@ -549,7 +553,7 @@ function downloadCard(){
  if(A){
    o.drawImage(A.bg,0,0);
    function bY(t){return A.cy0 + 46*Math.sin(6.283*t+A.wph) + 12*Math.sin(13*t-A.wph);}
-   function bH(t){var u=A.flip?1-t:t; return 62+72*(1-u);}
+   function bH(t){return 64+186*t;}
    o.fillStyle='#ffffff';
    for(var i=0;i<A.dust.length;i++){var d=A.dust[i];var px=A.ax0+(A.ax1-A.ax0)*d[0]+d[2];var py=bY(d[0])+d[1]*bH(d[0]);o.beginPath();o.arc(px,py,d[3],0,7);o.fill();}
    for(var s=0;s<A.stars.length;s++)sparkle(o,A.stars[s][0],A.stars[s][1],A.stars[s][2],1);

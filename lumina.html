@@ -387,8 +387,8 @@ function drawCard(){
      stars.push([sx2,sy2,size,rand()*6.2832,0.45+rand()*1.35,(rand()<0.5?-1:1)]);return;
    }
  }
- for(var hi=0;hi<12;hi++)placeStarFree(18+rand()*10,100,600);              // 主星
- for(var ni=0;ni<48;ni++)placeStarFree(10+Math.pow(rand(),1.2)*9,56,500); // 一般星芒
+ for(var hi=0;hi<20;hi++)placeStarFree(18+rand()*10,80,800);              // 主星
+ for(var ni=0;ni<80;ni++)placeStarFree(10+Math.pow(rand(),1.2)*9,44,700); // 一般星芒
  // ---- 星塵:沿銀河帶流動(經過人影後方會被前景遮住,形成繞行感) ----
  var dust=[];
  function spread(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.75);}

@@ -359,61 +359,73 @@ function drawCard(){
  var segY={upper:figY+figH*0.153, mid:figY+figH*0.384, thigh:figY+figH*0.616, calf:figY+figH*0.84};
  var cy0=segY[STATE.focus]||segY.mid;
  var ax0=46,ax1=W-46;
- var wph=rand()*1.2-0.6;     // 個人化波形相位
- var flip=rand()<0.5;        // 寬端方向隨人(左寬或右寬)
- function bandY(t){return cy0 + 14*Math.sin(6.283*t+wph) + 4*Math.sin(13*t-wph);} // 完整一週期=必為S形(一峰一谷)
- function bandHalf(t){return 24+48*t;} // 半寬:左窄24→右寬72,右端撐滿單一等分(約±80)、左窄右寬
- function gauss(){return (rand()+rand()+rand()-1.5)/1.5;}
- // 星芒位置:彼此保持距離,不互黏;每顆附上閃爍相位與速度
+ var wph=rand()*0.3-0.15;    // 微幅個人化(維持手稿弧形)
+ var flip=rand()<0.5;
+ // 銀河帶:依手稿——左起約中段、向右下沉的流動 S,尾端明顯擴大
+ function bandY(t){return cy0 + 4 + 52*Math.sin(6.283*(0.371*t+0.02)+wph);}
+ function bandHalf(t){return 18 + 92*Math.pow(t,1.45);} // 左窄(±18)→尾端大幅張開(±110)
+ // 人影遮罩(含邊距):所有星芒一律避開人影
+ var figW=120, figTop=figY, figBot=figY+figH;
+ function onFigure(px,py){return Math.abs(px-CX)<figW+24 && py>figTop-18 && py<figBot+18;}
+ // 星芒散布範圍:上半部 或 左下;避開人影,落在色暈橢圓內
+ var exA=W*0.42, eyA=W*0.42*1.18;
+ function inZone(px,py){
+   if(onFigure(px,py)) return false;
+   var ex=(px-CX)/exA, ey=(py-CY)/eyA;
+   if(ex*ex+ey*ey>1) return false;
+   if(py<120||py>H-210) return false;
+   var upper=(py<CY+10);                       // 上半部
+   var lowerLeft=(px<CX-10)&&(py>=CY+10);      // 左下
+   return upper||lowerLeft;
+ }
+ // ---- 星芒:散布上半部與左下,彼此保持距離,避開人影 ----
  var stars=[];
- function spread2(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.85);}
- function placeStar(size,minD,tr){
+ function farFromStars(px,py,md){
+   for(var q=0;q<stars.length;q++){var a=px-stars[q][0],b=py-stars[q][1];if(a*a+b*b<md*md)return false;}
+   return true;
+ }
+ function placeStarFree(size,minD,tr){
    while(tr-->0){
-     var ts=0.03+rand()*0.94;
-     var sx2=ax0+(ax1-ax0)*ts;
-     var sy2=bandY(ts)+spread2()*bandHalf(ts)*0.85;
-     var ok=true;
-     for(var q=0;q<stars.length;q++){var ddx=sx2-stars[q][0],ddy=sy2-stars[q][1];if(ddx*ddx+ddy*ddy<minD*minD){ok=false;break;}}
-     if(ok){stars.push([sx2,sy2,size,rand()*6.2832,0.45+rand()*1.35,(rand()<0.5?-1:1)]);return;}
+     var sx2=60+rand()*(W-120), sy2=120+rand()*(H-330);
+     if(!inZone(sx2,sy2))continue;
+     if(!farFromStars(sx2,sy2,minD))continue;
+     stars.push([sx2,sy2,size,rand()*6.2832,0.45+rand()*1.35,(rand()<0.5?-1:1)]);return;
    }
  }
- for(var hi=0;hi<5;hi++)placeStar(19+rand()*10,95,60);                 // 5顆凸顯主星(15~23)
- for(var ni=0;ni<19;ni++)placeStar(6+Math.pow(rand(),1.2)*11,48,40);   // 一般星芒(4~13)
- // 星塵圓點:記錄帶內參數(t,法向偏移,抖動,半徑,流速),動畫時沿帶流動
+ for(var hi=0;hi<6;hi++)placeStarFree(18+rand()*10,118,90);              // 主星
+ for(var ni=0;ni<18;ni++)placeStarFree(6+Math.pow(rand(),1.2)*10,68,70); // 一般星芒
+ // ---- 星塵:沿銀河帶流動(經過人影後方會被前景遮住,形成繞行感) ----
  var dust=[];
- function spread(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.75);} // 平均散開,中心略密
- for(var di=0;di<820;di++){
+ function spread(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.75);}
+ for(var di=0;di<760;di++){
    var t2=rand();
    var g0=spread();
    var jx=(rand()-0.5)*10;
-   var px=ax0+(ax1-ax0)*t2+jx;
-   var py=bandY(t2)+g0*bandHalf(t2);
-   var near=false;
-   for(var q2=0;q2<stars.length;q2++){var dx3=px-stars[q2][0],dy3=py-stars[q2][1],rq=stars[q2][2]*1.15+5;if(dx3*dx3+dy3*dy3<rq*rq){near=true;break;}}
-   if(near)continue;
    var rr=0.3+Math.pow(rand(),2.3)*2.9;
    dust.push([t2,g0,jx,rr,0.012+rand()*0.022]);
  }
- // 環境星芒:外圍亂數散布(避開人型與星河帶),動畫時輕微呼吸
- var figW=120, figTop=figY, figBot=figY+figH;
- function onFigure(px,py){return Math.abs(px-CX)<figW && py>figTop && py<figBot;}
+ // ---- 環境星芒:同樣只落在上半部與左下,避開人影,動畫時輕微呼吸 ----
  var ambS=[];
- var amb=0,tries=0;
- while(amb<18&&tries<600){
-   tries++;
-   var aa=rand()*6.2832, ar=W*0.16+rand()*W*0.26;
-   var axp=CX+Math.cos(aa)*ar, ayp=CY+Math.sin(aa)*ar*1.18;
-   if(ayp<90||ayp>H-220||onFigure(axp,ayp))continue;
-   if(Math.abs(ayp-cy0)<160)continue;
-   ambS.push([axp,ayp,11+rand()*13,rand()*6.2832,0.7+rand()*0.9,0.3+rand()*0.6,(rand()-0.5)*1.4]); amb++;
+ function farFromAll(px,py,md){
+   if(!farFromStars(px,py,md))return false;
+   for(var q2=0;q2<ambS.length;q2++){var a2=px-ambS[q2][0],b2=py-ambS[q2][1];if(a2*a2+b2*b2<md*md)return false;}
+   return true;
  }
- // 環境圓點(靜態,直接畫進底圖)
- for(var d2=0;d2<34;d2++){
-   var a2=rand()*6.2832, r2b=W*0.12+rand()*W*0.30;
-   var dx2=CX+Math.cos(a2)*r2b, dy2=CY+Math.sin(a2)*r2b*1.18;
-   if(dy2<80||dy2>H-200||onFigure(dx2,dy2))continue;
-   if(Math.abs(dy2-cy0)<150)continue;
-   x.fillStyle='#ffffff'; x.beginPath(); x.arc(dx2,dy2,0.9+rand()*1.8,0,7); x.fill();
+ var amb=0,tries=0;
+ while(amb<14&&tries<1200){
+   tries++;
+   var axp=60+rand()*(W-120), ayp=120+rand()*(H-330);
+   if(!inZone(axp,ayp))continue;
+   if(!farFromAll(axp,ayp,62))continue;
+   ambS.push([axp,ayp,10+rand()*12,rand()*6.2832,0.7+rand()*0.9,0.3+rand()*0.6,(rand()-0.5)*1.4]); amb++;
+ }
+ // ---- 環境圓點(靜態):補在上半部與左下,避開人影 ----
+ var dd=0,dt2=0;
+ while(dd<40&&dt2<900){
+   dt2++;
+   var dx2=60+rand()*(W-120), dy2=120+rand()*(H-300);
+   if(!inZone(dx2,dy2))continue;
+   x.fillStyle='#ffffff'; x.beginPath(); x.arc(dx2,dy2,0.9+rand()*1.8,0,7); x.fill(); dd++;
  }
 
  // ---- 前景(離屏):人物+外框+文字 ----
@@ -450,8 +462,8 @@ function startAnim(){
  var c=document.getElementById('card'),ctx=c.getContext('2d');
  var A=STATE.anim; if(!A)return;
  var ENTER=2200; // 入場掃描時間(ms)
- function bY(t){return A.cy0 + 14*Math.sin(6.283*t+A.wph) + 4*Math.sin(13*t-A.wph);}
- function bH(t){return 24+48*t;}
+ function bY(t){return A.cy0 + 4 + 52*Math.sin(6.283*(0.371*t+0.02)+A.wph);}
+ function bH(t){return 18 + 92*Math.pow(t,1.45);}
  var last=null;
  function frame(now){
    if(last==null)last=now;
@@ -541,8 +553,8 @@ function downloadCard(){
  var o=out.getContext('2d');
  if(A){
    o.drawImage(A.bg,0,0);
-   function bY(t){return A.cy0 + 14*Math.sin(6.283*t+A.wph) + 4*Math.sin(13*t-A.wph);}
-   function bH(t){return 24+48*t;}
+   function bY(t){return A.cy0 + 4 + 52*Math.sin(6.283*(0.371*t+0.02)+A.wph);}
+   function bH(t){return 18 + 92*Math.pow(t,1.45);}
    o.fillStyle='#ffffff';
    for(var i=0;i<A.dust.length;i++){var d=A.dust[i];var px=A.ax0+(A.ax1-A.ax0)*d[0]+d[2];var py=bY(d[0])+d[1]*bH(d[0]);o.beginPath();o.arc(px,py,d[3],0,7);o.fill();}
    for(var s=0;s<A.stars.length;s++)sparkle(o,A.stars[s][0],A.stars[s][1],A.stars[s][2],1);

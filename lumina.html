@@ -356,7 +356,7 @@ function drawCard(){
 
  // ---- 星河帶:粒子只「收集」不直接畫,交給動畫迴圈 ----
  var rand=rng(STATE.seed||7);
- var segY={upper:figY+figH*0.03+18, mid:figY+figH*0.26, thigh:figY+figH*0.49, calf:figY+figH*0.72};
+ var segY={upper:figY+figH*0.03+34, mid:figY+figH*0.26, thigh:figY+figH*0.49+16, calf:figY+figH*0.72};
  var cy0=segY[STATE.focus]||segY.mid;
  var ax0=46,ax1=W-46;
  var wph=rand()*0.3-0.15;    // 微幅個人化(維持手稿弧形)
@@ -387,8 +387,8 @@ function drawCard(){
      stars.push([sx2,sy2,size,rand()*6.2832,0.45+rand()*1.35,(rand()<0.5?-1:1)]);return;
    }
  }
- for(var hi=0;hi<6;hi++)placeStarFree(18+rand()*10,118,90);              // 主星
- for(var ni=0;ni<24;ni++)placeStarFree(6+Math.pow(rand(),1.2)*10,68,70); // 一般星芒
+ for(var hi=0;hi<6;hi++)placeStarFree(18+rand()*10,118,400);              // 主星
+ for(var ni=0;ni<24;ni++)placeStarFree(6+Math.pow(rand(),1.2)*10,68,300); // 一般星芒
  // ---- 星塵:沿銀河帶流動(經過人影後方會被前景遮住,形成繞行感) ----
  var dust=[];
  function spread(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.75);}

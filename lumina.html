@@ -356,7 +356,7 @@ function drawCard(){
 
  // ---- 星河帶:粒子只「收集」不直接畫,交給動畫迴圈 ----
  var rand=rng(STATE.seed||7);
- var segY={upper:figY+figH*0.153, mid:figY+figH*0.384, thigh:figY+figH*0.616, calf:figY+figH*0.84};
+ var segY={upper:figY+figH*0.10, mid:figY+figH*0.34, thigh:figY+figH*0.58, calf:figY+figH*0.82};
  var cy0=segY[STATE.focus]||segY.mid;
  var ax0=46,ax1=W-46;
  var wph=rand()*0.3-0.15;    // 微幅個人化(維持手稿弧形)
@@ -367,16 +367,21 @@ function drawCard(){
  // 人影遮罩(含邊距):所有星芒一律避開人影
  var figW=120, figTop=figY, figBot=figY+figH;
  function onFigure(px,py){return Math.abs(px-CX)<figW+24 && py>figTop-18 && py<figBot+18;}
- // 星芒散布範圍:上半部 或 左下;避開人影,落在色暈橢圓內
+ // 銀河帶遮罩:星芒避開帶子經過的範圍(含邊距)
+ function onBand(px,py){
+   var t=(px-ax0)/(ax1-ax0);
+   if(t<0||t>1) return false;
+   return Math.abs(py-bandY(t)) < bandHalf(t)+24;
+ }
+ // 星芒散布範圍:避開人影與銀河帶,其餘隨機落在色暈橢圓內
  var exA=W*0.42, eyA=W*0.42*1.18;
  function inZone(px,py){
    if(onFigure(px,py)) return false;
+   if(onBand(px,py)) return false;
    var ex=(px-CX)/exA, ey=(py-CY)/eyA;
    if(ex*ex+ey*ey>1) return false;
    if(py<120||py>H-210) return false;
-   var upper=(py<CY+10);                       // 上半部
-   var lowerLeft=(px<CX-10)&&(py>=CY+10);      // 左下
-   return upper||lowerLeft;
+   return true;
  }
  // ---- 星芒:散布上半部與左下,彼此保持距離,避開人影 ----
  var stars=[];
@@ -439,7 +444,8 @@ function drawCard(){
  wf.drawImage(img,fx,fy,fw,th);
  wf.globalCompositeOperation='source-in';
  wf.fillStyle='#ffffff'; wf.fillRect(0,0,W,H);
- f.drawImage(wfC,0,0); f.restore();
+ // 疊厚:確保人影為純白且完全不透明,後方銀河帶不會透出
+ f.drawImage(wfC,0,0); f.drawImage(wfC,0,0); f.drawImage(wfC,0,0); f.restore();
  // thin gold frame
  f.strokeStyle='rgba(185,139,45,.5)'; f.lineWidth=1; f.strokeRect(24,24,W-48,H-48);
  // text（全部統一深灰色,移到下方）

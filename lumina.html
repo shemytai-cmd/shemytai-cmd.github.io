@@ -356,7 +356,7 @@ function drawCard(){
 
  // ---- 星河帶:粒子只「收集」不直接畫,交給動畫迴圈 ----
  var rand=rng(STATE.seed||7);
- var segY={upper:figY+figH*0.26, mid:figY+figH*0.46, thigh:figY+figH*0.60, calf:figY+figH*0.72};
+ var segY={upper:figY+figH*0.26, mid:figY+figH*0.37, thigh:figY+figH*0.60, calf:figY+figH*0.72};
  var cy0=segY[STATE.focus]||segY.mid;
  var ax0=46,ax1=W-46;
  var wph=rand()*0.3-0.15;    // 微幅個人化(維持手稿弧形)
@@ -364,13 +364,27 @@ function drawCard(){
  // 銀河帶:依手稿——左起約中段、向右下沉的流動 S,尾端明顯擴大
  function bandY(t){return cy0 - 30 + 52*Math.sin(6.283*(0.371*t+0.02)+wph);}
  function bandHalf(t){return 18 + 92*Math.pow(t,1.45);} // 左窄(±18)→尾端大幅張開(±110)
- // 人影遮罩(含邊距):所有星芒一律避開人影
- var figW=120, figTop=figY, figBot=figY+figH;
- function onFigure(px,py){return Math.abs(px-CX)<figW+24 && py>figTop-18 && py<figBot+18;}
- // 星芒散布範圍:整張圖隨機,只避開人影(銀河帶上方也可出現)
+ // 人影遮罩:取人形實際輪廓 alpha,星芒只避開人本體(可緊貼邊緣,不留距離)
+ var figMC=document.createElement('canvas'); figMC.width=W; figMC.height=H;
+ var fmx=figMC.getContext('2d');
+ var fimg=(STATE.sex==='male')?IMG_M:IMG_F;
+ var fmsc=figH/fimg.height, fmfw=fimg.width*fmsc, fmfx=(W-fmfw)/2;
+ fmx.drawImage(fimg,fmfx,figY,fmfw,figH);
+ var figA=fmx.getImageData(0,0,W,H).data;
+ function onFigure(px,py){
+   return figA[(((py|0)*W+(px|0))*4)+3] > 40;  // 該點人形不透明 → 算在人身上
+ }
+ // 取底圖像素:星芒只落在「有顏色」的區域,純白外圈保持乾淨
+ var bgPix=x.getImageData(0,0,W,H).data;
+ function onColor(px,py){
+   var ix=((py|0)*W+(px|0))*4;
+   return Math.min(bgPix[ix],bgPix[ix+1],bgPix[ix+2]) < 236;  // 非接近純白才算看得見
+ }
+ // 星芒散布範圍:落在有顏色處,避開人本體(可貼邊,白色區不放)
  function inZone(px,py){
    if(onFigure(px,py)) return false;
    if(py<120||py>H-210) return false;
+   if(!onColor(px,py)) return false;
    return true;
  }
  // ---- 星芒:散布上半部與左下,彼此保持距離,避開人影 ----
@@ -387,8 +401,8 @@ function drawCard(){
      stars.push([sx2,sy2,size,rand()*6.2832,0.45+rand()*1.35,(rand()<0.5?-1:1)]);return;
    }
  }
- for(var hi=0;hi<20;hi++)placeStarFree(18+rand()*10,80,800);              // 主星
- for(var ni=0;ni<80;ni++)placeStarFree(10+Math.pow(rand(),1.2)*9,44,700); // 一般星芒
+ for(var hi=0;hi<4;hi++)placeStarFree(18+rand()*10,110,400);              // 主星
+ for(var ni=0;ni<16;ni++)placeStarFree(10+Math.pow(rand(),1.2)*9,60,400); // 一般星芒
  // ---- 星塵:沿銀河帶流動(經過人影後方會被前景遮住,形成繞行感) ----
  var dust=[];
  function spread(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.75);}

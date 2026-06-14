@@ -356,30 +356,20 @@ function drawCard(){
 
  // ---- 星河帶:粒子只「收集」不直接畫,交給動畫迴圈 ----
  var rand=rng(STATE.seed||7);
- var segY={upper:figY+figH*0.10, mid:figY+figH*0.34, thigh:figY+figH*0.58, calf:figY+figH*0.82};
+ var segY={upper:figY+figH*0.03+18, mid:figY+figH*0.26, thigh:figY+figH*0.49, calf:figY+figH*0.72};
  var cy0=segY[STATE.focus]||segY.mid;
  var ax0=46,ax1=W-46;
  var wph=rand()*0.3-0.15;    // 微幅個人化(維持手稿弧形)
  var flip=rand()<0.5;
  // 銀河帶:依手稿——左起約中段、向右下沉的流動 S,尾端明顯擴大
- function bandY(t){return cy0 + 4 + 52*Math.sin(6.283*(0.371*t+0.02)+wph);}
+ function bandY(t){return cy0 - 30 + 52*Math.sin(6.283*(0.371*t+0.02)+wph);}
  function bandHalf(t){return 18 + 92*Math.pow(t,1.45);} // 左窄(±18)→尾端大幅張開(±110)
  // 人影遮罩(含邊距):所有星芒一律避開人影
  var figW=120, figTop=figY, figBot=figY+figH;
  function onFigure(px,py){return Math.abs(px-CX)<figW+24 && py>figTop-18 && py<figBot+18;}
- // 銀河帶遮罩:星芒避開帶子經過的範圍(含邊距)
- function onBand(px,py){
-   var t=(px-ax0)/(ax1-ax0);
-   if(t<0||t>1) return false;
-   return Math.abs(py-bandY(t)) < bandHalf(t)+24;
- }
- // 星芒散布範圍:避開人影與銀河帶,其餘隨機落在色暈橢圓內
- var exA=W*0.42, eyA=W*0.42*1.18;
+ // 星芒散布範圍:整張圖隨機,只避開人影(銀河帶上方也可出現)
  function inZone(px,py){
    if(onFigure(px,py)) return false;
-   if(onBand(px,py)) return false;
-   var ex=(px-CX)/exA, ey=(py-CY)/eyA;
-   if(ex*ex+ey*ey>1) return false;
    if(py<120||py>H-210) return false;
    return true;
  }
@@ -398,7 +388,7 @@ function drawCard(){
    }
  }
  for(var hi=0;hi<6;hi++)placeStarFree(18+rand()*10,118,90);              // 主星
- for(var ni=0;ni<18;ni++)placeStarFree(6+Math.pow(rand(),1.2)*10,68,70); // 一般星芒
+ for(var ni=0;ni<24;ni++)placeStarFree(6+Math.pow(rand(),1.2)*10,68,70); // 一般星芒
  // ---- 星塵:沿銀河帶流動(經過人影後方會被前景遮住,形成繞行感) ----
  var dust=[];
  function spread(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.75);}
@@ -468,7 +458,7 @@ function startAnim(){
  var c=document.getElementById('card'),ctx=c.getContext('2d');
  var A=STATE.anim; if(!A)return;
  var ENTER=2200; // 入場掃描時間(ms)
- function bY(t){return A.cy0 + 4 + 52*Math.sin(6.283*(0.371*t+0.02)+A.wph);}
+ function bY(t){return A.cy0 - 30 + 52*Math.sin(6.283*(0.371*t+0.02)+A.wph);}
  function bH(t){return 18 + 92*Math.pow(t,1.45);}
  var last=null;
  function frame(now){
@@ -559,7 +549,7 @@ function downloadCard(){
  var o=out.getContext('2d');
  if(A){
    o.drawImage(A.bg,0,0);
-   function bY(t){return A.cy0 + 4 + 52*Math.sin(6.283*(0.371*t+0.02)+A.wph);}
+   function bY(t){return A.cy0 - 30 + 52*Math.sin(6.283*(0.371*t+0.02)+A.wph);}
    function bH(t){return 18 + 92*Math.pow(t,1.45);}
    o.fillStyle='#ffffff';
    for(var i=0;i<A.dust.length;i++){var d=A.dust[i];var px=A.ax0+(A.ax1-A.ax0)*d[0]+d[2];var py=bY(d[0])+d[1]*bH(d[0]);o.beginPath();o.arc(px,py,d[3],0,7);o.fill();}

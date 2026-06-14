@@ -356,7 +356,7 @@ function drawCard(){
 
  // ---- 星河帶:粒子只「收集」不直接畫,交給動畫迴圈 ----
  var rand=rng(STATE.seed||7);
- var segY={upper:figY+figH*0.03+34, mid:figY+figH*0.26, thigh:figY+figH*0.49+16, calf:figY+figH*0.72};
+ var segY={upper:figY+figH*0.16, mid:figY+figH*0.34, thigh:figY+figH*0.60, calf:figY+figH*0.72};
  var cy0=segY[STATE.focus]||segY.mid;
  var ax0=46,ax1=W-46;
  var wph=rand()*0.3-0.15;    // 微幅個人化(維持手稿弧形)
@@ -388,7 +388,7 @@ function drawCard(){
    }
  }
  for(var hi=0;hi<6;hi++)placeStarFree(18+rand()*10,118,400);              // 主星
- for(var ni=0;ni<24;ni++)placeStarFree(6+Math.pow(rand(),1.2)*10,68,300); // 一般星芒
+ for(var ni=0;ni<24;ni++)placeStarFree(10+Math.pow(rand(),1.2)*9,68,300); // 一般星芒
  // ---- 星塵:沿銀河帶流動(經過人影後方會被前景遮住,形成繞行感) ----
  var dust=[];
  function spread(){var s=(rand()<0.5?-1:1);return s*Math.pow(rand(),0.75);}
@@ -490,8 +490,8 @@ function startAnim(){
      var ea=Math.max(0,Math.min(1,(ease*1.18-u)/0.16));
      if(ea<=0.01)continue;
      var wv=(p>=1)?(0.5+0.5*Math.sin(now*0.0040*st[4]+st[3])):1;
-     var tw=0.2+0.8*wv;          // 透明度 0.35→1.0
-     var scl=0.5+0.8*wv;         // 大小縮放 0.66→1.21(明顯放大縮小)
+     var tw=0.6+0.4*wv;          // 透明度 0.6→1.0(不會淡到看不見)
+     var scl=0.85+0.3*wv;        // 大小縮放 0.85→1.15(仍有呼吸感但不縮太小)
      var rot=(p>=1)?(st[3]+now*0.00075*st[4])*st[5]:0;  // 緩慢旋轉,方向隨星
      sparkle(ctx,st[0],st[1],st[2]*scl,ea*tw,rot);
    }

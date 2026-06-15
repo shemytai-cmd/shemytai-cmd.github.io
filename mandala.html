@@ -1073,12 +1073,12 @@ const MANDALA_DOTS="<circle cx=\"1280.0\" cy=\"68.5\" r=\"10\"/><circle cx=\"149
         <circle cx="${cx}" cy="${cy}" r="${R*1.82}" fill="none" stroke="#fff8df" stroke-width="30" opacity=".22"/>
         <g opacity=".38"><path d="M42 ${H*.145} C250 ${H*.03}, 386 ${H*.215}, 560 ${H*.105} S815 ${H*.055}, 1040 ${H*.18}" fill="none" stroke="#fff" stroke-width="2"/><path d="M34 ${H*.69} C240 ${H*.55}, 410 ${H*.73}, 610 ${H*.60} S838 ${H*.555}, 1060 ${H*.705}" fill="none" stroke="#fff" stroke-width="1.5"/></g>`;
       let particles='';
-      for(let i=0;i<200;i++){
+      for(let i=0;i<300;i++){
         let a=i*137.507764*Math.PI/180;
-        let rr=Math.sqrt((i%200)/200)*R*2.36+R*.18;
+        let rr=Math.sqrt((i%300)/300)*R*2.36+R*.18;
         let x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
         let big=i%17===0, mid=i%6===0;
-        particles+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${big?3.6:(mid?2.2:1.1)}" fill="#fff" opacity="${big?.85:(mid?.6:.36)}"/>`;
+        particles+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${big?3.6:(mid?2.2:1.1)}" fill="#fff" opacity="${big?.85:(mid?.6:.36)}"><animate attributeName="opacity" values="${big?'0.30':(mid?'0.22':'0.12')};${big?'0.95':(mid?'0.72':'0.48')};${big?'0.30':(mid?'0.22':'0.12')}" dur="${(2+Math.random()*3.5).toFixed(2)}s" begin="-${(Math.random()*5).toFixed(2)}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/></circle>`;
       }
       // === 生命之花（前台三層結構）===
       // 圖層：底層粉彩漸變光暈 → 中層白色 50% 花瓣（鏤空）→ 頂層金色實心描邊（在同一 path）
@@ -1108,12 +1108,29 @@ const MANDALA_DOTS="<circle cx=\"1280.0\" cy=\"68.5\" r=\"10\"/><circle cx=\"149
         let a=-Math.PI/2+i*2*Math.PI/24, deg=a*180/Math.PI+270, x=cx+Math.cos(a)*R*1.19, y=cy+Math.sin(a)*R*1.19;
         symbols+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="28" fill="#fff" font-family="serif" opacity="1" transform="rotate(${deg.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})">${chosen[i%chosen.length]||all[i]}</text>`;
       }
-      let starbursts='';
-      for(let i=0;i<40;i++){
-        let a=i*2*Math.PI/40, x=cx+Math.cos(a)*R*(1.30+(i%5)*.16), y=cy+Math.sin(a)*R*(1.30+(i%5)*.16); const size=(i%5===0?34:(i%3===0?22:13));
-        starbursts+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><path d="M0 -${size} L${size*.10} -${size*.14} L${size} 0 L${size*.10} ${size*.14} L0 ${size} L-${size*.10} ${size*.14} L-${size} 0 L-${size*.10} -${size*.14}Z" fill="#fff" opacity="${i%5===0?.8:.5}"/></g>`;
+      // 細光絲:從內圈往外延伸的細白光線,以中心為支點緩慢左右擺動(每條隨機不同步)
+      let streaks='';
+      const nStreak=8;
+      for(let s=0;s<nStreak;s++){
+        let baseA=s*2*Math.PI/nStreak+(Math.random()-0.5)*0.35;
+        let r1=R*(1.12+Math.random()*0.12), r2=R*(1.9+Math.random()*0.55);
+        let x1=cx+Math.cos(baseA)*r1, y1=cy+Math.sin(baseA)*r1;
+        let x2=cx+Math.cos(baseA)*r2, y2=cy+Math.sin(baseA)*r2;
+        let mx=(x1+x2)/2, my=(y1+y2)/2, perp=baseA+Math.PI/2, bend=(Math.random()-0.5)*R*0.55;
+        let cxp=mx+Math.cos(perp)*bend, cyp=my+Math.sin(perp)*bend;
+        let sw=(1.0+Math.random()*1.2).toFixed(2);
+        let opN=0.20+Math.random()*0.22, op=opN.toFixed(2), opLo=(opN*0.35).toFixed(2);
+        let amp=(2.5+Math.random()*3.5).toFixed(1);
+        let durN=4.5+Math.random()*4.5, dur=durN.toFixed(2), opDur=(durN*0.8).toFixed(2);
+        let off=(Math.random()*8).toFixed(2);
+        streaks+=`<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} Q${cxp.toFixed(1)} ${cyp.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="#fff" stroke-width="${sw}" stroke-linecap="round" opacity="${op}"><animate attributeName="opacity" values="${opLo};${op};${opLo}" dur="${opDur}s" begin="-${off}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/><animateTransform attributeName="transform" attributeType="XML" type="rotate" values="-${amp} ${cx} ${cy};${amp} ${cx} ${cy};-${amp} ${cx} ${cy}" dur="${dur}s" begin="-${off}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/></path>`;
       }
-      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${starbursts}<g>${circles}${whitePanels}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="1500" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="1545" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬曼陀羅</text><text x="${cx}" y="1720" text-anchor="middle" font-family="Noto Sans TC" font-size="22" letter-spacing="9" fill="#a88758">曼陀羅陪伴你迎接每個美好</text><text x="${cx}" y="1768" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" letter-spacing="6" fill="#b08b52" font-style="italic">Mandala of light, every beautiful day.</text><text x="${cx}" y="2240" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="2278" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
+      let starbursts='';
+      for(let i=0;i<72;i++){
+        let a=i*2*Math.PI/72, x=cx+Math.cos(a)*R*(1.30+(i%5)*.16), y=cy+Math.sin(a)*R*(1.30+(i%5)*.16); const size=(i%5===0?34:(i%3===0?22:13));
+        starbursts+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g><path d="M0 -${size} L${size*.10} -${size*.14} L${size} 0 L${size*.10} ${size*.14} L0 ${size} L-${size*.10} ${size*.14} L-${size} 0 L-${size*.10} -${size*.14}Z" fill="#fff" opacity="${i%5===0?.8:.5}"><animate attributeName="opacity" values="${i%5===0?'0.32':'0.2'};${i%5===0?'1':'0.8'};${i%5===0?'0.32':'0.2'}" dur="${(2.6+Math.random()*2.8).toFixed(2)}s" begin="-${(Math.random()*5).toFixed(2)}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/></path><animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0" to="${Math.random()<0.5?360:-360}" dur="${(18+Math.random()*22).toFixed(1)}s" begin="-${(Math.random()*30).toFixed(1)}s" repeatCount="indefinite" additive="sum"/><animateTransform attributeName="transform" attributeType="XML" type="scale" values="0.86;1.16;0.86" dur="${(2.6+Math.random()*2.6).toFixed(2)}s" begin="-${(Math.random()*5).toFixed(2)}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" additive="sum"/></g></g>`;
+      }
+      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${streaks}${starbursts}<g>${circles}${whitePanels}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="1500" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="1545" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬曼陀羅</text><text x="${cx}" y="1720" text-anchor="middle" font-family="Noto Sans TC" font-size="22" letter-spacing="9" fill="#a88758">曼陀羅陪伴你迎接每個美好</text><text x="${cx}" y="1768" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" letter-spacing="6" fill="#b08b52" font-style="italic">Mandala of light, every beautiful day.</text><text x="${cx}" y="2240" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="2278" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
     }
 
 

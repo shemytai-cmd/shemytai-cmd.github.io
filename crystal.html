@@ -1068,16 +1068,33 @@
         let a=-Math.PI/2+i*2*Math.PI/24, deg=a*180/Math.PI+270, x=cx+Math.cos(a)*R*1.19, y=cy+Math.sin(a)*R*1.19;
         symbols+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="28" fill="#fff" font-family="serif" opacity=".98" filter="url(#whiteGlow)" transform="rotate(${deg.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})">${chosen[i%chosen.length]||all[i]}</text>`;
       }
+      // 細光絲:從內圈往外延伸的細白光線,以中心為支點緩慢左右擺動(每條隨機不同步)
+      let streaks='';
+      const nStreak=8;
+      for(let s=0;s<nStreak;s++){
+        let baseA=s*2*Math.PI/nStreak+(Math.random()-0.5)*0.35;
+        let r1=R*(1.12+Math.random()*0.12), r2=R*(1.9+Math.random()*0.55);
+        let x1=cx+Math.cos(baseA)*r1, y1=cy+Math.sin(baseA)*r1;
+        let x2=cx+Math.cos(baseA)*r2, y2=cy+Math.sin(baseA)*r2;
+        let mx=(x1+x2)/2, my=(y1+y2)/2, perp=baseA+Math.PI/2, bend=(Math.random()-0.5)*R*0.55;
+        let cxp=mx+Math.cos(perp)*bend, cyp=my+Math.sin(perp)*bend;
+        let sw=(1.0+Math.random()*1.2).toFixed(2);
+        let opN=0.20+Math.random()*0.22, op=opN.toFixed(2), opLo=(opN*0.35).toFixed(2);
+        let amp=(2.5+Math.random()*3.5).toFixed(1);
+        let durN=4.5+Math.random()*4.5, dur=durN.toFixed(2), opDur=(durN*0.8).toFixed(2);
+        let off=(Math.random()*8).toFixed(2);
+        streaks+=`<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} Q${cxp.toFixed(1)} ${cyp.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="#fff" stroke-width="${sw}" stroke-linecap="round" opacity="${op}"><animate attributeName="opacity" values="${opLo};${op};${opLo}" dur="${opDur}s" begin="-${off}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/><animateTransform attributeName="transform" attributeType="XML" type="rotate" values="-${amp} ${cx} ${cy};${amp} ${cx} ${cy};-${amp} ${cx} ${cy}" dur="${dur}s" begin="-${off}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/></path>`;
+      }
       let starbursts='';
       for(let i=0;i<96;i++){
-        let a=i*2*Math.PI/96, x=cx+Math.cos(a)*R*(1.23+(i%7)*.13), y=cy+Math.sin(a)*R*(1.23+(i%7)*.13); const size=(i%5===0?40:(i%3===0?25:15));
+        let a=i*2*Math.PI/96+(Math.random()-0.5)*0.55, rr=R*(1.16+Math.random()*0.92), x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr; const size=(i%5===0?40:(i%3===0?25:15));
         starbursts+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})" filter="url(#whiteGlow)"><path d="M0 -${size} L${size*.10} -${size*.14} L${size} 0 L${size*.10} ${size*.14} L0 ${size} L-${size*.10} ${size*.14} L-${size} 0 L-${size*.10} -${size*.14}Z" fill="#fff" opacity="${i%5===0?.82:.52}"><animate attributeName="opacity" values=".18;.95;.18" dur="${3+i%6}s" begin="${(i%21)*.06}s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="${9+i%8}s" repeatCount="indefinite"/></path></g>`;
       }
       for(let i=0;i<130;i++){
-        let a=i*2*Math.PI/130+Math.PI/90, x=cx+Math.cos(a)*R*(.38+(i%11)*.18), y=cy+Math.sin(a)*R*(.38+(i%11)*.18);
+        let a=i*2*Math.PI/130+(Math.random()-0.5)*0.6, rr=R*(0.42+Math.random()*1.8), x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
         starbursts+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="${i%7===0?24:13}" opacity="${i%7===0?.72:.34}" filter="url(#whiteGlow)">✦<animate attributeName="opacity" values=".12;.9;.12" dur="${2.4+i%5}s" begin="${(i%13)*.11}s" repeatCount="indefinite"/></text>`;
       }
-      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}${starbursts}<g>${circles}${whitePanels}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="1500" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="1545" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬幸運幾何</text><text x="${cx}" y="1720" text-anchor="middle" font-family="Noto Sans TC" font-size="22" letter-spacing="9" fill="#a88758">幸運幾何陪伴你迎接每個美好</text><text x="${cx}" y="1768" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" letter-spacing="6" fill="#b08b52" font-style="italic">Geometry of luck, every beautiful day.</text><text x="${cx}" y="2240" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="2278" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
+      return `<svg id="sigilSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">${defs}${bg}${particles}<g filter="url(#whiteGlow)">${streaks}</g>${starbursts}<g>${circles}${whitePanels}${petals}${flower}${ring}${symbols}</g><text x="${cx}" y="1500" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="72" letter-spacing="7" fill="#785510">${name.toUpperCase()}</text><text x="${cx}" y="1545" text-anchor="middle" font-family="Noto Sans TC" font-size="24" letter-spacing="7" fill="#a88758">的專屬幸運幾何</text><text x="${cx}" y="1720" text-anchor="middle" font-family="Noto Sans TC" font-size="22" letter-spacing="9" fill="#a88758">幸運幾何陪伴你迎接每個美好</text><text x="${cx}" y="1768" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" letter-spacing="6" fill="#b08b52" font-style="italic">Geometry of luck, every beautiful day.</text><text x="${cx}" y="2240" text-anchor="middle" font-family="Noto Sans TC" font-size="19" letter-spacing="8" fill="#b08b52">閃閃發光設計工作室</text><text x="${cx}" y="2278" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#c0a985">Sparkling Design Studio</text></svg>`;
     }
 
     function renderResult(){
